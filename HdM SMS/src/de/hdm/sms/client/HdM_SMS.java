@@ -1,44 +1,39 @@
 package de.hdm.sms.client;
 
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-
-//Test-Commit
-//Test Commit
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HdM_SMS implements EntryPoint {
-	private Button CreateComponentButton = new Button("Bauteil bearbeiten");
-	private Button CreateUserButton = new Button("Benutzer anlegen");
-
-	public HdM_SMS() {
-
-	}
-
+	
+	private VerticalPanel bottomPanel = new VerticalPanel();
+	private Label aboutLabel = new Label("Impressum");
+	
+	
+	// ONLOAD ########################################################################################################
+	
+	
 	public void onModuleLoad() {
-		RootPanel.get("content").add(CreateComponentButton);
-		RootPanel.get("content").add(CreateUserButton);
-		CreateComponentButton.addClickHandler(new ClickHandler() {
+		
+		aboutLabel.addStyleName("impressum");
+		bottomPanel.add(aboutLabel);
+		
+		RootPanel.get("leftside").add(new Startside());
+		RootPanel.get("rightside").add(new ImageSMS());
+		RootPanel.get("bottom").add(aboutLabel);
+		
+		aboutLabel.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-
-				RootPanel.get("content").clear();
-				RootPanel.get("content").add(new EditComponent());
-				RootPanel.get("content").add(new CreateComponent());
-
-			}
-		});
-		CreateUserButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				RootPanel.get("content").clear();
-				RootPanel.get("content").add(new EditUser());
-				RootPanel.get("content").add(new CreateUser());
-
+				
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new Impressum());
+				
 			}
 		});
 	}
