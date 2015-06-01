@@ -6,6 +6,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
+//Test-Commit
+
 public class HdM_SMS implements EntryPoint {
 	private Button CreateComponentButton = new Button("Bauteil bearbeiten");
 	private Button CreateUserButton = new Button("Benutzer anlegen");
