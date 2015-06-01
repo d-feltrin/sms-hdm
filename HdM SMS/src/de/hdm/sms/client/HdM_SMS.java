@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
 //Test-Commit
+//Test Commit
 
 public class HdM_SMS implements EntryPoint {
 	private Button CreateComponentButton = new Button("Bauteil bearbeiten");
