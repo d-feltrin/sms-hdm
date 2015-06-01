@@ -1,34 +1,72 @@
-/** Add css rules here for your application. */
+html {
+	height: 100%;
+	background:url('mainbackground.png');
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
 
+body {
+	height: 97%;
+}
 
-/** Example rules used by the template application (remove for your app) */
+table {
+	width: 100%;
+	height: 100%;
+}
+
+#background {
+	background:url('background.png');
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
 h1 {
-  font-size: 2em;
+  font-size: 3em;
   font-weight: bold;
   color: #777777;
-  margin: 40px 0px 70px;
   text-align: center;
 }
 
-.sendButton {
-  display: block;
-  font-size: 16pt;
+#rightside {
+	text-align: center;
 }
 
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
+#leftside {
+	margin-left: 50px;
+	vertical-align: text-top;
+	margin-top: 0px;
 }
 
-.dialogVPanel {
-  margin: 5px;
+#middlesize {
+	height: 50%;
+	width: 50%;
+}
+
+.tablestyle {
+	border: 1px solid white;
+	border-collapse: separate;
+}
+
+.impressum {
+  font-size: 2em;
+  font-weight: bold;
+  color: #777777;
+  text-align: center;
+}
+
+.header {
+  font-size: 2em;
+  color: #777777;
+  text-align: left;
+  
+}
+
+.dockpanel td {
+   padding: 3px;
+   text-align: centre;
+   width: 15%;
 }
 
 .serverResponseLabelError {
   color: red;
-}
-
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
 }
