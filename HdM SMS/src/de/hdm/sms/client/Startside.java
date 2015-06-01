@@ -1,6 +1,5 @@
 package de.hdm.sms.client;
 
-import com.example.itprojekt.shared.FieldVerifier;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -18,6 +17,8 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.hdm.sms.shared.FieldVerifier;
 
 public class Startside extends VerticalPanel {
 	
@@ -48,7 +49,7 @@ public class Startside extends VerticalPanel {
 	
 	public void login() {
 		
-		/*errorLabel.setText("");
+		errorLabel.setText("");
 		String textToServer = nameTextBox.getText();
 		if (!FieldVerifier.isValidName(textToServer)) {
 			errorLabel.setText("Please enter at least four characters");
@@ -81,7 +82,7 @@ public class Startside extends VerticalPanel {
 						
 					}
 				});
-	}*/
+	}
 	
 	
 	public void openReport() {

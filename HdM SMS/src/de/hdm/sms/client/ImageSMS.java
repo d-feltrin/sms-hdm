@@ -17,7 +17,7 @@ public class ImageSMS extends VerticalPanel{
 public void onLoad() {
 	
 		toolImg.setPixelSize(400, 300);
-		toolImg.setUrl("logistic.jpg");
+		toolImg.setUrl("http://fs2.directupload.net/images/150601/fksddxvj.jpg");
 		
 		imagePanel.add(toolImg);
 		
