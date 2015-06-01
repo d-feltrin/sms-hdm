@@ -6,16 +6,16 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
  <!-- Servlets -->
-      <servlet>
-    <servlet-name>AServiceImpl</servlet-name>
-    <servlet-class>de.hdm.sms.server.AServiceImpl</servlet-class>
+ 
+ <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>de.hdm.sms.server.GreetingServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>AServiceImpl</servlet-name>
-    <url-pattern>/hdm_sms/aservice</url-pattern>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/hdm_sms/greet</url-pattern>
   </servlet-mapping>
-  
    
   <!-- Default page to serve -->
   <welcome-file-list>

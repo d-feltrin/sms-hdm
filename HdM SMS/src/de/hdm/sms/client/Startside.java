@@ -78,7 +78,7 @@ public class Startside extends VerticalPanel {
 						dialogBox.center();
 						closeButton.setFocus(true);
 						RootPanel.get("leftside").clear();
-						//RootPanel.get("leftside").add(new SearchComponent());
+						RootPanel.get("leftside").add(new SearchComponent());
 						
 					}
 				});
