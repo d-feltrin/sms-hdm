@@ -2,12 +2,10 @@ package de.hdm.sms.server;
 
 import de.hdm.sms.client.GreetingService;
 import de.hdm.sms.shared.FieldVerifier;
+import de.hdm.sms.shared.bo.Component;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-/**
- * The server-side implementation of the RPC service.
- */
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
@@ -68,6 +66,21 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		material = escapeHtml(material);
 
 		return "<b>Bauteil</b><br><br>Name:" + name + "<br> Beschreibung:" + description + "<br>Material:" + material + "<br><br>";
+
+	}
+	
+	@Override
+	public String search(String name) throws IllegalArgumentException {
+		
+		Component component = new Component("Brett","Ist schön und flauschig","Holz"); // Testzweck
+		
+		if(name.equals(component.getName())){
+			return "j";
+		}
+		else
+		{
+			return "n";
+		}
 
 	}
 	

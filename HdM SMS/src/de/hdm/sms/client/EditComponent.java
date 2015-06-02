@@ -141,7 +141,7 @@ private void updateComponent(Component c) {
 								DescriptionOfComponent.setText(result
 										.getDescription());
 								MaterialDescriptionOfComponent.setText(result
-										.getMaterialDescription());
+										.getMaterial());
 								ComponentItemPanel
 										.add(LabelOfIdComponentTextBox);
 								ComponentItemPanel.add(IdOfComponent);
@@ -194,7 +194,7 @@ private void updateComponent(Component c) {
 															.parseInt(IdOfComponentString));
 													c.setName(NameOfComponent
 															.getText());
-													c.setMaterialDescription(MaterialDescriptionOfComponent
+													c.setMaterial(MaterialDescriptionOfComponent
 															.getText());
 													c.setDescription(DescriptionOfComponent
 															.getText());

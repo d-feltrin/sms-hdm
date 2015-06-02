@@ -6,8 +6,18 @@ public class Component extends BusinessObject {
 	private static final long serialVersionUID = 1L;
 	private String description;
 	private String name;
-	private String materialDescription;
-
+	private String material;
+	
+	public Component(){
+		
+	}
+	
+	public Component(String name, String description, String material){
+		this.name = name;
+		this.description = description;
+		this.material = material;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -24,12 +34,12 @@ public class Component extends BusinessObject {
 		this.name = name;
 	}
 
-	public String getMaterialDescription() {
-		return materialDescription;
+	public String getMaterial() {
+		return material;
 	}
 
-	public void setMaterialDescription(String materialDescription) {
-		this.materialDescription = materialDescription;
+	public void setMaterial(String material) {
+		this.material = material;
 	}
 
 }

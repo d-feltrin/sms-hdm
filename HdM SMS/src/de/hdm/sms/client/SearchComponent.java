@@ -16,6 +16,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.sms.shared.FieldVerifier;
+
 public class SearchComponent extends VerticalPanel {
 	
 	private static final String SERVER_ERROR = "An error occurred while "
@@ -37,6 +39,40 @@ public class SearchComponent extends VerticalPanel {
 	private DialogBox dialogBox = new DialogBox();
 	
 	
+	public void search(){
+
+		String textToServer = searchTextBox.getText();
+		
+		greetingService.search(textToServer,
+				new AsyncCallback<String>() {
+					public void onFailure(Throwable caught) {
+
+					}
+
+					public void onSuccess(String result) {
+						
+						String componentName = searchTextBox.getText();
+						
+						if (result.equals("j")){
+							
+							Boolean resultValue = true;
+							RootPanel.get("rightside").clear();
+							RootPanel.get("rightside").add(new SearchResult(resultValue, componentName));
+						}
+						else if (result.equals("n"))
+						{
+							Boolean resultValue = false;
+							RootPanel.get("rightside").clear();
+							RootPanel.get("rightside").add(new SearchResult(resultValue));
+						}
+						else{
+							System.out.println("Fehler im ASync");
+						}
+						
+					}
+				});
+	}
+
 	public void logout(){
 		
 		greetingService.getName(new AsyncCallback<String>() {
@@ -117,7 +153,7 @@ public class SearchComponent extends VerticalPanel {
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) 
 					{
-						logout();
+						search();
 					}
 				}
 		});		
@@ -152,6 +188,16 @@ public class SearchComponent extends VerticalPanel {
 
 				RootPanel.get("leftside").clear();
 				RootPanel.get("leftside").add(new CreateComponent());
+
+			}
+		});
+	 	
+	 	searchButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+
+				search();
 
 			}
 		});
