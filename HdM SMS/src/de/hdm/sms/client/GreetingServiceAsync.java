@@ -6,13 +6,14 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * The async counterpart of <code>GreetingService</code>.
  */
 public interface GreetingServiceAsync {
-	void greetServer(String input, AsyncCallback<String> callback)
+	void getName(String name, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
-	void getName(String input, AsyncCallback<String> callback)
-			throws IllegalArgumentException;
-	void createUsergreetServer(String name, String email, String keyword, AsyncCallback<String> callback)
+	void createUser(String name, String email, String keyword, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
 	void createElement(String name, String description, String material, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
+	void createModule(String name, String component1, String component2, String component3, 
+			String component4, String component5, Boolean endproduct, AsyncCallback<String> callback)
+					throws IllegalArgumentException;
 
 }

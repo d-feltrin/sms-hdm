@@ -59,7 +59,7 @@ public class Startside extends VerticalPanel {
 		registerButton.setEnabled(false);
 		textToServerLabel.setText("");
 		serverResponseLabel.setText("");
-		greetingService.greetServer(textToServer,
+		greetingService.getName(textToServer,
 				new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						
@@ -140,6 +140,8 @@ public class Startside extends VerticalPanel {
 		dialogboxVPanel.add(textToServerLabel);
 		dialogboxVPanel.add(new HTML("<br>"));
 		dialogboxVPanel.add(serverResponseLabel);
+		dialogboxVPanel.add(new HTML("<br>Sie wurden erfolgreich angemeldet!<br>"));
+	 	dialogboxVPanel.add(new HTML("<br>"));
 		dialogboxVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
 		dialogboxVPanel.add(closeButton);
 		dialogBox.setWidget(dialogboxVPanel);

@@ -57,7 +57,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 	private CheckBox cb0 = new CheckBox("Endprodukt");
 	private HTML serverResponseLabel = new HTML();
 	private DialogBox dialogBox = new DialogBox();
-	private String[] componentListArray = new String[6];
+	private String[] componentListArray = new String[5];
 	
 	private void createElement(){
 		
@@ -78,7 +78,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 			String descriptionToServer = descriptionTextArea.getText();
 			
 			serverResponseLabel.setText("");
-			greetingService.createElement(nameToServer, materialToServer, descriptionToServer,
+			greetingService.createElement(nameToServer, descriptionToServer, materialToServer, 
 					new AsyncCallback<String>() {
 						public void onFailure(Throwable caught) {
 							
@@ -95,10 +95,49 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 						}
 					});
 		}
-
-		
 	}
 	
+private void createModule(){
+		
+		if (nameTextBox.getValue().isEmpty()
+				) {
+			Window.alert("Bitte alle Felder bef\u00fcllen!");
+		} 
+		else {
+
+			errorLabel.setText("");
+			String nameToServer = nameTextBox.getText();
+			if (!FieldVerifier.isValidName(nameToServer)) {
+				errorLabel.setText("Please enter at least four characters");
+				return;
+			}
+			
+			String component1ToServer = componentListArray[0];
+			String component2ToServer = componentListArray[1];
+			String component3ToServer = componentListArray[2];
+			String component4ToServer = componentListArray[3];
+			String component5ToServer = componentListArray[4];
+			Boolean endproductToServer = cb0.getValue();
+			
+			serverResponseLabel.setText("");
+			greetingService.createModule(nameToServer, component1ToServer, component2ToServer, component3ToServer, component4ToServer, component5ToServer, endproductToServer,
+					new AsyncCallback<String>() {
+						public void onFailure(Throwable caught) {
+							
+						}
+
+						public void onSuccess(String result) {
+							serverResponseLabel.removeStyleName("serverResponseLabelError");
+							serverResponseLabel.setHTML(result);
+							dialogBox.center();
+							closeButton.setFocus(true);
+							RootPanel.get("leftside").clear();
+							RootPanel.get("leftside").add(new SearchComponent());
+							
+						}
+					});
+		}
+	}
 	
 	// ONLOAD ########################################################################################################
 
@@ -123,6 +162,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 			componentFlexTable.setText(0, 0, "Komponente");
 			componentFlexTable.setText(0, 1, "Entfernen");
 			
+			componentListArray[0] = "empty";
 			componentListArray[1] = "empty";
 			componentListArray[2] = "empty";
 			componentListArray[3] = "empty";
@@ -143,15 +183,15 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 			radioButtonPanel.add(rb0);
 			radioButtonPanel.add(rb1);
 			
-			textBoxPanel.add(nameTextBox);
 			textBoxPanel.add(nameLabel);
+			textBoxPanel.add(nameTextBox);
 			textBoxPanel.add(radioButtonPanel);
 			textBoxPanel.add(fillBoxPanel);
 			
-			createElementPanel.add(descriptionTextArea);
 			createElementPanel.add(descriptionLabel);
-			createElementPanel.add(materialTextBox);
+			createElementPanel.add(descriptionTextArea);
 			createElementPanel.add(materialLabel);
+			createElementPanel.add(materialTextBox);
 			
 			selectElementPanel.add(elementListBox);
 			selectElementPanel.add(selectElementButton);
@@ -169,12 +209,12 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 			buttonPanel.add(createButton);
 			buttonPanel.add(backButton);
 			
-			dockPanel.add(createComponentLabel, DockPanel.NORTH); 		//North
-			dockPanel.add(textBoxPanel, DockPanel.WEST); 		//West
+			dockPanel.add(createComponentLabel, DockPanel.NORTH); 	//North
+			dockPanel.add(textBoxPanel, DockPanel.WEST); 			//West
 			dockPanel.add(componentFlexTable, DockPanel.EAST); 		//East
-			dockPanel.add(buttonPanel, DockPanel.SOUTH); 		//South
-			dockPanel.add(createMainPanel, DockPanel.NORTH); 	//Second North
-			dockPanel.add(new HTML(" "), DockPanel.SOUTH); 		//Second South
+			dockPanel.add(buttonPanel, DockPanel.SOUTH); 			//South
+			dockPanel.add(createMainPanel, DockPanel.NORTH); 		//Second North
+			dockPanel.add(new HTML(" "), DockPanel.SOUTH); 			//Second South
 			
 			dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 			dockPanel.setStyleName("dockpanel");
@@ -375,7 +415,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 					}
 					else
 					{
-						//createModule();
+						createModule();
 					}
 					
 				}	

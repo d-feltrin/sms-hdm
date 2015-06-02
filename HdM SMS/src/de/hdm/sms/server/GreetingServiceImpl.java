@@ -12,25 +12,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 	
-	private String username = new String();
-	
-	public String greetServer(String input) throws IllegalArgumentException {
-		// Verify that the input is valid. 
-		if (!FieldVerifier.isValidName(input)) {
-			// If the input is not valid, throw an IllegalArgumentException back to
-			// the client.
-			throw new IllegalArgumentException(
-					"Name must be at least 4 characters long");
-		}
-
-
-		// Escape data from the client to avoid cross-site script vulnerabilities.
-		input = escapeHtml(input);
-		
-		username= input;
-
-		return "Hallo " + input + ",<br><br>Ihr Login war erfolgreich!<br><br>";
-	}	
+	private String username = new String(); // Testzweck
 	
 	private String escapeHtml(String html) {
 		if (html == null) {
@@ -39,17 +21,25 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
 				.replaceAll(">", "&gt;");
 	}
-
-	@Override
+	
 	public String getName(String name) throws IllegalArgumentException {
+		 
+		if (!FieldVerifier.isValidName(name)) {
+			 
+			throw new IllegalArgumentException(
+					"Name must be at least 4 characters long");
+		}
+
+
+		name = escapeHtml(name);
 		
-		name = escapeHtml(this.username);
+		username= name;
 
 		return name + ", <br>";
-	}
+	}	
 
 	@Override
-	public String createUsergreetServer(String name, String email,
+	public String createUser(String name, String email,
 			String keyword) throws IllegalArgumentException {
 		
 		name = escapeHtml(name);
@@ -70,7 +60,74 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		description = escapeHtml(description);
 		material = escapeHtml(material);
 
-		return "Name:" + name + "<br> Beschreibung:" + description + "<br>Material:" + material + "<br><br>";
+		return "<b>Bauteil</b><br><br>Name:" + name + "<br> Beschreibung:" + description + "<br>Material:" + material + "<br><br>";
+
+	}
+	
+	@Override
+	public String createModule(String name, String component1, String component2, 
+			String component3, String component4, String component5, 
+			Boolean endproduct) throws IllegalArgumentException {
+		
+		String endproductStatus = "Als kein Endprodukt gekennzeichnet";
+		name = escapeHtml(name);
+		
+		if(component1 == "empty"){
+			component1 = "";
+		}
+		else
+		{
+			component1 = escapeHtml(component1);
+			component1 = component1 + "<br>";
+
+		}
+		
+		if(component2 == "empty"){
+			component2 = "";
+		}
+		else
+		{
+			component2 = escapeHtml(component2);
+			component2 = component2 + "<br>";
+
+		}
+		
+		if(component3 == "empty"){
+			component3 = "";
+		}
+		else
+		{
+			component3 = escapeHtml(component3);
+			component3 = component3 + "<br>";
+
+		}
+		
+		if(component4 == "empty"){
+			component4 = "";
+		}
+		else
+		{
+			component4 = escapeHtml(component4);
+			component4 = component4 + "<br>";
+
+		}
+		
+		if(component5 == "empty"){
+			component5 = "";
+		}
+		else
+		{
+			component5 = escapeHtml(component5);
+			component5 = component5 + "<br>";
+
+		}
+
+		if(endproduct){
+			endproductStatus = "Als Endprodukt gekennzeichnet";
+		}
+		
+		return "<b>Baugruppe</b><br><br>Name:" + name + "<br> Komponenten:<br>" + component1 
+				+ component2 + component3 + component4 + component5 + endproductStatus + "<br><br>";
 
 	}
 	

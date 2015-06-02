@@ -18,7 +18,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class SearchComponent extends VerticalPanel {
 	
+	private static final String SERVER_ERROR = "An error occurred while "
+			+ "attempting to contact the server. Please check your network "
+			+ "connection and try again.";
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+	
 	private DockPanel dockPanel = new DockPanel();
 	private VerticalPanel buttonPanel = new VerticalPanel();
 	private VerticalPanel dialogboxVPanel = new VerticalPanel();
@@ -39,6 +43,10 @@ public class SearchComponent extends VerticalPanel {
 				new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						
+						serverResponseLabel.addStyleName("serverResponseLabelError");
+						serverResponseLabel.setHTML(SERVER_ERROR);
+						dialogBox.center();
+						closeButton.setFocus(true);
 					}
 
 					public void onSuccess(String result) {

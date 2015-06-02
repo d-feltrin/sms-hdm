@@ -62,7 +62,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 			String keywordToServer = keywordTextBox.getText();
 			
 			serverResponseLabel.setText("");
-			greetingService.createUsergreetServer(nameToServer, emailToServer, keywordToServer,
+			greetingService.createUser(nameToServer, emailToServer, keywordToServer,
 					new AsyncCallback<String>() {
 						public void onFailure(Throwable caught) {
 							
