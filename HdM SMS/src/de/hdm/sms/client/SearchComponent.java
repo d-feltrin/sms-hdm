@@ -39,8 +39,7 @@ public class SearchComponent extends VerticalPanel {
 	
 	public void logout(){
 		
-		greetingService.getName("",
-				new AsyncCallback<String>() {
+		greetingService.getName(new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						
 						serverResponseLabel.addStyleName("serverResponseLabelError");

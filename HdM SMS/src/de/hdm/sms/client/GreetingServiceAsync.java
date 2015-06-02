@@ -8,6 +8,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface GreetingServiceAsync {
 	void getName(String name, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
+	void getName(AsyncCallback<String> callback)
+			throws IllegalArgumentException;
 	void createUser(String name, String email, String keyword, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
 	void createElement(String name, String description, String material, AsyncCallback<String> callback)

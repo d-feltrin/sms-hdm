@@ -159,9 +159,6 @@ private void createModule(){
 			elementListBox.setVisibleItemCount(1);
 			moduleListBox.setVisibleItemCount(1);
 			
-			componentFlexTable.setText(0, 0, "Komponente");
-			componentFlexTable.setText(0, 1, "Entfernen");
-			
 			componentListArray[0] = "empty";
 			componentListArray[1] = "empty";
 			componentListArray[2] = "empty";
@@ -300,6 +297,10 @@ private void createModule(){
 					
 					if(rb1.getValue()==true)
 					{
+						componentFlexTable.setVisible(true);
+						componentFlexTable.removeAllRows();
+						componentFlexTable.setText(0, 0, "Komponente");
+						componentFlexTable.setText(0, 1, "Entfernen");
 						createModulePanel.setVisible(true);
 						createElementPanel.setVisible(false);
 						createButton.setVisible(true);
@@ -310,7 +311,7 @@ private void createModule(){
 		 	
 		 	selectModuleButton.addClickHandler(new ClickHandler() {
 
-		 		@Override
+				@Override
 				public void onClick(ClickEvent event) {
 					
 					int index = moduleListBox.getSelectedIndex();
@@ -332,23 +333,22 @@ private void createModule(){
 						}	
 					});
 					
-					int i = 0;
+					int i = 1;
 					
-					while (i < 5) {
-						if(componentListArray[i] == "empty"){
-							componentListArray[i] = element;
+					while (i < 6) {
+						if(componentListArray[i-1] == "empty"){
+							componentListArray[i-1] = element;
 							
 							componentFlexTable.setText(i, 0, element);
 							componentFlexTable.setWidget(i, 1, deleteButton);
-							componentFlexTable.setVisible(true);
-							deleteButton.setTabIndex(i);
+							deleteButton.setTabIndex(i-1);
 							break;
 						}
 						else
 							i++;
 					}
 					
-					if(i == 5)
+					if(i == 6)
 					{
 						Window.alert("Die maximale Anzahl an Bauteilen und Baugruppen ist erreicht!");
 					}
@@ -380,23 +380,22 @@ private void createModule(){
 						}	
 					});
 					
-					int i = 0;
+					int i = 1;
 					
-					while (i < 5) {
-						if(componentListArray[i] == "empty"){
-							componentListArray[i] = element;
+					while (i < 6) {
+						if(componentListArray[i-1] == "empty"){
+							componentListArray[i-1] = element;
 							
 							componentFlexTable.setText(i, 0, element);
 							componentFlexTable.setWidget(i, 1, deleteButton);
-							componentFlexTable.setVisible(true);
-							deleteButton.setTabIndex(i);
+							deleteButton.setTabIndex(i-1);
 							break;
 						}
 						else
 							i++;
 					}
 					
-					if(i == 5)
+					if(i == 6)
 					{
 						Window.alert("Die maximale Anzahl an Bauteilen und Baugruppen ist erreicht!");
 					}

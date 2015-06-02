@@ -22,12 +22,13 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				.replaceAll(">", "&gt;");
 	}
 	
+	@Override
 	public String getName(String name) throws IllegalArgumentException {
 		 
 		if (!FieldVerifier.isValidName(name)) {
 			 
 			throw new IllegalArgumentException(
-					"Name must be at least 4 characters long");
+					"Der Name muss mindestens 4 zeichen lang sein!");
 		}
 
 
@@ -36,6 +37,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		username= name;
 
 		return name + ", <br>";
+	}	
+	
+	@Override
+	public String getName() throws IllegalArgumentException {
+		 
+		return this.username + ", <br>";
 	}	
 
 	@Override

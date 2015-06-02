@@ -51,7 +51,8 @@ public class Startside extends VerticalPanel {
 		errorLabel.setText("");
 		String textToServer = nameTextBox.getText();
 		if (!FieldVerifier.isValidName(textToServer)) {
-			errorLabel.setText("Please enter at least four characters");
+			errorLabel.setText("Bitte geben Sie mindestens 4 Zeichen ein!");
+			errorLabel.addStyleName("serverResponseLabelError");
 			return;
 		}
 
@@ -62,7 +63,7 @@ public class Startside extends VerticalPanel {
 		greetingService.getName(textToServer,
 				new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
-						
+						dialogBox.setText("Anmeldung: Fehler");
 						serverResponseLabel.addStyleName("serverResponseLabelError");
 						serverResponseLabel.setHTML(SERVER_ERROR);
 						dialogBox.center();
@@ -112,6 +113,7 @@ public class Startside extends VerticalPanel {
 		startsidePanel.add(nameTextBox);
 		startsidePanel.add(keywordLabel);
 		startsidePanel.add(keywordTextBox);
+		startsidePanel.add(errorLabel);
 		
 		dockPanel.add(loginLabel, DockPanel.NORTH); 		//North
 		dockPanel.add(startsidePanel, DockPanel.WEST); 		//West
