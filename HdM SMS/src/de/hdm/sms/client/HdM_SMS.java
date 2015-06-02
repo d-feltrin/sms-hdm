@@ -15,7 +15,7 @@ public class HdM_SMS implements EntryPoint {
 	
 	
 	// ONLOAD ########################################################################################################
-	//test
+	//test 2
 	
 	public void onModuleLoad() {
 		
