@@ -12,5 +12,7 @@ public interface GreetingServiceAsync {
 			throws IllegalArgumentException;
 	void createUsergreetServer(String name, String email, String keyword, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
+	void createElement(String name, String description, String material, AsyncCallback<String> callback)
+			throws IllegalArgumentException;
 
 }

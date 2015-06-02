@@ -4,20 +4,20 @@ import de.hdm.sms.shared.FieldVerifier;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -33,55 +33,58 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 	private VerticalPanel createMainPanel = new VerticalPanel();
 	private VerticalPanel radioButtonPanel = new VerticalPanel();
 	private VerticalPanel dialogboxVPanel = new VerticalPanel();
-	private HorizontalPanel endproductPanel = new HorizontalPanel();
+	private VerticalPanel buttonPanel = new VerticalPanel();
+	private HorizontalPanel selectElementPanel = new HorizontalPanel();
+	private HorizontalPanel selectModulePanel = new HorizontalPanel();
+	private FlexTable componentFlexTable = new FlexTable();
 	private Button closeButton = new Button("Close");
 	private Button createButton = new Button("Anlegen");
+	private Button selectModuleButton = new Button("+");
+	private Button selectElementButton = new Button("+");
 	private Button backButton = new Button("Zur\u00fcck");
 	private TextBox nameTextBox = new TextBox();
-	private TextBox descriptionTextBox = new TextBox(); 
+	private TextArea descriptionTextArea = new TextArea(); 
 	private TextBox materialTextBox = new TextBox(); 
 	private Label nameLabel = new Label("Komponentenname"); 
 	private Label descriptionLabel = new Label("Beschreibung"); 
 	private Label materialLabel = new Label("Material"); 
-	private Label createcomponentLabel = new Label("Neue Komponente anlegen"); 
-	private Label endproductLabel = new Label("Enderzeugnis");
+	private Label createComponentLabel = new Label("Neue Komponente anlegen"); 
 	private Label errorLabel = new Label();
+	private ListBox elementListBox = new ListBox();
+	private ListBox moduleListBox = new ListBox();
 	private RadioButton rb0 = new RadioButton("myRadioGroup", "Bauteil");
 	private RadioButton rb1 = new RadioButton("myRadioGroup", "Baugruppe");
 	private CheckBox cb0 = new CheckBox("Endprodukt");
 	private HTML serverResponseLabel = new HTML();
 	private DialogBox dialogBox = new DialogBox();
+	private String[] componentListArray = new String[6];
 	
-	private void send(){
+	private void createElement(){
 		
-		/*if (nameTextBox.getValue().isEmpty()
-				|| emailTextBox.getValue().isEmpty()
-				|| keywordTextBox.getValue().isEmpty()) {
+		if (nameTextBox.getValue().isEmpty()
+				|| materialTextBox.getValue().isEmpty()) {
 			Window.alert("Bitte alle Felder bef\u00fcllen!");
-		} else {
+		} 
+		else {
 
-																								//u.setFirstName(FirstnameTextBoxOfUser.getValue()); u=User
-																								//u.setLastName(LastnameTextBoxOfUser.getValue());
-																								//u.seteMailAdress(eMailAdressTextBoxOfUser.getValue());
-			
 			errorLabel.setText("");
 			String nameToServer = nameTextBox.getText();
 			if (!FieldVerifier.isValidName(nameToServer)) {
 				errorLabel.setText("Please enter at least four characters");
 				return;
 			}
-			String emailToServer = emailTextBox.getText();
-			String keywordToServer = keywordTextBox.getText();
+			
+			String materialToServer = materialTextBox.getText();
+			String descriptionToServer = descriptionTextArea.getText();
 			
 			serverResponseLabel.setText("");
-			greetingService.createUsergreetServer(nameToServer, emailToServer, keywordToServer,
+			greetingService.createElement(nameToServer, materialToServer, descriptionToServer,
 					new AsyncCallback<String>() {
 						public void onFailure(Throwable caught) {
 							
 						}
 
 						public void onSuccess(String result) {
-							dialogBox.setText("Registrierung");
 							serverResponseLabel.removeStyleName("serverResponseLabelError");
 							serverResponseLabel.setHTML(result);
 							dialogBox.center();
@@ -91,7 +94,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 							
 						}
 					});
-		}*/
+		}
 
 		
 	}
@@ -104,11 +107,38 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 			
 			createButton.setPixelSize(180, 30);
 			backButton.setPixelSize(180, 30);
+			selectElementButton.setPixelSize(30, 30);
+			selectModuleButton.setPixelSize(30, 30);
+			descriptionTextArea.setPixelSize(180, 60);
+			elementListBox.setPixelSize(180, 30);
+			moduleListBox.setPixelSize(180, 30);
 			nameTextBox.setText("");
-			descriptionTextBox.setText("");
+			descriptionTextArea.setText("");
 			materialTextBox.setText("");
 			textBoxPanel.setPixelSize(200, 150);
 			fillBoxPanel.setPixelSize(200, 2000);
+			elementListBox.setVisibleItemCount(1);
+			moduleListBox.setVisibleItemCount(1);
+			
+			componentFlexTable.setText(0, 0, "Komponente");
+			componentFlexTable.setText(0, 1, "Entfernen");
+			
+			componentListArray[1] = "empty";
+			componentListArray[2] = "empty";
+			componentListArray[3] = "empty";
+			componentListArray[4] = "empty";
+			
+			elementListBox.addItem("Bauteil1");
+			elementListBox.addItem("Bauteil2");
+			elementListBox.addItem("Bauteil3");
+			elementListBox.addItem("Bauteil4");
+			elementListBox.addItem("etc.");
+			
+			moduleListBox.addItem("Baugruppe1");
+			moduleListBox.addItem("Baugruppe2");
+			moduleListBox.addItem("Baugruppe3");
+			moduleListBox.addItem("Baugruppe4");
+			moduleListBox.addItem("etc.");
 			
 			radioButtonPanel.add(rb0);
 			radioButtonPanel.add(rb1);
@@ -118,35 +148,42 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 			textBoxPanel.add(radioButtonPanel);
 			textBoxPanel.add(fillBoxPanel);
 			
-			createElementPanel.add(descriptionTextBox);
+			createElementPanel.add(descriptionTextArea);
 			createElementPanel.add(descriptionLabel);
 			createElementPanel.add(materialTextBox);
 			createElementPanel.add(materialLabel);
 			
-			endproductPanel.add(endproductLabel);
-			endproductPanel.add(cb0);
-			endproductPanel.add(endproductLabel);
+			selectElementPanel.add(elementListBox);
+			selectElementPanel.add(selectElementButton);
 			
-			createModulePanel.add(endproductLabel);
+			selectModulePanel.add(moduleListBox);
+			selectModulePanel.add(selectModuleButton);
 			
-			createMainPanel.add(createElementPanel);
+			createModulePanel.add(selectElementPanel);
+			createModulePanel.add(selectModulePanel);
+			createModulePanel.add(cb0);
+			
 			createMainPanel.add(createModulePanel);
-			createMainPanel.add(createButton);
-		    
-			dockPanel.add(createcomponentLabel, DockPanel.NORTH); 		//North
+			createMainPanel.add(createElementPanel);
+			
+			buttonPanel.add(createButton);
+			buttonPanel.add(backButton);
+			
+			dockPanel.add(createComponentLabel, DockPanel.NORTH); 		//North
 			dockPanel.add(textBoxPanel, DockPanel.WEST); 		//West
-			dockPanel.add(new HTML(" "), DockPanel.EAST); 		//East
-			dockPanel.add(backButton, DockPanel.SOUTH); 		//South
+			dockPanel.add(componentFlexTable, DockPanel.EAST); 		//East
+			dockPanel.add(buttonPanel, DockPanel.SOUTH); 		//South
 			dockPanel.add(createMainPanel, DockPanel.NORTH); 	//Second North
 			dockPanel.add(new HTML(" "), DockPanel.SOUTH); 		//Second South
 			
 			dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 			dockPanel.setStyleName("dockpanel");
 			dockPanel.setSpacing(5);
-			createcomponentLabel.setStyleName("header");
+			createComponentLabel.setStyleName("header");
 			createElementPanel.setVisible(false);
 			createModulePanel.setVisible(false);
 			createButton.setVisible(false);
+			componentFlexTable.setVisible(false);
 			
 		    RootPanel.get("leftside").add(dockPanel);
 		    
@@ -157,10 +194,10 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 	// DIALOGBOX ########################################################################################################
 		    
 		    
-		    dialogBox.setText("Registrierung");
+		    dialogBox.setText("Komponente - Anlegen");
 			dialogBox.setAnimationEnabled(true);
 			
-			dialogboxVPanel.add(new HTML("Sie wurden erfolgreich registriert!<br><br>"));
+			dialogboxVPanel.add(new HTML("Folgende Komponente wurde erfolgreich angelegt:<br><br>"));
 			dialogboxVPanel.add(serverResponseLabel);
 			dialogboxVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
 			dialogboxVPanel.add(closeButton);
@@ -182,7 +219,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 				}
 			});
 			
-		 	nameTextBox.addKeyUpHandler(new KeyUpHandler() {
+		 	/*nameTextBox.addKeyUpHandler(new KeyUpHandler() {
 				
 				@Override
 				public void onKeyUp(KeyUpEvent event) {
@@ -191,29 +228,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 							send();
 						}
 					}
-				});		
-		 	
-		 	/*emailTextBox.addKeyUpHandler(new KeyUpHandler() {
-				
-				@Override
-				public void onKeyUp(KeyUpEvent event) {
-					if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) 
-						{
-							send();
-						}
-					}
-				});	
-
-			keywordTextBox.addKeyUpHandler(new KeyUpHandler() {
-					
-					@Override
-					public void onKeyUp(KeyUpEvent event) {
-						if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) 
-							{
-								send();
-							}
-						}
-					});	*/
+				});		*/
 			
 		 	rb0.addClickHandler(new ClickHandler() {
 
@@ -223,6 +238,14 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 					if(rb0.getValue()==true)
 					{
 						createModulePanel.setVisible(false);
+						componentFlexTable.setVisible(false);
+						componentFlexTable.removeAllRows();
+						componentFlexTable.setText(0, 0, "Komponente");
+						componentFlexTable.setText(0, 1, "Entfernen");
+						componentListArray[1] = "empty";
+						componentListArray[2] = "empty";
+						componentListArray[3] = "empty";
+						componentListArray[4] = "empty";
 						createElementPanel.setVisible(true);
 						createButton.setVisible(true);
 					}
@@ -245,12 +268,115 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 				}	
 			});
 		 	
+		 	selectModuleButton.addClickHandler(new ClickHandler() {
+
+		 		@Override
+				public void onClick(ClickEvent event) {
+					
+					int index = moduleListBox.getSelectedIndex();
+					String element = moduleListBox.getItemText(index);
+					
+					final Button deleteButton = new Button("x");
+					deleteButton.setPixelSize(30, 30);
+
+					deleteButton.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							
+							int removedIndex = deleteButton.getTabIndex();
+							componentListArray[removedIndex] = "empty";
+					        componentFlexTable.setText(removedIndex, 0, null);
+							componentFlexTable.setWidget(removedIndex, 1, null);
+							
+						}	
+					});
+					
+					int i = 0;
+					
+					while (i < 5) {
+						if(componentListArray[i] == "empty"){
+							componentListArray[i] = element;
+							
+							componentFlexTable.setText(i, 0, element);
+							componentFlexTable.setWidget(i, 1, deleteButton);
+							componentFlexTable.setVisible(true);
+							deleteButton.setTabIndex(i);
+							break;
+						}
+						else
+							i++;
+					}
+					
+					if(i == 5)
+					{
+						Window.alert("Die maximale Anzahl an Bauteilen und Baugruppen ist erreicht!");
+					}
+						
+				}	
+			});
+		 	
+		 	selectElementButton.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					
+					int index = elementListBox.getSelectedIndex();
+					String element = elementListBox.getItemText(index);
+					
+					final Button deleteButton = new Button("x");
+					deleteButton.setPixelSize(30, 30);
+
+					deleteButton.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							
+							int removedIndex = deleteButton.getTabIndex();
+							componentListArray[removedIndex] = "empty";
+					        componentFlexTable.setText(removedIndex, 0, null);
+							componentFlexTable.setWidget(removedIndex, 1, null);
+							
+						}	
+					});
+					
+					int i = 0;
+					
+					while (i < 5) {
+						if(componentListArray[i] == "empty"){
+							componentListArray[i] = element;
+							
+							componentFlexTable.setText(i, 0, element);
+							componentFlexTable.setWidget(i, 1, deleteButton);
+							componentFlexTable.setVisible(true);
+							deleteButton.setTabIndex(i);
+							break;
+						}
+						else
+							i++;
+					}
+					
+					if(i == 5)
+					{
+						Window.alert("Die maximale Anzahl an Bauteilen und Baugruppen ist erreicht!");
+					}
+						
+				}	
+			});
+		 	
 			createButton.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
 					
-					send();
+					if(rb0.getValue()==true)
+					{
+						createElement();
+					}
+					else
+					{
+						//createModule();
+					}
 					
 				}	
 			});
@@ -269,82 +395,3 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 		}
 
 	}
-
-/*
-import de.hdm.sms.shared.AService;
-import de.hdm.sms.shared.AServiceAsync;
-import de.hdm.sms.shared.bo.Component;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-
-public class CreateComponent extends VerticalPanel {
-	private VerticalPanel CreateComponentPanel = new VerticalPanel();
-	private Label NameLabel = new Label("Name des Bauteils");
-	private Label DescriptionLabel = new Label("Beschreibung");
-	private Label MaterialDescriptionLabel = new Label("Materialbezeichnung");
-	private TextBox NameTextbox = new TextBox();
-	private TextBox DescriptionTextbox = new TextBox();
-	private TextBox MaterialDescriptionTextbox = new TextBox();
-	private Button CreateComponentButton = new Button("Bauteil anlegen");
-	private final AServiceAsync AsyncObj = GWT.create(AService.class);
-	private Component c = new Component();
-
-	public CreateComponent() {
-
-	}
-
-	public void onLoad() {
-		CreateComponentPanel.add(NameLabel);
-		CreateComponentPanel.add(NameTextbox);
-		CreateComponentPanel.add(DescriptionLabel);
-		CreateComponentPanel.add(DescriptionTextbox);
-		CreateComponentPanel.add(MaterialDescriptionLabel);
-		CreateComponentPanel.add(MaterialDescriptionTextbox);
-		CreateComponentPanel.add(CreateComponentButton);
-		RootPanel.get("content").add(CreateComponentPanel);
-
-		CreateComponentButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				if (NameTextbox.getValue().isEmpty()
-						|| DescriptionTextbox.getValue().isEmpty()
-						|| MaterialDescriptionTextbox.getValue().isEmpty()) {
-					Window.alert("Bitte alle Felder befüllen");
-				} else {
-					c.setDescription(DescriptionTextbox.getValue());
-					c.setName(NameTextbox.getValue());
-					c.setMaterialDescription(MaterialDescriptionTextbox
-							.getValue());
-					AsyncObj.insertComponent(c, new AsyncCallback<Void>() {
-
-						@Override
-						public void onSuccess(Void result) {
-							Window.alert("Bauteil " + c.getName()
-									+ " erfolgreich angelegt.");
-
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
-
-						}
-					});
-				}
-
-			}
-		});
-
-	}
-
-}*/

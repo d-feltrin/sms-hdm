@@ -42,7 +42,6 @@ public class SearchComponent extends VerticalPanel {
 					}
 
 					public void onSuccess(String result) {
-						dialogBox.setText("Logout");
 						serverResponseLabel.setHTML(result);
 						dialogBox.center();
 						closeButton.setFocus(true);

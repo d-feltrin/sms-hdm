@@ -1,5 +1,6 @@
 package de.hdm.sms.client;
 
+import de.hdm.sms.shared.FieldVerifier;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -17,8 +18,6 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import de.hdm.sms.shared.FieldVerifier;
 
 public class Startside extends VerticalPanel {
 	
@@ -64,7 +63,6 @@ public class Startside extends VerticalPanel {
 				new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						
-						dialogBox.setText("Login - Client/Viewer: Fehler");
 						serverResponseLabel.addStyleName("serverResponseLabelError");
 						serverResponseLabel.setHTML(SERVER_ERROR);
 						dialogBox.center();
@@ -72,7 +70,6 @@ public class Startside extends VerticalPanel {
 					}
 
 					public void onSuccess(String result) {
-						dialogBox.setText("Login - Client/Viewer");
 						serverResponseLabel.removeStyleName("serverResponseLabelError");
 						serverResponseLabel.setHTML(result);
 						dialogBox.center();
@@ -82,7 +79,7 @@ public class Startside extends VerticalPanel {
 						
 					}
 				});
-	}
+	}	
 	
 	
 	public void openReport() {
@@ -111,10 +108,10 @@ public class Startside extends VerticalPanel {
 		buttonPanel.add(loginButton);
 		buttonPanel.add(registerButton);
 	    
-		startsidePanel.add(nameTextBox);
 		startsidePanel.add(nameLabel);
-		startsidePanel.add(keywordTextBox);
+		startsidePanel.add(nameTextBox);
 		startsidePanel.add(keywordLabel);
+		startsidePanel.add(keywordTextBox);
 		
 		dockPanel.add(loginLabel, DockPanel.NORTH); 		//North
 		dockPanel.add(startsidePanel, DockPanel.WEST); 		//West
