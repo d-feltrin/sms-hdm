@@ -96,7 +96,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	
 	@Override
 	public String createModule(String name, String component1, String component2, 
-			String component3, String component4, String component5, 
+			String component3,  
 			Boolean endproduct) throws IllegalArgumentException {
 		
 		String endproductStatus = "Als kein Endprodukt gekennzeichnet";
@@ -131,33 +131,13 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			component3 = component3 + "<br>";
 
 		}
-		
-		if(component4 == "empty"){
-			component4 = "";
-		}
-		else
-		{
-			component4 = escapeHtml(component4);
-			component4 = component4 + "<br>";
-
-		}
-		
-		if(component5 == "empty"){
-			component5 = "";
-		}
-		else
-		{
-			component5 = escapeHtml(component5);
-			component5 = component5 + "<br>";
-
-		}
 
 		if(endproduct){
 			endproductStatus = "Als Endprodukt gekennzeichnet";
 		}
 		
 		return "<b>Baugruppe</b><br><br>Name:" + name + "<br> Komponenten:<br>" + component1 
-				+ component2 + component3 + component4 + component5 + endproductStatus + "<br><br>";
+				+ component2 + component3 + endproductStatus + "<br><br>";
 
 	}
 	

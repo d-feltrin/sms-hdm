@@ -33,6 +33,9 @@ public class SearchResult extends VerticalPanel {
 	private Label nameLabel = new Label("Komponentenname:"); 
 	private Label descriptionLabel = new Label("Beschreibung:"); 
 	private Label materialLabel = new Label("Material:");
+	private Label endproductLabel = new Label("Endprodukt: ");
+	private Label elementComponentLabel = new Label("Bauteil(e): <br>");
+	private Label moduleComonentLabel = new Label("Baugruppe(n): <br>");
 	private DialogBox dialogBox = new DialogBox();
 	private Boolean result;
 	
@@ -95,10 +98,12 @@ public class SearchResult extends VerticalPanel {
 								
 								if (result.equals("module")){
 									
+									//Module module = new Module(name);
+									//
 									
 								}
-								else if (result.equals("component"))
-								{
+								else if (result.equals("component")){
+									
 									Component component = new Component(name,"Aus feinem Edelholz mit schn&oumlrkel","Holz"); // Testzweck
 									
 									descriptionLabel.setText("Beschreibung: " + component.getDescription());

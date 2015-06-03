@@ -57,7 +57,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 	private CheckBox cb0 = new CheckBox("Endprodukt");
 	private HTML serverResponseLabel = new HTML();
 	private DialogBox dialogBox = new DialogBox();
-	private String[] componentListArray = new String[5];
+	private String[] componentListArray = new String[3];
 	
 	private void createElement(){
 		
@@ -115,12 +115,10 @@ private void createModule(){
 			String component1ToServer = componentListArray[0];
 			String component2ToServer = componentListArray[1];
 			String component3ToServer = componentListArray[2];
-			String component4ToServer = componentListArray[3];
-			String component5ToServer = componentListArray[4];
 			Boolean endproductToServer = cb0.getValue();
 			
 			serverResponseLabel.setText("");
-			greetingService.createModule(nameToServer, component1ToServer, component2ToServer, component3ToServer, component4ToServer, component5ToServer, endproductToServer,
+			greetingService.createModule(nameToServer, component1ToServer, component2ToServer, component3ToServer, endproductToServer,
 					new AsyncCallback<String>() {
 						public void onFailure(Throwable caught) {
 							
@@ -281,8 +279,6 @@ private void createModule(){
 						componentFlexTable.setText(0, 1, "Entfernen");
 						componentListArray[1] = "empty";
 						componentListArray[2] = "empty";
-						componentListArray[3] = "empty";
-						componentListArray[4] = "empty";
 						createElementPanel.setVisible(true);
 						createButton.setVisible(true);
 					}
@@ -335,7 +331,7 @@ private void createModule(){
 					
 					int i = 1;
 					
-					while (i < 6) {
+					while (i < 4) {
 						if(componentListArray[i-1] == "empty"){
 							componentListArray[i-1] = element;
 							
@@ -348,7 +344,7 @@ private void createModule(){
 							i++;
 					}
 					
-					if(i == 6)
+					if(i == 4)
 					{
 						Window.alert("Die maximale Anzahl an Bauteilen und Baugruppen ist erreicht!");
 					}
@@ -382,7 +378,7 @@ private void createModule(){
 					
 					int i = 1;
 					
-					while (i < 6) {
+					while (i < 4) {
 						if(componentListArray[i-1] == "empty"){
 							componentListArray[i-1] = element;
 							
@@ -395,7 +391,7 @@ private void createModule(){
 							i++;
 					}
 					
-					if(i == 6)
+					if(i == 4)
 					{
 						Window.alert("Die maximale Anzahl an Bauteilen und Baugruppen ist erreicht!");
 					}

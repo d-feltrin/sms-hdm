@@ -17,7 +17,7 @@ public interface GreetingServiceAsync {
 	void createElement(String name, String description, String material, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
 	void createModule(String name, String component1, String component2, String component3, 
-			String component4, String component5, Boolean endproduct, AsyncCallback<String> callback)
+			Boolean endproduct, AsyncCallback<String> callback)
 					throws IllegalArgumentException;
 	void getTypeOfComponent(String name, AsyncCallback<String> callback)
 					throws IllegalArgumentException;
