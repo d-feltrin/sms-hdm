@@ -1,6 +1,6 @@
 package de.hdm.sms.server;
 
-import de.hdm.sms.client.GreetingService;
+import de.hdm.sms.client.gui.GreetingService;
 import de.hdm.sms.shared.FieldVerifier;
 import de.hdm.sms.shared.bo.Component;
 
@@ -35,6 +35,16 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		username= name;
 
 		return name + ", <br>";
+	}	
+	
+	@Override
+	public String getTypeOfComponent(String name) throws IllegalArgumentException {
+		 
+		//Hier muss eine Methode rein, welche testet, ob der name ein Bauteil oder eine Baugruppe ist, dh. while bis zum erbrechen
+		//Für den Test ist es ein Bauteil //Testzweck
+		
+			return "module";
+			 //return "component";
 	}	
 	
 	@Override

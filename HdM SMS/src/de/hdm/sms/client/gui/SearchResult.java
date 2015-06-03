@@ -1,4 +1,4 @@
-package de.hdm.sms.client;
+package de.hdm.sms.client.gui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -82,14 +82,37 @@ public class SearchResult extends VerticalPanel {
 			searchResultLabel.setStyleName("header");
 			
 			if(result){
+				
+				String name = nameLabel.getText();
+				
+				greetingService.getTypeOfComponent(name,
+						new AsyncCallback<String>() {
+							public void onFailure(Throwable caught) {
+
+							}
+
+							public void onSuccess(String result) {
+								
+								if (result.equals("module")){
+									
+									
+								}
+								else if (result.equals("component"))
+								{
+									Component component = new Component(name,"Aus feinem Edelholz mit schn&oumlrkel","Holz"); // Testzweck
+									
+									descriptionLabel.setText("Beschreibung: " + component.getDescription());
+									materialLabel.setText("Material: " + component.getMaterial());
+								}
+								else{
+									System.out.println("Fehler im ASync");
+								}
+								
+							}
+						});
+				
 				elementPanel.setVisible(true);
 				errorLabel.setVisible(false);
-				String name = nameLabel.getText();
-
-				Component component = new Component(name,"Aus feinem Edelholz mit schn&oumlrkel","Holz"); // Testzweck
-				
-				descriptionLabel.setText("Beschreibung: " + component.getDescription());
-				materialLabel.setText("Material: " + component.getMaterial());
 				
 			}
 			else{

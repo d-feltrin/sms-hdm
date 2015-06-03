@@ -1,4 +1,4 @@
-package de.hdm.sms.client;
+package de.hdm.sms.client.gui;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -18,6 +18,8 @@ public interface GreetingServiceAsync {
 			throws IllegalArgumentException;
 	void createModule(String name, String component1, String component2, String component3, 
 			String component4, String component5, Boolean endproduct, AsyncCallback<String> callback)
+					throws IllegalArgumentException;
+	void getTypeOfComponent(String name, AsyncCallback<String> callback)
 					throws IllegalArgumentException;
 
 }

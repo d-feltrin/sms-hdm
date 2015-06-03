@@ -1,4 +1,4 @@
-package de.hdm.sms.client;
+package de.hdm.sms.client.gui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -38,7 +38,6 @@ public class SearchComponent extends VerticalPanel {
 	private HTML serverResponseLabel = new HTML();
 	private DialogBox dialogBox = new DialogBox();
 	
-	
 	public void search(){
 
 		String textToServer = searchTextBox.getText();
@@ -71,6 +70,7 @@ public class SearchComponent extends VerticalPanel {
 						
 					}
 				});
+
 	}
 
 	public void logout(){

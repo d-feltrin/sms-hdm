@@ -1,4 +1,4 @@
-package de.hdm.sms.client;
+package de.hdm.sms.client.gui;
 
 
 import com.google.gwt.core.client.EntryPoint;
