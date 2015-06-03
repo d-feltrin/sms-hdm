@@ -26,19 +26,18 @@ public class SearchResult extends VerticalPanel {
 	
 	private DockPanel dockPanel = new DockPanel();
 	private VerticalPanel buttonPanel = new VerticalPanel();
-	private VerticalPanel elementPanel = new VerticalPanel();
 	private VerticalPanel modulePanel = new VerticalPanel();
-	private HTML samplehtml = new HTML();
+	private VerticalPanel mainPanel = new VerticalPanel();
+	private HTML moduleTohtml = new HTML();
+	private HTML elementTohtml = new HTML();
+	private HTML convTohtml = new HTML();
 	private Button deleteButton = new Button("L&oumlschen");
 	private Button editButton = new Button("Bearbeiten");
 	private Label searchResultLabel = new Label("Suchergebnis");
 	private Label errorLabel = new Label("Die Komponente konnte nicht gefunden werden!");
 	private Label nameLabel = new Label(); 
-	private Label descriptionLabel = new Label("Beschreibung:"); 
-	private Label materialLabel = new Label("Material:");
 	private Label endproductLabel = new Label();
-	private Label elementComponentLabel = new Label();
-	private Label moduleComponentLabel = new Label();
+	private String name;
 	private DialogBox dialogBox = new DialogBox();
 	private Boolean result;
 	
@@ -49,10 +48,89 @@ public class SearchResult extends VerticalPanel {
 	
 	public SearchResult(Boolean result, String nameLabel){
 		this.result = result;
+		this.name = nameLabel;
 		this.nameLabel.setText("Name: " + nameLabel);
 		
 	}
 	
+	public void show(){
+		
+		greetingService.getTypeOfComponent(name,
+				new AsyncCallback<String>() {
+					public void onFailure(Throwable caught) {
+
+					}
+
+					public void onSuccess(String result) {
+						
+						if (result.equals("module")){
+							
+							Component c1 = new Component("Brett","Aus feinem Edelholz mit schnörkel","Holz");
+							Component c2 = new Component("Nagel","Spitz und lang","Stahl");
+							Component c3 = new Component("Holzplatte","Aus feinem Edelholz mit schnörkel","Holz");
+							
+							Module m1 = new Module("Tischbein", c1, c2, false);
+							Module m2 = new Module("Tisch", m1, m1, c3, true); //ALLES TEST
+							
+							Boolean endproductState = m2.getEndproductState();
+							
+							if (endproductState){
+								
+								endproductLabel.setText("Als Endprodukt gekennzeichnet");
+								}
+							
+								else{
+								
+								endproductLabel.setText("Als kein Endprodukt gekennzeichnet.");
+							}
+							
+							String elementResult = "";
+							
+							ArrayList<Component> component = new ArrayList<Component>();
+							component = m2.getComponent();
+							
+							for(int i=0; i<component.size(); i++){
+								Component com = component.get(i);
+								elementResult = elementResult + com.getName() + "<br>";
+							}
+							
+							elementTohtml.setHTML("<b>Bauteil(e):</b> <br>" + elementResult);
+							
+							String moduleResult = "";
+							
+							ArrayList<Module> module = new ArrayList<Module>();
+							module = m2.getModule();
+							
+							for(int i=0; i<module.size(); i++){
+								Module mod = module.get(i);
+								moduleResult = moduleResult + mod.getName() + "<br>";
+							}
+							
+							moduleTohtml.setHTML("<b>Baugruppe(n):</b> <br>" + moduleResult);
+							
+							modulePanel.setVisible(true);
+							errorLabel.setVisible(false);
+							
+						}
+						
+						else if (result.equals("component")){
+							
+							Component element = new Component("Brett","Aus feinem Edelholz mit schnörkel","Holz"); // Testzweck
+							
+							String conv = "<b>Beschreibung:</b> <br>" + element.getDescription() +"<br><br><b>Material:</b> <br>" + element.getMaterial();
+							convTohtml.setHTML(conv);
+							convTohtml.setVisible(true);
+							errorLabel.setVisible(false);
+						}
+						else{
+							System.out.println("Fehler im Asyn getTypeofContent");
+						}
+					
+					}
+		});
+		
+	}
+		
 	private void edit(){
 		
 	}
@@ -73,17 +151,17 @@ public class SearchResult extends VerticalPanel {
 			buttonPanel.add(editButton);
 			buttonPanel.add(deleteButton);
 			
-			elementPanel.add(nameLabel);
-			elementPanel.add(descriptionLabel);
-			elementPanel.add(materialLabel);
-			
-			modulePanel.add(nameLabel);
-			modulePanel.add(elementComponentLabel);
-			modulePanel.add(moduleComponentLabel);
+			modulePanel.add(moduleTohtml);
+			modulePanel.add(elementTohtml);
 			modulePanel.add(endproductLabel);
 			
+			mainPanel.add(nameLabel);
+			mainPanel.add(modulePanel);
+			mainPanel.add(convTohtml);
+	
+			
 			dockPanel.add(searchResultLabel, DockPanel.NORTH); 		//North
-			dockPanel.add(elementPanel, DockPanel.WEST); 		//West
+			dockPanel.add(mainPanel, DockPanel.WEST); 			//West
 			dockPanel.add(new HTML(" "), DockPanel.EAST); 		//East
 			dockPanel.add(errorLabel, DockPanel.SOUTH); 		//South
 			dockPanel.add(buttonPanel, DockPanel.NORTH); 		//Second North
@@ -94,157 +172,23 @@ public class SearchResult extends VerticalPanel {
 			dockPanel.setSpacing(5);
 			searchResultLabel.setStyleName("header");
 			
+			convTohtml.setVisible(false);
+			modulePanel.setVisible(false);
+			errorLabel.setVisible(false);
+			
 			if(result){
-				final String name = nameLabel.getText();
 				
-				greetingService.getTypeOfComponent(name,
-						new AsyncCallback<String>() {
-							public void onFailure(Throwable caught) {
-
-							}
-
-							public void onSuccess(String result) {
-								
-								if (result.equals("module")){
-									
-									Component c1 = new Component("Brett","Aus feinem Edelholz mit schn&oumlrkel","Holz");
-									Component c2 = new Component("Nagel","Spitz und lang","Stahl");
-									Component c3 = new Component("Holzplatte","Aus feinem Edelholz mit schn&oumlrkel","Holz");
-									
-									Module m1 = new Module("Tischbein", c1, c2, false);
-									Module m2 = new Module("Tisch", m1, c3, true); //ALLES TEST
-									
-									Boolean endproductState = m2.getEndproductState();
-									
-									if (endproductState){
-										
-										endproductLabel.setText("Als Endprodukt gekennzeichnet");
-										
-										System.out.println(true);
-										}
-									
-										else{
-										
-										endproductLabel.setText("Als kein Endprodukt gekennzeichnet");
-										
-										System.out.println(false);
-									}
-									
-									ArrayList<Component> component = new ArrayList<Component>();
-									component = m2.getComponent();
-									
-									System.out.println("Array auf component übertragen: " + component.isEmpty());
-									
-									ArrayList<Module> module = new ArrayList<Module>();
-									module = m1.getModule();
-									
-									System.out.println("Array auf module übertragen: " + component.isEmpty());
-									
-									/*Component rc1 = component.get(0);
-									Component rc2 = component.get(1);
-									Component rc3 = component.get(2);
-
-									Module rm1 = module.get(0);
-									Module rm2 = module.get(1);
-									Module rm3 = module.get(2);*/
-									
-									String elementResult = "";
-									String moduleResult = "";
-									
-									System.out.println("onSuccess - vor if für String");
-									/*
-										if(rm1.getComponentName(1).equals("")){
-											
-											System.out.println("is equal");
-										}
-										else{
-											elementResult = elementResult + ", " + rc1.getName() ;
-											System.out.println("added result 1");
-											System.out.println(rm1.getComponentName(1).equals(""));
-										}
-										
-										System.out.println(m1.getComponentName(1));
-										
-										if(rm2.getName().equals("")){
-											System.out.println("is equal");
-										}
-										else{
-											elementResult = elementResult + ", " + rc2.getName() ;
-											System.out.println("added result 2");
-										}
-										
-										if(rc3.getName().equals("")){
-											System.out.println("is equal");
-										}
-										else{
-											elementResult = elementResult + ", " + rc3.getName() ;
-											System.out.println("added result 3");
-										}
-										
-										System.out.println("finished with rc3");
-										
-										elementComponentLabel.setText("Bauteil(e): " + elementResult);
-										
-										System.out.println("start with rm1");
-										
-										if(rm1.getName().equals("")){
-										}
-										else{
-											moduleResult = moduleResult + ", " + rm1.getName() ;
-										}
-										
-										if(rm2.getName().equals("")){
-										}
-										else{
-											moduleResult = moduleResult + ", " + rm2.getName() ;
-										}
-										
-										if(rm3.getName().equals("")){
-										}
-										else{
-											moduleResult = moduleResult + ", " + rm3.getName() ;
-										}
-									*/
-										System.out.println("onSuccess - nach if - vor modulecomponentlabel");
-										
-									moduleComponentLabel.setText("Baugruppe(n): " + elementResult);
-									
-									modulePanel.setVisible(true);
-									errorLabel.setVisible(false);
-									
-								}
-								
-								else if (result.equals("component")){
-									
-									System.out.println("onSuccess - element");
-									
-									Component element = new Component(name,"Aus feinem Edelholz mit schn&oumlrkel","Holz"); // Testzweck
-									
-									descriptionLabel.setText("Beschreibung: " + element.getDescription());
-									materialLabel.setText("Material: " + element.getMaterial());
-									elementPanel.setVisible(true);
-									errorLabel.setVisible(false);
-									
-									System.out.println("Bauteil:" + name + element.getDescription() + element.getMaterial() );
-								}
-								else{
-									System.out.println("Fehler im ASync");
-								}
-							
-							}
-				});
+				show();
 				
 			}
 			else{
 				
-				System.out.println("Result = false");
-				
-				elementPanel.setVisible(false);
+				System.out.println("error");
+				convTohtml.setVisible(false);
 				buttonPanel.setVisible(false);
 				errorLabel.setVisible(true);
+				errorLabel.addStyleName("serverResponseLabelError");
 			}
-		
-			errorLabel.addStyleName("serverResponseLabelError");
 			
 		    RootPanel.get("rightside").add(dockPanel);
 		    

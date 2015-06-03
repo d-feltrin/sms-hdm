@@ -66,7 +66,7 @@ public class SearchComponent extends VerticalPanel {
 							RootPanel.get("rightside").add(new SearchResult(resultValue));
 						}
 						else{
-							System.out.println("Fehler im ASync");
+							System.out.println("Fehler im ASync search");
 						}
 						
 					}

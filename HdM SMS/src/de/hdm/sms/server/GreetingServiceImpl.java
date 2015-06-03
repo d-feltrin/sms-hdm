@@ -41,11 +41,28 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String getTypeOfComponent(String name) throws IllegalArgumentException {
 		 
-		//Hier muss eine Methode rein, welche testet, ob der name ein Bauteil oder eine Baugruppe ist, dh. while bis zum erbrechen
+		//Hier muss eine Methode rein, welche testet, ob der name ein Bauteil oder eine Baugruppe ist
 		//Für den Test ist es ein Bauteil //Testzweck
+		
+		Component comp = new Component("Brett","Ist schön und flauschig","Holz"); // Testzweck
+		Module mod = new Module(); // Testzweck
+		mod.setName("Tisch");;
+		
+		String type ="";
+		
+			if(name.equals(comp.getName())){
+				type = type + "component";
+			}
+			else if(name.equals(mod.getName())){
+				type = type + "module";
+			}
+			else{
+				type = "error";
+			}
 			
-			return "module";
-			 //return "component";
+			String result = type;
+
+			return result;
 	}	
 	
 	@Override
@@ -83,26 +100,25 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String search(String name) throws IllegalArgumentException {
 		
-		/*Component component = new Component("Brett","Ist schön und flauschig","Holz"); // Testzweck
-		
-		if(name.equals(component.getName())){
-			return "j";
-		}
-		else
-		{
-			return "n";
-		}*/
-		
+		Component component = new Component("Brett","Ist schön und flauschig","Holz"); // Testzweck
 		Module module = new Module(); // Testzweck
 		module.setName("Tisch");
 		
-		if(name.equals(module.getName())){
-			return "j";
+		String type = "";
+		
+		if(name.equals(component.getName())){
+			type = "j";
 		}
-		else
-		{
-			return "n";
+		else if(name.equals(module.getName())){
+			type = "j";
 		}
+		else{
+			type = "n";
+		}
+		
+		String result = type;
+		
+		return result;
 
 	}
 	

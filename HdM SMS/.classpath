@@ -2,12 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="test-classes" path="test"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/mysql-connector-java-5.1.35-bin.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-api-labs.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-endpoints-deps.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-endpoints.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/Users/Sascha/git/sms-hdm/HdM SMS/war/WEB-INF/lib/appengine-api-1.0-sdk-1.9.21.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/Users/Sascha/git/sms-hdm/HdM SMS/war/WEB-INF/lib/appengine-jsr107cache-1.9.21.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

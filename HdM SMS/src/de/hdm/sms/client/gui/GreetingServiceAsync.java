@@ -2,9 +2,6 @@ package de.hdm.sms.client.gui;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-/**
- * The async counterpart of <code>GreetingService</code>.
- */
 public interface GreetingServiceAsync {
 	void getName(String name, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
