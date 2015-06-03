@@ -17,7 +17,7 @@ public class DatebaseConnection {
 				DriverManager.registerDriver(new AppEngineDriver());
 		    
 
-con = DriverManager.getConnection("jdbc:mysql://feltrin-immobilien.de:3306/sms_db", "sms", "smsdb");
+con = DriverManager.getConnection("jdbc:mysql://85.214.149.12:3306/db_sms", "smshdm", "hdmitpj");
 
 //				con = DriverManager.getConnection("jdbc:google:rdbms://hdm1337:hdmsql/hotelverwaltung", "root", ""); // Create connection with user-credentials
 		   } 
