@@ -1,6 +1,6 @@
 package de.hdm.sms.server;
 
-import de.hdm.sms.client.GreetingService;
+import de.hdm.sms.client.gui.GreetingService;
 import de.hdm.sms.shared.FieldVerifier;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.Module;

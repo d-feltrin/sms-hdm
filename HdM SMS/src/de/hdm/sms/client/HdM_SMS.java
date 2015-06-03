@@ -2,6 +2,9 @@ package de.hdm.sms.client;
 
 import java.util.logging.Logger;
 
+import de.hdm.sms.client.gui.ImageSMS;
+import de.hdm.sms.client.gui.Impressum;
+import de.hdm.sms.client.gui.Startside;
 import de.hdm.sms.shared.LoginInfo;
 
 import com.google.gwt.core.client.EntryPoint;

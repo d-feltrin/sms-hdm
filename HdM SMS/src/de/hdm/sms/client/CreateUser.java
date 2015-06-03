@@ -1,6 +1,11 @@
 package de.hdm.sms.client;
 
+import de.hdm.sms.client.gui.GreetingService;
+import de.hdm.sms.client.gui.GreetingServiceAsync;
+import de.hdm.sms.client.gui.SearchComponent;
+import de.hdm.sms.client.gui.Startside;
 import de.hdm.sms.shared.FieldVerifier;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
