@@ -1,8 +1,9 @@
 package de.hdm.sms.server;
 
-import de.hdm.sms.client.gui.GreetingService;
+import de.hdm.sms.client.GreetingService;
 import de.hdm.sms.shared.FieldVerifier;
 import de.hdm.sms.shared.bo.Component;
+import de.hdm.sms.shared.bo.Module;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -42,7 +43,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		 
 		//Hier muss eine Methode rein, welche testet, ob der name ein Bauteil oder eine Baugruppe ist, dh. while bis zum erbrechen
 		//Für den Test ist es ein Bauteil //Testzweck
-		
+			
 			return "module";
 			 //return "component";
 	}	
@@ -82,9 +83,20 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String search(String name) throws IllegalArgumentException {
 		
-		Component component = new Component("Brett","Ist schön und flauschig","Holz"); // Testzweck
+		/*Component component = new Component("Brett","Ist schön und flauschig","Holz"); // Testzweck
 		
 		if(name.equals(component.getName())){
+			return "j";
+		}
+		else
+		{
+			return "n";
+		}*/
+		
+		Module module = new Module(); // Testzweck
+		module.setName("Tisch");
+		
+		if(name.equals(module.getName())){
 			return "j";
 		}
 		else

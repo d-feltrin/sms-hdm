@@ -1,4 +1,4 @@
-package de.hdm.sms.client.gui;
+package de.hdm.sms.client;
 
 import de.hdm.sms.shared.FieldVerifier;
 import com.google.gwt.core.client.GWT;

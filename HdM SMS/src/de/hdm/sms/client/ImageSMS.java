@@ -1,4 +1,4 @@
-package de.hdm.sms.client.gui;
+package de.hdm.sms.client;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;

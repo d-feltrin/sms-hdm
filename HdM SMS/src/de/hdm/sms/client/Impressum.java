@@ -1,4 +1,4 @@
-package de.hdm.sms.client.gui;
+package de.hdm.sms.client;
 
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;

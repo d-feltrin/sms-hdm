@@ -1,4 +1,4 @@
-package de.hdm.sms.client.gui;
+package de.hdm.sms.client;
 
 import java.util.ArrayList;
 
