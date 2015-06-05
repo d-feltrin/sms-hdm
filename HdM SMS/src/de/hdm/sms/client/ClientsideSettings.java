@@ -7,7 +7,7 @@ import com.google.gwt.core.shared.GWT;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginService;
 import de.hdm.sms.shared.LoginServiceAsync;
-import de.hdm.sms.shared.StücklistenAdministration;
+import de.hdm.sms.shared.AService;
 
 /**
  * Klasse mit Eigenschaften und Diensten, die für alle Client-seitigen Klassen
@@ -57,9 +57,9 @@ public class ClientsideSettings {
 		 * @return eindeutige Instanz vom Typ {@link AServiceAsync}
 		 */
 
-	  public static AServiceAsync getStücklistenVerwaltung() {
+	  public static AServiceAsync getAService() {
 		    if (stücklistenVerwaltung == null) { 
-		      stücklistenVerwaltung = GWT.create(StücklistenAdministration.class);
+		      stücklistenVerwaltung = GWT.create(AService.class);
 		    }
 
 		    return stücklistenVerwaltung;
