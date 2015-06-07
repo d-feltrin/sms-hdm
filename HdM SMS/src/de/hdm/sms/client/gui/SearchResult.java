@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -35,6 +37,8 @@ public class SearchResult extends VerticalPanel {
 	private VerticalPanel editElementPanel = new VerticalPanel();
 	private VerticalPanel editModulePanel = new VerticalPanel();
 	private VerticalPanel dialogboxVPanel = new VerticalPanel();
+	private HorizontalPanel selectElementPanel = new HorizontalPanel();
+	private HorizontalPanel selectModulePanel = new HorizontalPanel();
 	private HTML moduleTohtml = new HTML();
 	private HTML elementTohtml = new HTML();
 	private HTML convTohtml = new HTML();
@@ -42,8 +46,10 @@ public class SearchResult extends VerticalPanel {
 	private Button editButton = new Button("Bearbeiten");
 	private Button closeButton = new Button("Close");
 	private Button acceptButton = new Button("Akzeptieren");
-	private TextBox nameTextBox = new TextBox();
-	private TextBox materialTextBox = new TextBox();
+	private Button selectModuleButton = new Button("+");
+	private Button selectElementButton = new Button("+");
+	private ListBox moduleListBox = new ListBox();
+	private ListBox elementListBox = new ListBox();
 	private Label searchResultLabel = new Label("Suchergebnis");
 	private Label errorLabel = new Label("Die Komponente konnte nicht gefunden werden!");
 	private Label endproductLabel = new Label();
@@ -164,13 +170,13 @@ public class SearchResult extends VerticalPanel {
 						if (result.equals("module")){
 							editElementPanel.setVisible(false);
 							editModulePanel.setVisible(true);
-							acceptButton.setVisible(true);
+							acceptButton.setVisible(false);
 						}
 						
 						else if (result.equals("component")){
 							editModulePanel.setVisible(false);
 							editElementPanel.setVisible(true);
-							acceptButton.setVisible(true);
+							acceptButton.setVisible(false);
 						}
 						
 						else{
@@ -230,6 +236,22 @@ public class SearchResult extends VerticalPanel {
 			editButton.setPixelSize(180, 30);
 			deleteButton.setPixelSize(180, 30);
 			acceptButton.setPixelSize(180, 30);
+			selectElementButton.setPixelSize(30, 30);
+			selectModuleButton.setPixelSize(30, 30);
+			elementListBox.setPixelSize(180, 30);
+			moduleListBox.setPixelSize(180, 30);
+			
+			elementListBox.addItem("Bauteil1");
+			elementListBox.addItem("Bauteil2");
+			elementListBox.addItem("Bauteil3");
+			elementListBox.addItem("Bauteil4");
+			elementListBox.addItem("etc.");
+			
+			moduleListBox.addItem("Baugruppe1");
+			moduleListBox.addItem("Baugruppe2");
+			moduleListBox.addItem("Baugruppe3");
+			moduleListBox.addItem("Baugruppe4");
+			moduleListBox.addItem("etc.");
 			
 			buttonPanel.add(editButton);
 			buttonPanel.add(deleteButton);
@@ -248,6 +270,16 @@ public class SearchResult extends VerticalPanel {
 			editElementPanel.add(editDescriptionTextBox);
 			editElementPanel.add(editMaterialLabel);
 			editElementPanel.add(editMaterialTextBox);
+			
+			selectElementPanel.add(elementListBox);
+			selectElementPanel.add(selectElementButton);
+			
+			selectModulePanel.add(moduleListBox);
+			selectModulePanel.add(selectModuleButton);
+			
+			editModulePanel.add(selectElementPanel);
+			editModulePanel.add(selectModulePanel);
+			editModulePanel.add(cb0);
 			
 			editMainPanel.add(editElementPanel);
 			editMainPanel.add(editModulePanel);
