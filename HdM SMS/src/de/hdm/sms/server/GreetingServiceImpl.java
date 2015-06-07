@@ -88,7 +88,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String delete(String name) throws IllegalArgumentException {
 		
-		return name + "wurde erfolgreich gelöscht";
+		return name + " wurde erfolgreich gelöscht";
 
 	}
 	

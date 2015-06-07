@@ -118,7 +118,7 @@ public class SearchResult extends VerticalPanel {
 						
 						else if (result.equals("component")){
 							
-							Component element = new Component("Brett","Aus feinem Edelholz mit schnörkel","Holz"); // Testzweck
+							Component element = new Component("Brett","Aus feinem Edelholz mit schn&oumlrkel","Holz"); // Testzweck
 							
 							String conv = "<b>Beschreibung:</b> <br>" + element.getDescription() +"<br><br><b>Material:</b> <br>" + element.getMaterial();
 							convTohtml.setHTML(conv);
@@ -140,9 +140,7 @@ public class SearchResult extends VerticalPanel {
 	
 	private void delete(){
 		
-		String textToServer = nameLabel.getText();
-		
-		greetingService.delete(textToServer,
+		greetingService.delete(name,
 				new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 							
@@ -215,7 +213,7 @@ public class SearchResult extends VerticalPanel {
 	// DIALOGBOX ########################################################################################################
 		    
 		    
-		    dialogBox.setText("Komponente - Loeschen");
+		    dialogBox.setText("Komponente - Entfernen");
 			dialogBox.setAnimationEnabled(true);
 			
 			dialogboxVPanel.add(new HTML("<br><br>"));
