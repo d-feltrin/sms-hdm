@@ -28,15 +28,18 @@ public class SearchResult extends VerticalPanel {
 	private VerticalPanel buttonPanel = new VerticalPanel();
 	private VerticalPanel modulePanel = new VerticalPanel();
 	private VerticalPanel mainPanel = new VerticalPanel();
+	private VerticalPanel dialogboxVPanel = new VerticalPanel();
 	private HTML moduleTohtml = new HTML();
 	private HTML elementTohtml = new HTML();
 	private HTML convTohtml = new HTML();
 	private Button deleteButton = new Button("L&oumlschen");
 	private Button editButton = new Button("Bearbeiten");
+	private Button closeButton = new Button("Close");
 	private Label searchResultLabel = new Label("Suchergebnis");
 	private Label errorLabel = new Label("Die Komponente konnte nicht gefunden werden!");
 	private Label nameLabel = new Label(); 
 	private Label endproductLabel = new Label();
+	private HTML serverResponseLabel = new HTML();
 	private String name;
 	private DialogBox dialogBox = new DialogBox();
 	private Boolean result;
@@ -137,11 +140,28 @@ public class SearchResult extends VerticalPanel {
 	
 	private void delete(){
 		
+		String textToServer = nameLabel.getText();
+		
+		greetingService.delete(textToServer,
+				new AsyncCallback<String>() {
+					public void onFailure(Throwable caught) {
+							
+					}
+
+					public void onSuccess(String result) {
+						
+						serverResponseLabel.setHTML(result);
+						dialogBox.center();
+						closeButton.setFocus(true);
+						
+					}
+				});
+		
 	}
 	
 	
 	// ONLOAD ########################################################################################################
-
+	
 	
 		public void onLoad() {
 			
@@ -161,11 +181,11 @@ public class SearchResult extends VerticalPanel {
 	
 			
 			dockPanel.add(searchResultLabel, DockPanel.NORTH); 		//North
-			dockPanel.add(mainPanel, DockPanel.WEST); 			//West
-			dockPanel.add(new HTML(" "), DockPanel.EAST); 		//East
-			dockPanel.add(errorLabel, DockPanel.SOUTH); 		//South
-			dockPanel.add(buttonPanel, DockPanel.NORTH); 		//Second North
-			dockPanel.add(new HTML(" "), DockPanel.SOUTH); 		//Second South
+			dockPanel.add(mainPanel, DockPanel.WEST); 				//West
+			dockPanel.add(new HTML(" "), DockPanel.EAST); 			//East
+			dockPanel.add(errorLabel, DockPanel.SOUTH); 			//South
+			dockPanel.add(buttonPanel, DockPanel.NORTH); 			//Second North
+			dockPanel.add(new HTML(" "), DockPanel.SOUTH); 			//Second South
 			
 			dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 			dockPanel.setStyleName("dockpanel");
@@ -195,14 +215,14 @@ public class SearchResult extends VerticalPanel {
 	// DIALOGBOX ########################################################################################################
 		    
 		    
-		    /*dialogBox.setText("Komponente - Anlegen");
+		    dialogBox.setText("Komponente - Loeschen");
 			dialogBox.setAnimationEnabled(true);
 			
-			dialogboxVPanel.add(new HTML("Folgende Komponente wurde erfolgreich angelegt:<br><br>"));
+			dialogboxVPanel.add(new HTML("<br><br>"));
 			dialogboxVPanel.add(serverResponseLabel);
 			dialogboxVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
 			dialogboxVPanel.add(closeButton);
-			dialogBox.setWidget(dialogboxVPanel)*/
+			dialogBox.setWidget(dialogboxVPanel);
 		 		
 			
 	// HANDLER ########################################################################################################
@@ -218,6 +238,16 @@ public class SearchResult extends VerticalPanel {
 						}
 					}
 				});	*/	
+			
+			closeButton.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+
+					dialogBox.hide();
+
+				}
+			});
 					
 		 	deleteButton.addClickHandler(new ClickHandler() {
 				

@@ -18,5 +18,7 @@ public interface GreetingServiceAsync {
 					throws IllegalArgumentException;
 	void getTypeOfComponent(String name, AsyncCallback<String> callback)
 					throws IllegalArgumentException;
+	void delete(String name, AsyncCallback<String> callback)
+			throws IllegalArgumentException;
 
 }

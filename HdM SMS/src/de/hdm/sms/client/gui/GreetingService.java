@@ -13,5 +13,6 @@ public interface GreetingService extends RemoteService {
 	String createElement(String name, String description, String material) throws IllegalArgumentException;
 	String createModule(String name, String component1, String component2, String component3, Boolean endproduct) throws IllegalArgumentException;
 	String getTypeOfComponent(String name) throws IllegalArgumentException;
+	String delete(String name) throws IllegalArgumentException;
 
 }
