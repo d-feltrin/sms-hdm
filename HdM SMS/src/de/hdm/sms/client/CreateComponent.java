@@ -101,7 +101,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 		}
 	}
 	
-private void createModule(){
+	private void createModule(){
 		
 		if (nameTextBox.getValue().isEmpty()
 				) {
@@ -164,8 +164,6 @@ private void createModule(){
 			componentListArray[0] = "empty";
 			componentListArray[1] = "empty";
 			componentListArray[2] = "empty";
-			componentListArray[3] = "empty";
-			componentListArray[4] = "empty";
 			
 			elementListBox.addItem("Bauteil1");
 			elementListBox.addItem("Bauteil2");
@@ -224,11 +222,11 @@ private void createModule(){
 			createButton.setVisible(false);
 			componentFlexTable.setVisible(false);
 			
-		    RootPanel.get("leftside").add(dockPanel);
+			RootPanel.get("leftside").add(dockPanel);
 		    
 		    nameTextBox.setFocus(true);
 		    nameTextBox.selectAll();
-		    
+
 		    
 	// DIALOGBOX ########################################################################################################
 		    

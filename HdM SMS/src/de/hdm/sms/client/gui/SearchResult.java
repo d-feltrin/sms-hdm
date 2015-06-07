@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 
@@ -28,6 +29,8 @@ public class SearchResult extends VerticalPanel {
 	private VerticalPanel buttonPanel = new VerticalPanel();
 	private VerticalPanel modulePanel = new VerticalPanel();
 	private VerticalPanel mainPanel = new VerticalPanel();
+	private VerticalPanel editElementPanel = new VerticalPanel();
+	private VerticalPanel editModulePanel = new VerticalPanel();
 	private VerticalPanel dialogboxVPanel = new VerticalPanel();
 	private HTML moduleTohtml = new HTML();
 	private HTML elementTohtml = new HTML();
@@ -35,10 +38,17 @@ public class SearchResult extends VerticalPanel {
 	private Button deleteButton = new Button("L&oumlschen");
 	private Button editButton = new Button("Bearbeiten");
 	private Button closeButton = new Button("Close");
+	private Button acceptButton = new Button("Akzeptieren");
 	private Label searchResultLabel = new Label("Suchergebnis");
 	private Label errorLabel = new Label("Die Komponente konnte nicht gefunden werden!");
 	private Label nameLabel = new Label(); 
 	private Label endproductLabel = new Label();
+	private Label editNameLabel = new Label("Neuer Name");
+	private Label editDescriptionLabel = new Label("Neue Beschreibung");
+	private Label editMaterialLabel = new Label("Neues Material");
+	private TextBox editNameTextBox = new TextBox();
+	private TextBox editDescriptionTextBox = new TextBox();
+	private TextBox editMaterialTextBox = new TextBox();
 	private HTML serverResponseLabel = new HTML();
 	private String name;
 	private DialogBox dialogBox = new DialogBox();
@@ -135,7 +145,28 @@ public class SearchResult extends VerticalPanel {
 	}
 		
 	private void edit(){
-		
+		editElementPanel.setVisible(true);
+	}
+	
+	private void accept(){
+		editElementPanel.setVisible(false);
+		String description = editDescriptionTextBox.getText();
+		String material = editMaterialTextBox.getText();
+		greetingService.edit(name, description, material,
+				new AsyncCallback<String>() {
+					public void onFailure(Throwable caught) {
+							
+					}
+
+					public void onSuccess(String result) {
+						
+						dialogBox.setText("Komponente - Bearbeiten");
+						serverResponseLabel.setHTML(result);
+						dialogBox.center();
+						closeButton.setFocus(true);
+						
+					}
+				});
 	}
 	
 	private void delete(){
@@ -148,6 +179,7 @@ public class SearchResult extends VerticalPanel {
 
 					public void onSuccess(String result) {
 						
+						dialogBox.setText("Komponente - Entfernen");
 						serverResponseLabel.setHTML(result);
 						dialogBox.center();
 						closeButton.setFocus(true);
@@ -165,6 +197,7 @@ public class SearchResult extends VerticalPanel {
 			
 			editButton.setPixelSize(180, 30);
 			deleteButton.setPixelSize(180, 30);
+			acceptButton.setPixelSize(180, 30);
 			
 			buttonPanel.add(editButton);
 			buttonPanel.add(deleteButton);
@@ -176,11 +209,18 @@ public class SearchResult extends VerticalPanel {
 			mainPanel.add(nameLabel);
 			mainPanel.add(modulePanel);
 			mainPanel.add(convTohtml);
-	
+			
+			editElementPanel.add(editNameLabel);
+			editElementPanel.add(editNameTextBox);
+			editElementPanel.add(editDescriptionLabel);
+			editElementPanel.add(editDescriptionTextBox);
+			editElementPanel.add(editMaterialLabel);
+			editElementPanel.add(editMaterialTextBox);
+			editElementPanel.add(acceptButton);
 			
 			dockPanel.add(searchResultLabel, DockPanel.NORTH); 		//North
 			dockPanel.add(mainPanel, DockPanel.WEST); 				//West
-			dockPanel.add(new HTML(" "), DockPanel.EAST); 			//East
+			dockPanel.add(editElementPanel, DockPanel.EAST); 		//East
 			dockPanel.add(errorLabel, DockPanel.SOUTH); 			//South
 			dockPanel.add(buttonPanel, DockPanel.NORTH); 			//Second North
 			dockPanel.add(new HTML(" "), DockPanel.SOUTH); 			//Second South
@@ -190,6 +230,7 @@ public class SearchResult extends VerticalPanel {
 			dockPanel.setSpacing(5);
 			searchResultLabel.setStyleName("header");
 			
+			editElementPanel.setVisible(false);
 			convTohtml.setVisible(false);
 			modulePanel.setVisible(false);
 			errorLabel.setVisible(false);
@@ -213,7 +254,6 @@ public class SearchResult extends VerticalPanel {
 	// DIALOGBOX ########################################################################################################
 		    
 		    
-		    dialogBox.setText("Komponente - Entfernen");
 			dialogBox.setAnimationEnabled(true);
 			
 			dialogboxVPanel.add(new HTML("<br><br>"));
@@ -221,7 +261,7 @@ public class SearchResult extends VerticalPanel {
 			dialogboxVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
 			dialogboxVPanel.add(closeButton);
 			dialogBox.setWidget(dialogboxVPanel);
-		 		
+		 	
 			
 	// HANDLER ########################################################################################################
 			
@@ -235,7 +275,7 @@ public class SearchResult extends VerticalPanel {
 							delete();
 						}
 					}
-				});	*/	
+				});	*/
 			
 			closeButton.addClickHandler(new ClickHandler() {
 				
@@ -263,6 +303,16 @@ public class SearchResult extends VerticalPanel {
 				public void onClick(ClickEvent event) {
 
 					edit();
+
+				}
+			});
+		 	
+		 	acceptButton.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+
+					accept();
 
 				}
 			});

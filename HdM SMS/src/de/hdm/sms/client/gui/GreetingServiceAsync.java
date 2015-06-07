@@ -13,6 +13,8 @@ public interface GreetingServiceAsync {
 			throws IllegalArgumentException;
 	void createElement(String name, String description, String material, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
+	void edit(String name, String description, String material, AsyncCallback<String> callback)
+			throws IllegalArgumentException;
 	void createModule(String name, String component1, String component2, String component3, 
 			Boolean endproduct, AsyncCallback<String> callback)
 					throws IllegalArgumentException;

@@ -67,7 +67,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	
 	@Override
 	public String getName() throws IllegalArgumentException {
-		 
+		
+		//While um testen ob Bauteil oder Baugruppe
 		return this.username + ", <br>";
 	}	
 
@@ -88,7 +89,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String delete(String name) throws IllegalArgumentException {
 		
-		return name + " wurde erfolgreich gelöscht";
+		return name + " wurde erfolgreich gelöscht<br><br>";
 
 	}
 	
@@ -101,6 +102,18 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		material = escapeHtml(material);
 
 		return "<b>Bauteil</b><br><br>Name:" + name + "<br> Beschreibung:" + description + "<br>Material:" + material + "<br><br>";
+
+	}
+	
+	@Override
+	public String edit(String name, String description,
+			String material) throws IllegalArgumentException {
+		
+		name = escapeHtml(name);
+		description = escapeHtml(description);
+		material = escapeHtml(material);
+
+		return "<b>Die Komponente wurde erfolgreich geändert!<br><br></b>Die Daten wurden erfolgreich übernommen:<br><br>Name:" + name + "<br> Beschreibung:" + description + "<br>Material:" + material + "<br><br>";
 
 	}
 	
