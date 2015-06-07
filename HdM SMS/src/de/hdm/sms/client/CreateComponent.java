@@ -324,7 +324,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 						public void onClick(ClickEvent event) {
 							
 							int removedIndex = deleteButton.getTabIndex();
-							componentListArray[removedIndex] = "empty";
+							componentListArray[removedIndex-1] = "empty";
 					        componentFlexTable.setText(removedIndex, 0, null);
 							componentFlexTable.setWidget(removedIndex, 1, null);
 							
@@ -339,7 +339,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 							
 							componentFlexTable.setText(i, 0, element);
 							componentFlexTable.setWidget(i, 1, deleteButton);
-							deleteButton.setTabIndex(i-1);
+							deleteButton.setTabIndex(i);
 							break;
 						}
 						else
@@ -371,7 +371,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 						public void onClick(ClickEvent event) {
 							
 							int removedIndex = deleteButton.getTabIndex();
-							componentListArray[removedIndex] = "empty";
+							componentListArray[removedIndex-1] = "empty";
 					        componentFlexTable.setText(removedIndex, 0, null);
 							componentFlexTable.setWidget(removedIndex, 1, null);
 							
@@ -386,7 +386,7 @@ private final GreetingServiceAsync greetingService = GWT.create(GreetingService.
 							
 							componentFlexTable.setText(i, 0, element);
 							componentFlexTable.setWidget(i, 1, deleteButton);
-							deleteButton.setTabIndex(i-1);
+							deleteButton.setTabIndex(i);
 							break;
 						}
 						else
