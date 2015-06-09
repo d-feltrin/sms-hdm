@@ -5,13 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import de.hdm.sms.client.ClientsideSettings;
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.User;
 
 public class UserMapper {
 	private static UserMapper userMapper = null;
+	private Logger logger = ClientsideSettings.getLogger();
 	public Connection con = DatebaseConnection.connection();
 
 	protected UserMapper() {
@@ -66,6 +70,31 @@ public class UserMapper {
 		return resultList;
 	}
 
+	public User getUserByEmail(String emailAdress){
+		Connection con = DatebaseConnection.connection();
+		
+		try {
+			Statement state = con.createStatement();
+			ResultSet rs = state.executeQuery("SELECT Id, Firstname, Lastname, EmailAdress FROM User" + "WHERE EmailAdress LIKE '"+ emailAdress + "'");
+		
+		while (rs.next()){
+			User u = new User();
+				rs.getInt("Id");
+				rs.getString("Firstname");
+				rs.getString("Lastname");
+				rs.getString("EmailAdress");
+		
+			return u;
+		}
+	}
+		catch (SQLException e){
+			logger.log(Level.WARNING, "User mit der Email Adresse:" + emailAdress +
+					"konnte nicht aus der Datenbank geladen werden.",e);
+			e.printStackTrace();
+		}
+		return null;
+		}
+		
 	public User getOneComponentIdByName(String selectedUser) {
 
 		Connection con = DatebaseConnection.connection();
@@ -129,6 +158,5 @@ public class UserMapper {
 
 		}
 	}
-
 
 }
