@@ -5,6 +5,10 @@ import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.LoginService;
 import de.hdm.sms.shared.LoginServiceAsync;
 
+
+
+
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,12 +18,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.client.gui.ImageSMS;
 import de.hdm.sms.client.gui.Impressum;
+import de.hdm.sms.client.gui.SearchComponent;
 import de.hdm.sms.client.gui.Startside;
 
 public class HdM_SMS implements EntryPoint {
@@ -36,6 +42,7 @@ public class HdM_SMS implements EntryPoint {
 	private Anchor signInLink = new Anchor("Anmelden");
 	private Anchor signOutLink = new Anchor("Abmelden");
 
+
 	Logger logger = ClientsideSettings.getLogger();
 	
 	public void loadStartside() {
@@ -46,12 +53,10 @@ public class HdM_SMS implements EntryPoint {
 
 		// Logout Url holen
 		signOutLink.setHref(loginInfo.getLogoutUrl());
-		RootPanel.get("leftside").add(new Startside());
+		RootPanel.get("leftside").add(new SearchComponent());
 		RootPanel.get("leftside").add(loggedInlabel);
 		RootPanel.get("leftside").add(signOutLink);
-
 	}
-		
 	public void loadLogin() {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
@@ -83,6 +88,7 @@ public class HdM_SMS implements EntryPoint {
 			}
 		});
 		
+	
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.getUserInfo(
 				com.google.gwt.core.client.GWT.getHostPageBaseURL(),
