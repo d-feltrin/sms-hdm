@@ -31,7 +31,6 @@ public class SearchComponent extends VerticalPanel {
 	private VerticalPanel dialogboxVPanel = new VerticalPanel();
 	private Button searchButton = new Button("Suchen");
 	private Button createButton = new Button("Anlegen");
-	private Button logoutButton = new Button("Logout");
 	private Button closeButton = new Button("Close");
 	private TextBox searchTextBox = new TextBox();
 	private Label searchLabel = new Label("Produktsuche");
@@ -104,7 +103,6 @@ public class SearchComponent extends VerticalPanel {
 		
 		searchButton.setPixelSize(180, 30);
 		createButton.setPixelSize(180, 30);
-		logoutButton.setPixelSize(180, 30);
 		
 		searchTextBox.setText("Produktname/nummer");
 		
@@ -113,7 +111,6 @@ public class SearchComponent extends VerticalPanel {
 
 		dockPanel.add(searchLabel, DockPanel.NORTH); 		//North
 		dockPanel.add(searchTextBox, DockPanel.WEST); 		//West
-		dockPanel.add(logoutButton, DockPanel.EAST); 		//East
 		dockPanel.add(new HTML(" "), DockPanel.SOUTH); 		//South
 		dockPanel.add(buttonPanel, DockPanel.NORTH); 		//Second North
 		dockPanel.add(new HTML(" "), DockPanel.SOUTH); 		//Second South
@@ -169,18 +166,6 @@ public class SearchComponent extends VerticalPanel {
 			}
 		});
 		
-	 	logoutButton.addClickHandler(new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						
-						logout();
-						RootPanel.get("leftside").clear();
-						RootPanel.get("leftside").add(new Startside());
-						RootPanel.get("rightside").clear();
-						RootPanel.get("rightside").add(new ImageSMS());
-					}
-		});
 	 	
 	 	createButton.addClickHandler(new ClickHandler() {
 			
