@@ -20,50 +20,43 @@ import de.hdm.sms.shared.AService;
 
 public class ClientsideSettings {
 
-	 private static AServiceAsync stücklistenVerwaltung = null;
-	 
-	 private static LoginServiceAsync loginService = null;
-	 
-	 private static final Logger log = Logger.getLogger("LOGGER_NAME");
-	 
-	 
+	private static AServiceAsync smsAdministration = null;
 
-	 /**
-		 * Gibt den Logger zurück
-		 * 
-		 * @return eindeutige Instanz des Typs {@link Logger}
-		 */
+	private static LoginServiceAsync loginService = null;
 
-	 
-	 public static Logger getLogger() {
-		    return log;
-		  }
-	 
-	 /**
-		 * Gibt den LoginService zurück.
-		 * 
-		 * @return eindeutige Instanz vom Typ {@link LoginServiceAsync}
-		 */
-		public static LoginServiceAsync getLoginService() {
-			if (loginService == null) {
-				loginService = GWT.create(LoginService.class);
-			}
-			return loginService;
+	private static final Logger log = Logger.getLogger("LOGGER_NAME");
+
+	/**
+	 * Gibt den Logger zurï¿½ck
+	 * 
+	 * @return eindeutige Instanz des Typs {@link Logger}
+	 */
+	public static Logger getLogger() {
+		return log;
+	}
+
+	/**
+	 * Gibt den LoginService zurï¿½ck.
+	 * 
+	 * @return eindeutige Instanz vom Typ {@link LoginServiceAsync}
+	 */
+	public static LoginServiceAsync getLoginService() {
+		if (loginService == null) {
+			loginService = GWT.create(LoginService.class);
 		}
+		return loginService;
+	}
 
-	 
-	 
-	 /**
-		 * Gibt die StücklistenVerwaltung zurück und erstellt diese bei Bedarf.
-		 * 
-		 * @return eindeutige Instanz vom Typ {@link AServiceAsync}
-		 */
-
-	  public static AServiceAsync getAService() {
-		    if (stücklistenVerwaltung == null) { 
-		      stücklistenVerwaltung = GWT.create(AService.class);
-		    }
-
-		    return stücklistenVerwaltung;
-		  }
+	/**
+	 * Gibt die RaumplanerAdministraion zurï¿½ck und erstellt diese bei Bedarf.
+	 * 
+	 * @return eindeutige Instanz vom Typ {@link AServiceAsync}
+	 */
+	public static AServiceAsync getAService() {
+		if (smsAdministration == null) {
+			smsAdministration = GWT
+					.create(AService.class);
+		}
+		return smsAdministration;
+	}
 }

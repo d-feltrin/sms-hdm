@@ -1,6 +1,5 @@
 package de.hdm.sms.client;
 
-
 import de.hdm.sms.client.ClientsideSettings;
 import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.LoginService;
@@ -27,6 +26,7 @@ public class HdM_SMS implements EntryPoint {
 	
 	private VerticalPanel bottomPanel = new VerticalPanel();
 	private Label aboutLabel = new Label("Impressum");
+	
 	private LoginInfo loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
 
@@ -38,13 +38,51 @@ public class HdM_SMS implements EntryPoint {
 
 	Logger logger = ClientsideSettings.getLogger();
 	
+	public void loadStartside() {
+
+		// Anzeige des angemeldeten Benutzers
+		Label loggedInlabel = new Label("Angemeldet als: "
+				+ loginInfo.getEmailAddress());
+
+		// Logout Url holen
+		signOutLink.setHref(loginInfo.getLogoutUrl());
+		RootPanel.get("leftside").add(new Startside());
+		RootPanel.get("leftside").add(loggedInlabel);
+		RootPanel.get("leftside").add(signOutLink);
+
+	}
+		
+	public void loadLogin() {
+		signInLink.setHref(loginInfo.getLoginUrl());
+		loginPanel.add(loginLabel);
+		loginPanel.add(signInLink);
+		RootPanel.get("leftside").add(loginPanel);
+	}
+	
+	
 	// ONLOAD ########################################################################################################
 	
 	
 	public void onModuleLoad() {
 		
-		// Login wird versucht
-		// Aus den Settings holen wir den UserService
+		aboutLabel.addStyleName("impressum");
+		bottomPanel.add(aboutLabel);
+		
+		//RootPanel.get("leftside").add(new Startside());
+		RootPanel.get("rightside").add(new ImageSMS());
+		RootPanel.get("bottom").add(aboutLabel);
+		
+		aboutLabel.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new Impressum());
+				
+			}
+		});
+		
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.getUserInfo(
 				com.google.gwt.core.client.GWT.getHostPageBaseURL(),
@@ -71,23 +109,6 @@ public class HdM_SMS implements EntryPoint {
 						logger.log(Level.WARNING, "Login not available");
 					}
 				});
-		
-		aboutLabel.addStyleName("impressum");
-		bottomPanel.add(aboutLabel);
-		
-		RootPanel.get("leftside").add(new Startside());
-		RootPanel.get("rightside").add(new ImageSMS());
-		RootPanel.get("bottom").add(aboutLabel);
-		
-		aboutLabel.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new Impressum());
-				
-			}
-		});
 	}
 }
