@@ -1,9 +1,20 @@
 package de.hdm.sms.client;
 
 
+import de.hdm.sms.client.ClientsideSettings;
+import de.hdm.sms.shared.LoginInfo;
+import de.hdm.sms.shared.LoginService;
+import de.hdm.sms.shared.LoginServiceAsync;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -16,12 +27,50 @@ public class HdM_SMS implements EntryPoint {
 	
 	private VerticalPanel bottomPanel = new VerticalPanel();
 	private Label aboutLabel = new Label("Impressum");
-	
+	private LoginInfo loginInfo = null;
+	private VerticalPanel loginPanel = new VerticalPanel();
+
+	private Label loginLabel = new Label(
+			"Bitte melden Sie sich mit ihrem Google Account an, um Zugang zur Applikation zu bekommen");
+
+	private Anchor signInLink = new Anchor("Anmelden");
+	private Anchor signOutLink = new Anchor("Abmelden");
+
+	Logger logger = ClientsideSettings.getLogger();
 	
 	// ONLOAD ########################################################################################################
 	
 	
 	public void onModuleLoad() {
+		
+		// Login wird versucht
+		// Aus den Settings holen wir den UserService
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
+		loginService.getUserInfo(
+				com.google.gwt.core.client.GWT.getHostPageBaseURL(),
+				new AsyncCallback<LoginInfo>() {
+
+					@Override
+					public void onSuccess(LoginInfo result) {
+						loginInfo = result;
+
+						// Bei erfolgreichem Login, wir die Anwendnung aufgebaut
+						if (loginInfo.isLoggedIn()) {
+							logger.log(Level.INFO, "Login erfolgreich");
+							loadStartside();
+						} else {
+							// Ist der Nutzer nicht eingeloggt, wird ein Link
+							// zum Google Login angezeigt.
+							loadLogin();
+						}
+
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						logger.log(Level.WARNING, "Login not available");
+					}
+				});
 		
 		aboutLabel.addStyleName("impressum");
 		bottomPanel.add(aboutLabel);

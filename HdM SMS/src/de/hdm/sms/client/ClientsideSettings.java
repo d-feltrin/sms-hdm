@@ -22,9 +22,11 @@ public class ClientsideSettings {
 
 	 private static AServiceAsync stücklistenVerwaltung = null;
 	 
+	 private static LoginServiceAsync loginService = null;
+	 
 	 private static final Logger log = Logger.getLogger("LOGGER_NAME");
 	 
-	 private static LoginServiceAsync loginService = null;
+	 
 
 	 /**
 		 * Gibt den Logger zurück
