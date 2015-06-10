@@ -43,6 +43,7 @@ public class Startside extends VerticalPanel {
 	private Label loginLabel = new Label("Login");
 	private Label errorLabel = new Label();
 	private Label textToServerLabel = new Label();
+	private HTML testText = new HTML("Bitte Blabla");
 	private HTML serverResponseLabel = new HTML();
 	private RadioButton rb0 = new RadioButton("myRadioGroup", "Client/Viewer");
 	private RadioButton rb1 = new RadioButton("myRadioGroup", "Reportgenerator");
@@ -109,20 +110,21 @@ public class Startside extends VerticalPanel {
 		radioButtonPanel.add(rb1);
 	    
 		buttonPanel.add(loginButton);
-		buttonPanel.add(registerButton);
+		//buttonPanel.add(registerButton);
 	    
-		startsidePanel.add(nameLabel);
-		startsidePanel.add(nameTextBox);
+		startsidePanel.add(testText);
+		startsidePanel.add(loginButton);
+		/*startsidePanel.add(nameTextBox);
 		startsidePanel.add(keywordLabel);
 		startsidePanel.add(keywordTextBox);
-		startsidePanel.add(errorLabel);
+		startsidePanel.add(errorLabel);*/
 		
 		dockPanel.add(loginLabel, DockPanel.NORTH); 		//North
 		dockPanel.add(startsidePanel, DockPanel.WEST); 		//West
 		dockPanel.add(new HTML(" "), DockPanel.EAST); 		//East
 		dockPanel.add(new HTML(" "), DockPanel.SOUTH); 		//South
-		dockPanel.add(radioButtonPanel, DockPanel.NORTH); 	//Second North
-		dockPanel.add(buttonPanel, DockPanel.SOUTH); 		//Second South
+		dockPanel.add(new HTML(" "), DockPanel.NORTH); 	//Second North
+		dockPanel.add(new HTML(" "), DockPanel.SOUTH); 		//Second South
 		
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		dockPanel.setStyleName("dockpanel");
