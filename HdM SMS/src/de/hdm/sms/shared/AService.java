@@ -30,4 +30,6 @@ public interface AService extends RemoteService {
 
 	void updateUserById(User u);
 
+	User getUserByEmail(String eMailAdress);
+
 }

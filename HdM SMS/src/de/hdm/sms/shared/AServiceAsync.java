@@ -32,4 +32,6 @@ public interface AServiceAsync {
 
 	void updateUserById(User u, AsyncCallback<Void> asyncCallback);
 
+	void getUserByEmail(String eMailAdress, AsyncCallback<User> callback);
+
 }

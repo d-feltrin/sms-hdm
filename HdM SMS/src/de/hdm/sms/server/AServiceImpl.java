@@ -1,7 +1,9 @@
 package de.hdm.sms.server;
 
 import java.util.ArrayList;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 import de.hdm.sms.server.db.ComponentMapper;
 import de.hdm.sms.server.db.UserMapper;
 import de.hdm.sms.shared.AService;
@@ -73,5 +75,11 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public void updateUserById(User u) {
 		uMapper.updateUserById(u);
+	}
+	@Override
+	public User getUserByEmail(String eMailAdress) {
+		User u = new User();
+		u = uMapper.getUserByEmail(eMailAdress);
+		return u;
 	}
 }

@@ -70,41 +70,45 @@ public class UserMapper {
 		return resultList;
 	}
 
-	public User getUserByEmail(String emailAdress){
+	public User getUserByEmail(String eMailAdress) {
 		Connection con = DatebaseConnection.connection();
-		
+
+		User u = new User();
+
 		try {
+
 			Statement state = con.createStatement();
-			ResultSet rs = state.executeQuery("SELECT Id, Firstname, Lastname, EmailAdress FROM User" + "WHERE EmailAdress LIKE '"+ emailAdress + "'");
-		
-		while (rs.next()){
-			User u = new User();
-				rs.getInt("Id");
-				rs.getString("Firstname");
-				rs.getString("Lastname");
-				rs.getString("EmailAdress");
-		
-			return u;
-		}
-	}
-		catch (SQLException e){
-			logger.log(Level.WARNING, "User mit der Email Adresse:" + emailAdress +
-					"konnte nicht aus der Datenbank geladen werden.",e);
+			ResultSet rs = state
+					.executeQuery("SELECT * FROM User WHERE EmailAdress='"
+							+ eMailAdress + "'");
+
+			while (rs.next()) {
+
+				u.setId(rs.getInt("Id"));
+				u.setFirstName(rs.getString("Firstname"));
+				u.setLastName(("Lastname"));
+				u.seteMailAdress(rs.getString("EmailAdress"));
+
+			}
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
-		}
-		
+
+		return u;
+	}
+
 	public User getOneComponentIdByName(String selectedUser) {
 
 		Connection con = DatebaseConnection.connection();
 
-		User u= new User();
+		User u = new User();
 
 		try {
 			Statement state = con.createStatement();
-			ResultSet rs = state.executeQuery("SELECT * FROM User WHERE EmailAdress='"
-					+ selectedUser + "';");
+			ResultSet rs = state
+					.executeQuery("SELECT * FROM User WHERE EmailAdress='"
+							+ selectedUser + "';");
 
 			while (rs.next()) {
 
@@ -132,7 +136,8 @@ public class UserMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("DELETE FROM User WHERE Id='" + deleteUserId + "';");
+			state.executeUpdate("DELETE FROM User WHERE Id='" + deleteUserId
+					+ "';");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -148,8 +153,8 @@ public class UserMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("UPDATE `User` SET `Firstname`= '" + u.getFirstName()
-					+ "', `Lastname`= '" + u.getLastName()
+			state.executeUpdate("UPDATE `User` SET `Firstname`= '"
+					+ u.getFirstName() + "', `Lastname`= '" + u.getLastName()
 					+ "', " + "`EmailAdress`= '" + u.geteMailAdress() + "' "
 					+ "WHERE `Id` = '" + u.getId() + "';");
 

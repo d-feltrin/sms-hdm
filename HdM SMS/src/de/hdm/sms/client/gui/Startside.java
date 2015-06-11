@@ -1,6 +1,7 @@
 package de.hdm.sms.client.gui;
 
 import de.hdm.sms.client.CreateComponent;
+import de.hdm.sms.client.CreateComponentGroup;
 import de.hdm.sms.client.CreateUser;
 import de.hdm.sms.client.EditComponent;
 import de.hdm.sms.client.EditUser;
@@ -164,12 +165,13 @@ public class Startside extends VerticalPanel {
 		// Create a menu bar
 		MenuBar menu = new MenuBar();
 		menu.setAutoOpen(true);
-		menu.setWidth("150px");
+		menu.setWidth("300px");
 		menu.setAnimationEnabled(true);
 
 		// Create the file menu
 		MenuBar userMenu = new MenuBar(true);
 		MenuBar componentMenu = new MenuBar(true);
+		MenuBar componentGroupMenu = new MenuBar(true);
 		userMenu.setAnimationEnabled(false);
 
 		userMenu.addItem("Edit", new Command() {
@@ -196,8 +198,17 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("leftside").add(new EditComponent());
 			}
 		});
+		componentGroupMenu.addItem("Create", new Command() {
+			@Override
+			public void execute() {
+
+				RootPanel.get("leftside").clear();
+				RootPanel.get("leftside").add(new CreateComponentGroup());
+			}
+		});
 		menu.addItem(new MenuItem("User", userMenu));
 		menu.addItem(new MenuItem("Component", componentMenu));
+		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
 
 		RootPanel.get("bottom").clear();
 		RootPanel.get("bottom").add(menu);
