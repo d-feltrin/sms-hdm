@@ -34,11 +34,11 @@ public class Component extends BusinessObject {
 		this.name = name;
 	}
 
-	public String getMaterial() {
+	public String getMaterialDescription() {
 		return material;
 	}
 
-	public void setMaterial(String material) {
+	public void setMaterialDescription(String material) {
 		this.material = material;
 	}
 

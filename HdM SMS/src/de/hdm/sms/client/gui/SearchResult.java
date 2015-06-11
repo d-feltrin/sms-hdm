@@ -143,7 +143,7 @@ public class SearchResult extends VerticalPanel {
 							
 							Component element = new Component("Brett","Aus feinem Edelholz mit schn&oumlrkel","Holz"); // Testzweck
 							
-							String conv = "<b>Name:</b> <br>" + element.getName() +"<br><br><b>Beschreibung:</b> <br>" + element.getDescription() +"<br><br><b>Material:</b> <br>" + element.getMaterial();
+							String conv = "<b>Name:</b> <br>" + element.getName() +"<br><br><b>Beschreibung:</b> <br>" + element.getDescription() +"<br><br><b>Material:</b> <br>" + element.getMaterialDescription();
 							convTohtml.setHTML(conv);
 							convTohtml.setVisible(true);
 							errorLabel.setVisible(false);

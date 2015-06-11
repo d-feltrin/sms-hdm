@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.shared.FieldVerifier;
+import de.hdm.sms.shared.LoginInfo;
 
 public class SearchComponent extends VerticalPanel {
 	

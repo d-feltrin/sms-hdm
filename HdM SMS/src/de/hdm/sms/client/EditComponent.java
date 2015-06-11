@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.sms.client.gui.Startside;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.bo.Component;
@@ -44,22 +45,27 @@ public class EditComponent extends VerticalPanel {
 	public EditComponent() {
 
 	}
-private void updateComponent(Component c) {
-	AsyncObj.updateComponentById(c, new AsyncCallback<Void>() {
 
-		@Override
-		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-			
-		}
+	private void updateComponent(Component c) {
+		AsyncObj.updateComponentById(c, new AsyncCallback<Void>() {
 
-		@Override
-		public void onSuccess(Void result) {
-			Window.alert("Das Bauteil wurde editiert");
-			
-		}
-	});
-}
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Window.alert("Das Bauteil wurde editiert");
+				RootPanel.get("leftside").clear();
+				Startside sS = new Startside();
+				RootPanel.get().add(sS);
+
+			}
+		});
+	}
+
 	private void LoadAllComponents() {
 
 		ListOfComponents.setSize("180px", "35px");
@@ -80,12 +86,11 @@ private void updateComponent(Component c) {
 
 					ListOfComponents.addItem(result.get(i).getName());
 
-					
 				}
 
 			}
 		});
-		RootPanel.get("content").add(ListOfComponents);
+		RootPanel.get("leftside").add(ListOfComponents);
 	}
 
 	private void DeleteComponent(int DeleteComponentId) {
@@ -101,10 +106,9 @@ private void updateComponent(Component c) {
 					@Override
 					public void onSuccess(Void result) {
 						Window.alert("Bauteil erfolgreich gelöscht");
-						RootPanel.get("content").clear();
-						RootPanel.get("content").add(new CreateComponent());
-						ListOfComponents.clear();
-						LoadAllComponents();
+						RootPanel.get("leftside").clear();
+						Startside sS = new Startside();
+						RootPanel.get().add(sS);
 
 					}
 				});
@@ -118,7 +122,7 @@ private void updateComponent(Component c) {
 
 			@Override
 			public void onChange(ChangeEvent event) {
-				RootPanel.get("content").clear();
+				RootPanel.get("leftside").clear();
 				selectedComponent = ListOfComponents
 						.getItemText(ListOfComponents.getSelectedIndex());
 
@@ -141,7 +145,7 @@ private void updateComponent(Component c) {
 								DescriptionOfComponent.setText(result
 										.getDescription());
 								MaterialDescriptionOfComponent.setText(result
-										.getMaterial());
+										.getMaterialDescription());
 								ComponentItemPanel
 										.add(LabelOfIdComponentTextBox);
 								ComponentItemPanel.add(IdOfComponent);
@@ -156,9 +160,9 @@ private void updateComponent(Component c) {
 								ComponentItemPanel
 										.add(MaterialDescriptionOfComponent);
 								ComponentItemPanel.add(ButtonPanel);
-								RootPanel.get("content").clear();
-								RootPanel.get("content")
-										.add(ComponentItemPanel);
+								RootPanel.get("leftside").clear();
+								RootPanel.get("leftside").add(
+										ComponentItemPanel);
 								DeleteComponentButton
 										.addClickHandler(new ClickHandler() {
 
@@ -166,12 +170,7 @@ private void updateComponent(Component c) {
 											public void onClick(ClickEvent event) {
 												DeleteComponent(Integer
 														.parseInt(IdOfComponentString));
-												RootPanel.get("content")
-														.clear();
-												RootPanel.get("content").add(
-														ListOfComponents);
-												RootPanel.get("content").add(
-														ComponentItemPanel);
+
 											}
 										});
 								EditComponentButton
@@ -194,7 +193,7 @@ private void updateComponent(Component c) {
 															.parseInt(IdOfComponentString));
 													c.setName(NameOfComponent
 															.getText());
-													c.setMaterial(MaterialDescriptionOfComponent
+													c.setMaterialDescription(MaterialDescriptionOfComponent
 															.getText());
 													c.setDescription(DescriptionOfComponent
 															.getText());

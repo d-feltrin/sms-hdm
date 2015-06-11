@@ -38,7 +38,7 @@ public class ComponentMapper {
 					+ "','"
 					+ c.getDescription()
 					+ "', '"
-					+ c.getMaterial() + "');";
+					+ c.getMaterialDescription() + "');";
 			state.executeUpdate(sqlquery);
 
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class ComponentMapper {
 				c.setId(result.getInt("Id"));
 				c.setName(result.getString("Name"));
 				c.setDescription(result.getString("Description"));
-				c.setMaterial(result
+				c.setMaterialDescription(result
 						.getString("Materialdescription"));
 
 				resultList.add(c);
@@ -86,7 +86,7 @@ public class ComponentMapper {
 				c.setId(rs.getInt("Id"));
 				c.setName(rs.getString("Name"));
 				c.setDescription(rs.getString("Description"));
-				c.setMaterial(rs.getString("Materialdescription"));
+				c.setMaterialDescription(rs.getString("Materialdescription"));
 
 			}
 
@@ -124,7 +124,7 @@ public class ComponentMapper {
 			Statement state = con.createStatement();
 
 			state.executeUpdate("UPDATE `Component` SET `Name`= '" + c.getName()
-					+ "', `Materialdescription`= '" + c.getMaterial()
+					+ "', `Materialdescription`= '" + c.getMaterialDescription()
 					+ "', " + "`Description`= '" + c.getDescription() + "' "
 					+ "WHERE `Id` = '" + c.getId() + "';");
 
