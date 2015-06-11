@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.sms.client.gui.ImageSMS;
 import de.hdm.sms.client.gui.Startside;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
@@ -55,7 +56,7 @@ private void updateUser(User u) {
 		@Override
 		public void onSuccess(Void result) {
 			Window.alert("Benutzer erfolgreich editiert");
-			RootPanel.get("leftside").clear();
+			RootPanel.get("rightside").clear();
 			Startside sS = new Startside();
 			RootPanel.get().add(sS);
 			
@@ -75,9 +76,12 @@ private void updateUser(User u) {
 			@Override
 			public void onSuccess(Void result) {
 				Window.alert("Benutzer erfolgreich gelöscht");
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new ImageSMS());
+				//Startside sS = new Startside();
+				//RootPanel.get().add(sS);
 				RootPanel.get("leftside").clear();
-				Startside sS = new Startside();
-				RootPanel.get().add(sS);
+				RootPanel.get("leftside").add(new Startside());
 				
 
 			}
@@ -109,7 +113,7 @@ private void updateUser(User u) {
 
 			}
 		});
-		RootPanel.get("leftside").add(ListOfUsers);
+		RootPanel.get("rightside").add(ListOfUsers);
 	}
 
 	public void onLoad() {
@@ -121,7 +125,7 @@ private void updateUser(User u) {
 
 			@Override
 			public void onChange(ChangeEvent event) {
-				RootPanel.get("leftside").clear();
+				RootPanel.get("rightside").clear();
 				selectedUser = ListOfUsers.getItemText(ListOfUsers
 						.getSelectedIndex());
 
@@ -152,9 +156,9 @@ private void updateUser(User u) {
 								UserItemPanel.add(eMailAdressLabel);
 								UserItemPanel.add(eMailAdressTextBox);
 								UserItemPanel.add(ButtonPanel);
-								RootPanel.get("leftside").clear();
-								RootPanel.get("leftside").add(ListOfUsers);
-								RootPanel.get("leftside").add(UserItemPanel);
+								RootPanel.get("rightside").clear();
+								RootPanel.get("rightside").add(ListOfUsers);
+								RootPanel.get("rightside").add(UserItemPanel);
 								DeleteUserButton
 										.addClickHandler(new ClickHandler() {
 
