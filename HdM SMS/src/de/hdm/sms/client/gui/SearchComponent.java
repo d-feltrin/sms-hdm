@@ -173,8 +173,8 @@ public class SearchComponent extends VerticalPanel {
 			@Override
 			public void onClick(ClickEvent event) {
 
-				RootPanel.get("leftside").clear();
-				RootPanel.get("leftside").add(new CreateComponent());
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new CreateComponent());
 
 			}
 		});

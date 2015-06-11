@@ -76,16 +76,16 @@ public class CreateComponentGroup extends VerticalPanel {
 		AddComponentPanel.add(ListOfComponents);
 		AddComponentPanel.add(AddComponentButton);
 		
-		RootPanel.get("leftside").add(AddComponentPanel);
-		RootPanel.get("leftside").add(NameOfComponentLabel);
-		RootPanel.get("leftside").add(CreateComponentGroupPanel);
+		RootPanel.get("rightside").add(AddComponentPanel);
+		RootPanel.get("rightside").add(NameOfComponentLabel);
+		RootPanel.get("rightside").add(CreateComponentGroupPanel);
 		
-		RootPanel.get("leftside").add(CreateComponentGroupPanel);
+		RootPanel.get("rightside").add(CreateComponentGroupPanel);
 		
 		ComponentTable.setText(0, 0, "ID");
 		ComponentTable.setText(0, 1, "Name");
 		ComponentTable.setText(0, 2, "Anzahl");
-		RootPanel.get("leftside").add(ComponentTable);
+		RootPanel.get("rightside").add(ComponentTable);
 		
 		
 		

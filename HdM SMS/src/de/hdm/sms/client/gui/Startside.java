@@ -103,8 +103,8 @@ public class Startside extends VerticalPanel {
 	}
 
 	public void createUser() {
-		RootPanel.get("leftside").clear();
-		RootPanel.get("leftside").add(new CreateUser());
+		RootPanel.get("rightside").clear();
+		RootPanel.get("rightside").add(new CreateUser());
 	}
 
 	// ONLOAD
@@ -195,16 +195,16 @@ public class Startside extends VerticalPanel {
 			@Override
 			public void execute() {
 
-				RootPanel.get("leftside").clear();
-				RootPanel.get("leftside").add(new EditComponent());
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new EditComponent());
 			}
 		});
 		componentGroupMenu.addItem("Create", new Command() {
 			@Override
 			public void execute() {
 
-				RootPanel.get("leftside").clear();
-				RootPanel.get("leftside").add(new CreateComponentGroup());
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new CreateComponentGroup());
 			}
 		});
 		menu.addItem(new MenuItem("User", userMenu));
@@ -270,7 +270,10 @@ public class Startside extends VerticalPanel {
 			@Override
 			public void onClick(ClickEvent event) {
 
-				createUser();
+				
+					RootPanel.get("rightside").clear();
+					RootPanel.get("rightside").add(new CreateUser());
+				
 			}
 
 		});
