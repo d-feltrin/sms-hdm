@@ -40,17 +40,18 @@ public class Startside extends VerticalPanel {
 
 	private DockPanel dockPanel = new DockPanel();
 	private VerticalPanel startsidePanel = new VerticalPanel();
+	private VerticalPanel menuPanel = new VerticalPanel();
 	private VerticalPanel radioButtonPanel = new VerticalPanel();
 	private VerticalPanel dialogboxVPanel = new VerticalPanel();
 	private FlowPanel buttonPanel = new FlowPanel();
-	private Button loginButton = new Button("Anmelden");
-	private Button registerButton = new Button("Registrieren");
+	//private Button loginButton = new Button("Anmelden");
+	//private Button registerButton = new Button("Registrieren");
 	private Button closeButton = new Button("Close");
-	private TextBox nameTextBox = new TextBox();
-	private TextBox keywordTextBox = new TextBox();
-	private Label nameLabel = new Label("Benutzername");
-	private Label keywordLabel = new Label("Passwort");
-	private Label loginLabel = new Label("Login");
+	//private TextBox nameTextBox = new TextBox();
+	//private TextBox keywordTextBox = new TextBox();
+	//private Label nameLabel = new Label("Benutzername");
+	//private Label keywordLabel = new Label("Passwort");
+	//private Label loginLabel = new Label("Login");
 	private Label errorLabel = new Label();
 	private Label textToServerLabel = new Label();
 	private HTML serverResponseLabel = new HTML();
@@ -62,7 +63,7 @@ public class Startside extends VerticalPanel {
 
 	}
 
-	public void login() {
+/*	public void login() {
 
 		errorLabel.setText("");
 		String textToServer = nameTextBox.getText();
@@ -72,8 +73,8 @@ public class Startside extends VerticalPanel {
 			return;
 		}
 
-		loginButton.setEnabled(false);
-		registerButton.setEnabled(false);
+		//loginButton.setEnabled(false);
+		//registerButton.setEnabled(false);
 		textToServerLabel.setText("");
 		serverResponseLabel.setText("");
 		greetingService.getName(textToServer, new AsyncCallback<String>() {
@@ -95,7 +96,7 @@ public class Startside extends VerticalPanel {
 
 			}
 		});
-	}
+	} */
 
 	public void openReport() {
 
@@ -111,25 +112,25 @@ public class Startside extends VerticalPanel {
 
 	public void onLoad() {
 
-		loginButton.setPixelSize(180, 30);
+		/*loginButton.setPixelSize(180, 30);
 		registerButton.setPixelSize(180, 30);
 		nameTextBox.setText("Benutzername");
-		keywordTextBox.setText("********");
+		keywordTextBox.setText("********"); */
 		rb0.setChecked(true);
 
 		radioButtonPanel.add(rb0);
 		radioButtonPanel.add(rb1);
 
-		buttonPanel.add(loginButton);
-		buttonPanel.add(registerButton);
+		//buttonPanel.add(loginButton);
+		//buttonPanel.add(registerButton);
 
-		startsidePanel.add(nameLabel);
-		startsidePanel.add(nameTextBox);
-		startsidePanel.add(keywordLabel);
-		startsidePanel.add(keywordTextBox);
+	//	startsidePanel.add(nameLabel);
+		//startsidePanel.add(nameTextBox);
+	//	startsidePanel.add(keywordLabel);
+	//	startsidePanel.add(keywordTextBox);
 		startsidePanel.add(errorLabel);
 
-		dockPanel.add(loginLabel, DockPanel.NORTH); // North
+		//dockPanel.add(loginLabel, DockPanel.NORTH); // North
 		dockPanel.add(startsidePanel, DockPanel.WEST); // West
 		dockPanel.add(new HTML(" "), DockPanel.EAST); // East
 		dockPanel.add(new HTML(" "), DockPanel.SOUTH); // South
@@ -139,12 +140,12 @@ public class Startside extends VerticalPanel {
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		dockPanel.setStyleName("dockpanel");
 		dockPanel.setSpacing(5);
-		loginLabel.setStyleName("header");
+	//	loginLabel.setStyleName("header");
 
 		RootPanel.get("leftside").add(dockPanel);
 
-		nameTextBox.setFocus(true);
-		nameTextBox.selectAll();
+		//nameTextBox.setFocus(true);
+		//nameTextBox.selectAll();
 
 		// DIALOGBOX
 		// ########################################################################################################
@@ -163,9 +164,9 @@ public class Startside extends VerticalPanel {
 		dialogBox.setWidget(dialogboxVPanel);
 
 		// Create a menu bar
-		MenuBar menu = new MenuBar();
+		MenuBar menu = new MenuBar(true);
 		menu.setAutoOpen(true);
-		menu.setWidth("300px");
+		menu.setWidth("150px");
 		menu.setAnimationEnabled(true);
 
 		// Create the file menu
@@ -209,13 +210,15 @@ public class Startside extends VerticalPanel {
 		menu.addItem(new MenuItem("User", userMenu));
 		menu.addItem(new MenuItem("Component", componentMenu));
 		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
+//hier verändert
+		dockPanel.add(menuPanel, DockPanel.WEST);
+		//RootPanel.get("leftside").clear();
+		menuPanel.add(menu);
 
-		RootPanel.get("bottom").clear();
-		RootPanel.get("bottom").add(menu);
-
+		
 		// HANDLER
 		// ########################################################################################################
-
+/*
 		keywordTextBox.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
@@ -234,9 +237,9 @@ public class Startside extends VerticalPanel {
 					login();
 				}
 			}
-		});
+		}); */
 
-		closeButton.addClickHandler(new ClickHandler() {
+/*		closeButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -271,6 +274,6 @@ public class Startside extends VerticalPanel {
 			}
 
 		});
-
+*/
 	}
 }
