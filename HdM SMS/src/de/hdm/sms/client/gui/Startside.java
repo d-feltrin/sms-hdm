@@ -4,6 +4,7 @@ import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
 import de.hdm.sms.client.CreateUser;
 import de.hdm.sms.client.EditComponent;
+import de.hdm.sms.client.EditComponentGroup;
 import de.hdm.sms.client.EditUser;
 import de.hdm.sms.shared.FieldVerifier;
 
@@ -205,6 +206,14 @@ public class Startside extends VerticalPanel {
 
 				RootPanel.get("rightside").clear();
 				RootPanel.get("rightside").add(new CreateComponentGroup());
+			}
+		});
+		componentGroupMenu.addItem("Edit", new Command() {
+			@Override
+			public void execute() {
+
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new EditComponentGroup());
 			}
 		});
 		menu.addItem(new MenuItem("User", userMenu));

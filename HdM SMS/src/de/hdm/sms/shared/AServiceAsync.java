@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.sms.shared.bo.Component;
+import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.User;
 
 public interface AServiceAsync {
@@ -20,6 +21,10 @@ public interface AServiceAsync {
 			AsyncCallback<Void> asyncCallback);
 
 	void updateComponentById(Component c, AsyncCallback<Void> asyncCallback);
+	
+	void loadAllComponentGroups(AsyncCallback<ArrayList<ComponentGroup>> asyncCallback);
+	
+	void updateComponentGroupById (ComponentGroup cg, AsyncCallback<Void> asyncCallback);
 
 	void insertUser(User u, AsyncCallback<Void> asyncCallback);
 
@@ -33,5 +38,7 @@ public interface AServiceAsync {
 	void updateUserById(User u, AsyncCallback<Void> asyncCallback);
 
 	void getUserByEmail(String eMailAdress, AsyncCallback<User> callback);
+
+	
 
 }

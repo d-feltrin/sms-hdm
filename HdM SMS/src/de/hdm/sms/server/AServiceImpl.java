@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.hdm.sms.server.db.ComponentGroupMapper;
 import de.hdm.sms.server.db.ComponentMapper;
 import de.hdm.sms.server.db.UserMapper;
 import de.hdm.sms.shared.AService;
@@ -13,6 +14,7 @@ import de.hdm.sms.shared.bo.*;
 public class AServiceImpl extends RemoteServiceServlet implements AService {
 	private ComponentMapper cMapper = null;
 	private UserMapper uMapper = null;
+	private ComponentGroupMapper cgMapper = null;
 	
 	public void init() throws IllegalArgumentException {
 		this.cMapper = ComponentMapper.componentMapper();
@@ -45,6 +47,17 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public void updateComponentById(Component c) {
 		cMapper.updateComponentById(c);
+	}
+	
+	@Override
+	public ArrayList<ComponentGroup> loadAllComponentGroups() {
+		ArrayList<ComponentGroup> ComponentGroupList = cgMapper.loadAllComponentGroups();
+		return ComponentGroupList;
+	}
+	
+	@Override
+	public void updateComponentGroupById(ComponentGroup cg) {
+		cgMapper.updateComponentGroupById(cg);
 	}
 	
 	@Override
