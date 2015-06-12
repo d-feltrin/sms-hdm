@@ -26,6 +26,21 @@ public class ComponentGroupMapper {
 		return componentGroupMapper;
 	}
 	
+	public void insertComponentGroup(ComponentGroup cg) {
+		Connection con = DatebaseConnection.connection();
+		try {
+			Statement state = con.createStatement();
+			String sqlquery = "INSERT INTO ComponentGroup (Name) VALUES ("
+					+ "'"
+					+ cg.getName()
+					+ "');";
+			state.executeUpdate(sqlquery);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+	}}
+	
 	public void updateComponentGroupById(ComponentGroup cg) {
 
 		Connection con = DatebaseConnection.connection();
@@ -41,7 +56,7 @@ public class ComponentGroupMapper {
 			e.printStackTrace();
 
 		}
-	}
+	} 
 
 	public ArrayList<ComponentGroup> loadAllComponentGroups() {
 		Connection con = DatebaseConnection.connection();

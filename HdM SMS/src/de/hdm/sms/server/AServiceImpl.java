@@ -26,6 +26,11 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 		cMapper.insertComponent(c);
 	}
 
+	public void insertComponentGroup(ComponentGroup cg) {
+		init();
+		cgMapper.insertComponentGroup(cg);
+	}
+	
 	@Override
 	public ArrayList<Component> loadAllComponents() {
 		ArrayList<Component> ComponentList = cMapper.loadAllComponents();

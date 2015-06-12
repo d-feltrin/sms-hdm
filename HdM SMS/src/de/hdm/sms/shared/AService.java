@@ -13,6 +13,8 @@ import de.hdm.sms.shared.bo.User;
 public interface AService extends RemoteService {
 	void insertComponent(Component c);
 
+	void insertComponentGroup(ComponentGroup cg);
+	
 	ArrayList<Component> loadAllComponents();
 	
 	ArrayList<ComponentGroup> loadAllComponentGroups();

@@ -22,6 +22,8 @@ public interface AServiceAsync {
 
 	void updateComponentById(Component c, AsyncCallback<Void> asyncCallback);
 	
+	void insertComponentGroup(ComponentGroup cg, AsyncCallback<Void> asyncCallback);
+	
 	void loadAllComponentGroups(AsyncCallback<ArrayList<ComponentGroup>> asyncCallback);
 	
 	void updateComponentGroupById (ComponentGroup cg, AsyncCallback<Void> asyncCallback);
@@ -38,6 +40,8 @@ public interface AServiceAsync {
 	void updateUserById(User u, AsyncCallback<Void> asyncCallback);
 
 	void getUserByEmail(String eMailAdress, AsyncCallback<User> callback);
+
+	
 
 	
 
