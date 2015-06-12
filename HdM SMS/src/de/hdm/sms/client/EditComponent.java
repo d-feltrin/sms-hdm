@@ -58,10 +58,9 @@ public class EditComponent extends VerticalPanel {
 			@Override
 			public void onSuccess(Void result) {
 				Window.alert("Das Bauteil wurde editiert");
-				RootPanel.get("leftside").clear();
+				RootPanel.get("rightside").clear();
 				Startside sS = new Startside();
 				RootPanel.get().add(sS);
-
 			}
 		});
 	}
@@ -90,7 +89,7 @@ public class EditComponent extends VerticalPanel {
 
 			}
 		});
-		RootPanel.get("leftside").add(ListOfComponents);
+		RootPanel.get("rightside").add(ListOfComponents);
 	}
 
 	private void DeleteComponent(int DeleteComponentId) {
@@ -106,7 +105,7 @@ public class EditComponent extends VerticalPanel {
 					@Override
 					public void onSuccess(Void result) {
 						Window.alert("Bauteil erfolgreich gelöscht");
-						RootPanel.get("leftside").clear();
+						RootPanel.get("rightside").clear();
 						Startside sS = new Startside();
 						RootPanel.get().add(sS);
 
@@ -122,7 +121,7 @@ public class EditComponent extends VerticalPanel {
 
 			@Override
 			public void onChange(ChangeEvent event) {
-				RootPanel.get("leftside").clear();
+				RootPanel.get("rightside").clear();
 				selectedComponent = ListOfComponents
 						.getItemText(ListOfComponents.getSelectedIndex());
 
@@ -160,8 +159,8 @@ public class EditComponent extends VerticalPanel {
 								ComponentItemPanel
 										.add(MaterialDescriptionOfComponent);
 								ComponentItemPanel.add(ButtonPanel);
-								RootPanel.get("leftside").clear();
-								RootPanel.get("leftside").add(
+								RootPanel.get("rightside").clear();
+								RootPanel.get("rightside").add(
 										ComponentItemPanel);
 								DeleteComponentButton
 										.addClickHandler(new ClickHandler() {
