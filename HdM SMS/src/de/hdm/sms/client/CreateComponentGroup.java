@@ -26,30 +26,30 @@ public class CreateComponentGroup extends VerticalPanel {
 
 	private final AServiceAsync AsyncObj = GWT.create(AService.class);
 	private Component c = new Component();
-	private final VerticalPanel CreateComponentGroupPanel = new VerticalPanel();
-	private final HorizontalPanel CreateComponentGroupPanel2 = new HorizontalPanel();
-	private final HorizontalPanel AddComponentOrComponentGroupPanel = new HorizontalPanel();
-	private final HorizontalPanel AddComponentGroupPanel = new HorizontalPanel();
-	private final ListBox ListOfComponents = new ListBox();
-	private final ListBox ListOfComponentGroups = new ListBox();
-	private final Label NameOfComponentGroupLabel = new Label("Baugruppenname");
-	private final TextBox NameOfComponentGroupTextBox = new TextBox();
-	private final FlexTable ComponentTable = new FlexTable();
-	private final Label NameOfComponentLabel = new Label("Bauteile");
-	private final Button AddComponentButton = new Button("Bauteil hinzufügen");
-	private final Button AddComponentGroupButton = new Button("Baugruppe hinzufügen");
-	private final Button CreateComponentGroupButton = new Button("Baugruppe anlegen");
+	private final VerticalPanel createComponentGroupPanel = new VerticalPanel();
+	private final HorizontalPanel createComponentGroupPanel2 = new HorizontalPanel();
+	private final HorizontalPanel addComponentOrComponentGroupPanel = new HorizontalPanel();
+	private final HorizontalPanel addComponentGroupPanel = new HorizontalPanel();
+	private final ListBox listOfComponents = new ListBox();
+	private final ListBox listOfComponentGroups = new ListBox();
+	private final Label nameOfComponentGroupLabel = new Label("Baugruppenname");
+	private final TextBox nameOfComponentGroupTextBox = new TextBox();
+	private final FlexTable componentTable = new FlexTable();
+	private final Label nameOfComponentLabel = new Label("Bauteile");
+	private final Button addComponentButton = new Button("Bauteil hinzufügen");
+	private final Button addComponentGroupButton = new Button("Baugruppe hinzufügen");
+	private final Button createComponentGroupButton = new Button("Baugruppe anlegen");
 	private ComponentGroup cg = new ComponentGroup();
 
 	public CreateComponentGroup() {
 
 	}
 
-	private void LoadAllComponents() {
+	private void loadAllComponents() {
 
-		ListOfComponents.setSize("180px", "35px");
+		listOfComponents.setSize("180px", "35px");
 		// ListOfComponents.addStyleName("mainmenu-dropdown");
-		ListOfComponents.addItem("---");
+		listOfComponents.addItem("---");
 
 		AsyncObj.loadAllComponents(new AsyncCallback<ArrayList<Component>>() {
 
@@ -63,7 +63,7 @@ public class CreateComponentGroup extends VerticalPanel {
 			public void onSuccess(ArrayList<Component> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					ListOfComponents.addItem(result.get(i).getName());
+					listOfComponents.addItem(result.get(i).getName());
 
 				}
 
@@ -72,10 +72,10 @@ public class CreateComponentGroup extends VerticalPanel {
 		
 		
 	}
-	private void LoadAllComponentGroups() {
+	private void loadAllComponentGroups() {
 
-		ListOfComponentGroups.setSize("180px", "35px");
-		ListOfComponentGroups.addItem("---");
+		listOfComponentGroups.setSize("180px", "35px");
+		listOfComponentGroups.addItem("---");
 
 		AsyncObj.loadAllComponentGroups(new AsyncCallback<ArrayList<ComponentGroup>>() {
 
@@ -89,50 +89,50 @@ public class CreateComponentGroup extends VerticalPanel {
 			public void onSuccess(ArrayList<ComponentGroup> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					ListOfComponentGroups.addItem(result.get(i).getName());
+					listOfComponentGroups.addItem(result.get(i).getName());
 
 				}
 
 			}
 		});
-		RootPanel.get("rightside").add(ListOfComponentGroups);
+		RootPanel.get("rightside").add(listOfComponentGroups);
 	}
 	public void onLoad() {
-		LoadAllComponents();
-		LoadAllComponentGroups();
+		loadAllComponents();
+		loadAllComponentGroups();
 		//ListOfComponentGroups.setSize("180px", "35px");
-		CreateComponentGroupPanel.add(NameOfComponentGroupLabel);
-		CreateComponentGroupPanel2.add(NameOfComponentGroupTextBox);
-		CreateComponentGroupPanel2.add(CreateComponentGroupButton);
+		createComponentGroupPanel.add(nameOfComponentGroupLabel);
+		createComponentGroupPanel2.add(nameOfComponentGroupTextBox);
+		createComponentGroupPanel2.add(createComponentGroupButton);
 		
-		AddComponentOrComponentGroupPanel.add(ListOfComponents);
-		AddComponentOrComponentGroupPanel.add(AddComponentButton);
-		AddComponentOrComponentGroupPanel.add(ListOfComponentGroups);
-		AddComponentOrComponentGroupPanel.add(AddComponentGroupButton);
-		RootPanel.get("rightside").add(CreateComponentGroupPanel);
-		RootPanel.get("rightside").add(CreateComponentGroupPanel2);
-		RootPanel.get("rightside").add(AddComponentOrComponentGroupPanel);
-		RootPanel.get("rightside").add(AddComponentGroupPanel);
-		RootPanel.get("rightside").add(NameOfComponentLabel);
+		addComponentOrComponentGroupPanel.add(listOfComponents);
+		addComponentOrComponentGroupPanel.add(addComponentButton);
+		addComponentOrComponentGroupPanel.add(listOfComponentGroups);
+		addComponentOrComponentGroupPanel.add(addComponentGroupButton);
+		RootPanel.get("rightside").add(createComponentGroupPanel);
+		RootPanel.get("rightside").add(createComponentGroupPanel2);
+		RootPanel.get("rightside").add(addComponentOrComponentGroupPanel);
+		RootPanel.get("rightside").add(addComponentGroupPanel);
+		RootPanel.get("rightside").add(nameOfComponentLabel);
 		
 		
 		
 		//RootPanel.get("rightside").add(CreateComponentGroupPanel);
 		
-		ComponentTable.setText(0, 0, "ID");
-		ComponentTable.setText(0, 1, "Name");
-		ComponentTable.setText(0, 2, "Anzahl");
-		RootPanel.get("rightside").add(ComponentTable);
+		componentTable.setText(0, 0, "ID");
+		componentTable.setText(0, 1, "Name");
+		componentTable.setText(0, 2, "Anzahl");
+		RootPanel.get("rightside").add(componentTable);
 		
-		CreateComponentGroupButton.addClickHandler(new ClickHandler() {
+		createComponentGroupButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (NameOfComponentGroupTextBox.getValue().isEmpty()) {
+				if (nameOfComponentGroupTextBox.getValue().isEmpty()) {
 					Window.alert("Bitte alle Felder befüllen");
 				} else {
 					
-					c.setName(NameOfComponentGroupTextBox.getValue());
+					c.setName(nameOfComponentGroupTextBox.getValue());
 					
 					AsyncObj.insertComponentGroup(cg, new AsyncCallback<Void>() {
 

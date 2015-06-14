@@ -19,17 +19,17 @@ import de.hdm.sms.shared.bo.ComponentGroup;
 
 public class EditComponentGroup extends VerticalPanel {
 
-	private final ListBox ListOfComponentGroups = new ListBox();
-	private final AServiceAsync AsyncObj = GWT.create(AService.class);
-	private HorizontalPanel ButtonPanel = new HorizontalPanel();
-	private Button EditComponentGroupButton = new Button("Baugruppe editieren");
+	private final ListBox listOfComponentGroups = new ListBox();
+	private final AServiceAsync asyncObj = GWT.create(AService.class);
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private Button editComponentGroupButton = new Button("Baugruppe editieren");
 	
 	public EditComponentGroup() {
 
 	}
 	
 	private void updateComponentGroup(ComponentGroup cg) {
-		AsyncObj.updateComponentGroupById(cg, new AsyncCallback<Void>() {
+		asyncObj.updateComponentGroupById(cg, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -46,12 +46,12 @@ public class EditComponentGroup extends VerticalPanel {
 			}
 		});
 	}
-	private void LoadAllComponentGroups() {
+	private void loadAllComponentGroups() {
 
-		ListOfComponentGroups.setSize("180px", "35px");
-		ListOfComponentGroups.addItem("---");
+		listOfComponentGroups.setSize("180px", "35px");
+		listOfComponentGroups.addItem("---");
 
-		AsyncObj.loadAllComponentGroups(new AsyncCallback<ArrayList<ComponentGroup>>() {
+		asyncObj.loadAllComponentGroups(new AsyncCallback<ArrayList<ComponentGroup>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -63,17 +63,17 @@ public class EditComponentGroup extends VerticalPanel {
 			public void onSuccess(ArrayList<ComponentGroup> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					ListOfComponentGroups.addItem(result.get(i).getName());
+					listOfComponentGroups.addItem(result.get(i).getName());
 
 				}
 
 			}
 		});
-		RootPanel.get("rightside").add(ListOfComponentGroups);
+		RootPanel.get("rightside").add(listOfComponentGroups);
 	}
 	public void onLoad() {
-		ButtonPanel.add(EditComponentGroupButton);
-		LoadAllComponentGroups();
+		buttonPanel.add(editComponentGroupButton);
+		loadAllComponentGroups();
 		
 	}
 }

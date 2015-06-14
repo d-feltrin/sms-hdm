@@ -17,15 +17,15 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateComponent extends VerticalPanel {
-	private VerticalPanel CreateComponentPanel = new VerticalPanel();
-	private Label NameLabel = new Label("Name des Bauteils");
-	private Label DescriptionLabel = new Label("Beschreibung");
-	private Label MaterialDescriptionLabel = new Label("Materialbezeichnung");
-	private TextBox NameTextbox = new TextBox();
-	private TextBox DescriptionTextbox = new TextBox();
-	private TextBox MaterialDescriptionTextbox = new TextBox();
-	private Button CreateComponentButton = new Button("Bauteil anlegen");
-	private final AServiceAsync AsyncObj = GWT.create(AService.class);
+	private VerticalPanel createComponentPanel = new VerticalPanel();
+	private Label nameLabel = new Label("Name des Bauteils");
+	private Label descriptionLabel = new Label("Beschreibung");
+	private Label materialDescriptionLabel = new Label("Materialbezeichnung");
+	private TextBox nameTextbox = new TextBox();
+	private TextBox descriptionTextbox = new TextBox();
+	private TextBox materialDescriptionTextbox = new TextBox();
+	private Button createComponentButton = new Button("Bauteil anlegen");
+	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private Component c = new Component();
 
 	public CreateComponent() {
@@ -33,29 +33,29 @@ public class CreateComponent extends VerticalPanel {
 	}
 
 	public void onLoad() {
-		CreateComponentPanel.add(NameLabel);
-		CreateComponentPanel.add(NameTextbox);
-		CreateComponentPanel.add(DescriptionLabel);
-		CreateComponentPanel.add(DescriptionTextbox);
-		CreateComponentPanel.add(MaterialDescriptionLabel);
-		CreateComponentPanel.add(MaterialDescriptionTextbox);
-		CreateComponentPanel.add(CreateComponentButton);
-		RootPanel.get("rightside").add(CreateComponentPanel);
+		createComponentPanel.add(nameLabel);
+		createComponentPanel.add(nameTextbox);
+		createComponentPanel.add(descriptionLabel);
+		createComponentPanel.add(descriptionTextbox);
+		createComponentPanel.add(materialDescriptionLabel);
+		createComponentPanel.add(materialDescriptionTextbox);
+		createComponentPanel.add(createComponentButton);
+		RootPanel.get("rightside").add(createComponentPanel);
 
-		CreateComponentButton.addClickHandler(new ClickHandler() {
+		createComponentButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (NameTextbox.getValue().isEmpty()
-						|| DescriptionTextbox.getValue().isEmpty()
-						|| MaterialDescriptionTextbox.getValue().isEmpty()) {
+				if (nameTextbox.getValue().isEmpty()
+						|| descriptionTextbox.getValue().isEmpty()
+						|| materialDescriptionTextbox.getValue().isEmpty()) {
 					Window.alert("Bitte alle Felder befüllen");
 				} else {
-					c.setDescription(DescriptionTextbox.getValue());
-					c.setName(NameTextbox.getValue());
-					c.setMaterialDescription(MaterialDescriptionTextbox
+					c.setDescription(descriptionTextbox.getValue());
+					c.setName(nameTextbox.getValue());
+					c.setMaterialDescription(materialDescriptionTextbox
 							.getValue());
-					AsyncObj.insertComponent(c, new AsyncCallback<Void>() {
+					asyncObj.insertComponent(c, new AsyncCallback<Void>() {
 
 						@Override
 						public void onSuccess(Void result) {

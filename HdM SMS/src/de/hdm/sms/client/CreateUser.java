@@ -16,15 +16,15 @@ import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.bo.User;
 
 public class CreateUser extends VerticalPanel {
-	private VerticalPanel CreateUserPanel = new VerticalPanel();
-	private Label FirstnameLabelOfUser = new Label("Vorname");
-	private Label LastnameLabelOfUser = new Label("Nachname");
+	private VerticalPanel createUserPanel = new VerticalPanel();
+	private Label firstnameLabelOfUser = new Label("Vorname");
+	private Label lastnameLabelOfUser = new Label("Nachname");
 	private Label eMailAdressLabelOfUser = new Label("E-Mail Adresse");
-	private TextBox FirstnameTextBoxOfUser = new TextBox();
-	private TextBox LastnameTextBoxOfUser = new TextBox();
+	private TextBox firstnameTextBoxOfUser = new TextBox();
+	private TextBox lastnameTextBoxOfUser = new TextBox();
 	private TextBox eMailAdressTextBoxOfUser = new TextBox();
-	private Button UserCreateButton = new Button("Benutzer anlegen");
-	private final AServiceAsync AsyncObj = GWT.create(AService.class);
+	private Button userCreateButton = new Button("Benutzer anlegen");
+	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private User u = new User();
 
 	public CreateUser() {
@@ -32,30 +32,30 @@ public class CreateUser extends VerticalPanel {
 	}
 
 	public void onLoad() {
-		CreateUserPanel.add(FirstnameLabelOfUser);
-		CreateUserPanel.add(FirstnameTextBoxOfUser);
-		CreateUserPanel.add(LastnameLabelOfUser);
-		CreateUserPanel.add(LastnameTextBoxOfUser);
-		CreateUserPanel.add(eMailAdressLabelOfUser);
-		CreateUserPanel.add(eMailAdressTextBoxOfUser);
-		CreateUserPanel.add(UserCreateButton);
+		createUserPanel.add(firstnameLabelOfUser);
+		createUserPanel.add(firstnameTextBoxOfUser);
+		createUserPanel.add(lastnameLabelOfUser);
+		createUserPanel.add(lastnameTextBoxOfUser);
+		createUserPanel.add(eMailAdressLabelOfUser);
+		createUserPanel.add(eMailAdressTextBoxOfUser);
+		createUserPanel.add(userCreateButton);
 		
-		RootPanel.get("leftside").add(CreateUserPanel);
+		RootPanel.get("leftside").add(createUserPanel);
 
-		UserCreateButton.addClickHandler(new ClickHandler() {
+		userCreateButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (FirstnameTextBoxOfUser.getValue().isEmpty()
-						|| LastnameTextBoxOfUser.getValue().isEmpty()
+				if (firstnameTextBoxOfUser.getValue().isEmpty()
+						|| lastnameTextBoxOfUser.getValue().isEmpty()
 						|| eMailAdressTextBoxOfUser.getValue().isEmpty()) {
 					Window.alert("Bitte alle Felder befüllen!");
 				} else {
 
-					u.setFirstName(FirstnameTextBoxOfUser.getValue());
-					u.setLastName(LastnameTextBoxOfUser.getValue());
+					u.setFirstName(firstnameTextBoxOfUser.getValue());
+					u.setLastName(lastnameTextBoxOfUser.getValue());
 					u.seteMailAdress(eMailAdressTextBoxOfUser.getValue());
-					AsyncObj.insertUser(u, new AsyncCallback<Void>() {
+					asyncObj.insertUser(u, new AsyncCallback<Void>() {
 
 						@Override
 						public void onFailure(Throwable caught) {

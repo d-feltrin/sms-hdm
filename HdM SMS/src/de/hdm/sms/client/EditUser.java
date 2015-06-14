@@ -24,28 +24,28 @@ import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.bo.User;
 
 public class EditUser extends VerticalPanel {
-	private final ListBox ListOfUsers = new ListBox();
-	private final AServiceAsync AsyncObj = GWT.create(AService.class);
+	private final ListBox listOfUsers = new ListBox();
+	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private String selectedUser;
-	private Label UserIdLabel = new Label("Id");
-	private Label FirstnameLabel = new Label("Vorname");
-	private Label LastnameLabel = new Label("Nachname");
+	private Label userIdLabel = new Label("Id");
+	private Label firstnameLabel = new Label("Vorname");
+	private Label lastnameLabel = new Label("Nachname");
 	private Label eMailAdressLabel = new Label("E-Mail Adresse");
-	private TextBox UserIdTextBox = new TextBox();
-	private TextBox FirstnameTextBox = new TextBox();
-	private TextBox LastnameTextBox = new TextBox();
+	private TextBox userIdTextBox = new TextBox();
+	private TextBox firstnameTextBox = new TextBox();
+	private TextBox lastnameTextBox = new TextBox();
 	private TextBox eMailAdressTextBox = new TextBox();
-	private String UserIdString;
-	private VerticalPanel UserItemPanel = new VerticalPanel();
-	private HorizontalPanel ButtonPanel = new HorizontalPanel();
-	private Button DeleteUserButton = new Button("Benutzer löschen");
-	private Button EditUserButton = new Button("Benutzer editieren");
+	private String userIdString;
+	private VerticalPanel userItemPanel = new VerticalPanel();
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private Button deleteUserButton = new Button("Benutzer löschen");
+	private Button editUserButton = new Button("Benutzer editieren");
 
 	public EditUser() {
 
 	}
 private void updateUser(User u) {
-	AsyncObj.updateUserById(u, new AsyncCallback<Void>() {
+	asyncObj.updateUserById(u, new AsyncCallback<Void>() {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -64,8 +64,8 @@ private void updateUser(User u) {
 		}
 	});
 }
-	private void DeleteUser(int DeleteUserId) {
-		AsyncObj.deleteUserById(DeleteUserId, new AsyncCallback<Void>() {
+	private void deleteUser(int DeleteUserId) {
+		asyncObj.deleteUserById(DeleteUserId, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -88,13 +88,13 @@ private void updateUser(User u) {
 		});
 	}
 
-	private void LoadAllUser() {
+	private void loadAllUser() {
 
-		ListOfUsers.setSize("180px", "35px");
+		listOfUsers.setSize("180px", "35px");
 		// ListOfComponents.addStyleName("mainmenu-dropdown");
-		ListOfUsers.addItem("---");
+		listOfUsers.addItem("---");
 
-		AsyncObj.loadAllUsers(new AsyncCallback<ArrayList<User>>() {
+		asyncObj.loadAllUsers(new AsyncCallback<ArrayList<User>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -106,30 +106,30 @@ private void updateUser(User u) {
 			public void onSuccess(ArrayList<User> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					ListOfUsers.addItem(result.get(i).geteMailAdress());
+					listOfUsers.addItem(result.get(i).geteMailAdress());
 
 					
 				}
 
 			}
 		});
-		RootPanel.get("rightside").add(ListOfUsers);
+		RootPanel.get("rightside").add(listOfUsers);
 	}
 
 	public void onLoad() {
-		LoadAllUser();
-		ButtonPanel.add(EditUserButton);
-		ButtonPanel.add(DeleteUserButton);
+		loadAllUser();
+		buttonPanel.add(editUserButton);
+		buttonPanel.add(deleteUserButton);
 		
-		ListOfUsers.addChangeHandler(new ChangeHandler() {
+		listOfUsers.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
 				RootPanel.get("rightside").clear();
-				selectedUser = ListOfUsers.getItemText(ListOfUsers
+				selectedUser = listOfUsers.getItemText(listOfUsers
 						.getSelectedIndex());
 
-				AsyncObj.getOneUserIdByName(selectedUser,
+				asyncObj.getOneUserIdByName(selectedUser,
 						new AsyncCallback<User>() {
 
 							@Override
@@ -140,50 +140,50 @@ private void updateUser(User u) {
 
 							@Override
 							public void onSuccess(User result) {
-								UserIdString = String.valueOf(result.getId());
-								UserIdTextBox.setText(UserIdString);
-								UserIdTextBox.setEnabled(false);
-								FirstnameTextBox.setText(result.getFirstName());
-								LastnameTextBox.setText(result.getLastName());
+								userIdString = String.valueOf(result.getId());
+								userIdTextBox.setText(userIdString);
+								userIdTextBox.setEnabled(false);
+								firstnameTextBox.setText(result.getFirstName());
+								lastnameTextBox.setText(result.getLastName());
 								eMailAdressTextBox.setText(result
 										.geteMailAdress());
-								UserItemPanel.add(UserIdLabel);
-								UserItemPanel.add(UserIdTextBox);
-								UserItemPanel.add(FirstnameLabel);
-								UserItemPanel.add(FirstnameTextBox);
-								UserItemPanel.add(LastnameLabel);
-								UserItemPanel.add(LastnameTextBox);
-								UserItemPanel.add(eMailAdressLabel);
-								UserItemPanel.add(eMailAdressTextBox);
-								UserItemPanel.add(ButtonPanel);
+								userItemPanel.add(userIdLabel);
+								userItemPanel.add(userIdTextBox);
+								userItemPanel.add(firstnameLabel);
+								userItemPanel.add(firstnameTextBox);
+								userItemPanel.add(lastnameLabel);
+								userItemPanel.add(lastnameTextBox);
+								userItemPanel.add(eMailAdressLabel);
+								userItemPanel.add(eMailAdressTextBox);
+								userItemPanel.add(buttonPanel);
 								RootPanel.get("rightside").clear();
-								RootPanel.get("rightside").add(ListOfUsers);
-								RootPanel.get("rightside").add(UserItemPanel);
-								DeleteUserButton
+								RootPanel.get("rightside").add(listOfUsers);
+								RootPanel.get("rightside").add(userItemPanel);
+								deleteUserButton
 										.addClickHandler(new ClickHandler() {
 
 											@Override
 											public void onClick(ClickEvent event) {
-												DeleteUser(Integer
-														.parseInt(UserIdString));
+												deleteUser(Integer
+														.parseInt(userIdString));
 
 												
 
 											}
 										});
-								EditUserButton.addClickHandler(new ClickHandler() {
+								editUserButton.addClickHandler(new ClickHandler() {
 									
 									@Override
 									public void onClick(ClickEvent event) {
 
-										if (FirstnameTextBox.getValue().isEmpty() || LastnameTextBox.getValue().isEmpty() || eMailAdressTextBox.getValue().isEmpty()) 
+										if (firstnameTextBox.getValue().isEmpty() || lastnameTextBox.getValue().isEmpty() || eMailAdressTextBox.getValue().isEmpty()) 
 										{
 											Window.alert("Bitte alle Felder befüllen!");
 										} else {
 											User u = new User();
-											u.setId(Integer.parseInt(UserIdString));
-											u.setFirstName(FirstnameTextBox.getText());
-											u.setLastName(LastnameTextBox.getText());
+											u.setId(Integer.parseInt(userIdString));
+											u.setFirstName(firstnameTextBox.getText());
+											u.setLastName(lastnameTextBox.getText());
 											u.seteMailAdress(eMailAdressTextBox.getText());
 											updateUser(u);
 											
