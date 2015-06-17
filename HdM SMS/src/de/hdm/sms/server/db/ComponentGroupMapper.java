@@ -30,7 +30,7 @@ public class ComponentGroupMapper {
 		Connection con = DatebaseConnection.connection();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO ComponentGroup (Name) VALUES ("
+			String sqlquery = "INSERT INTO Componentgroup (Name) VALUES ("
 					+ "'"
 					+ cg.getName()
 					+ "');";
@@ -49,7 +49,7 @@ public class ComponentGroupMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("UPDATE `ComponentGroup` SET `Name`= '" + cg.getName()
+			state.executeUpdate("UPDATE `Componentgroup` SET `Name`= '" + cg.getName()
 					 + "' " + "WHERE `Id` = '" + cg.getId() + "';");
 
 		} catch (Exception e) {
@@ -64,7 +64,7 @@ public class ComponentGroupMapper {
 
 		try {
 			Statement state = con.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM ComponentGroup");
+			ResultSet result = state.executeQuery("SELECT * FROM Componentgroup");
 
 			while (result.next()) {
 				ComponentGroup cg = new ComponentGroup();
@@ -78,5 +78,49 @@ public class ComponentGroupMapper {
 			e.printStackTrace();
 		}
 		return resultList;
+	}
+	
+	public ComponentGroup getOneComponentGroupIdByName(String selectedComponentGroup) {
+
+		Connection con = DatebaseConnection.connection();
+
+		ComponentGroup cg = new ComponentGroup();
+
+		try {
+			Statement state = con.createStatement();
+			ResultSet rs = state.executeQuery("SELECT * FROM Componentgroup WHERE name='"
+					+ selectedComponentGroup + "';");
+
+			while (rs.next()) {
+
+				cg.setId(rs.getInt("Id"));
+				cg.setName(rs.getString("Name"));
+				
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+		return cg;
+
+	}
+	
+	public void deleteComponentGroupById(int deleteComponentGroupId) {
+
+		Connection con = DatebaseConnection.connection();
+
+		try {
+
+			Statement state = con.createStatement();
+
+			state.executeUpdate("DELETE FROM Componentgroup WHERE Id='" + deleteComponentGroupId + "';");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 }

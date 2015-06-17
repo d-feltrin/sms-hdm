@@ -5,10 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 
 
+
+
+
+import com.google.gwt.user.client.Window;
 
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;
@@ -30,15 +35,21 @@ public class ComponentMapper {
 
 	public void insertComponent(Component c) {
 		Connection con = DatebaseConnection.connection();
+	//Date now = new Date();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription) VALUES ("
+			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, LastModified) VALUES ("
 					+ "'"
 					+ c.getName()
 					+ "','"
 					+ c.getDescription()
 					+ "', '"
-					+ c.getMaterialDescription() + "');";
+					+ c.getMaterialDescription() 
+					+ "', '"
+					+ c.getModifier()
+					+ "', '"
+					+ "2015-06-15 22:39:01"
+					+ "');";
 			state.executeUpdate(sqlquery);
 
 		} catch (Exception e) {

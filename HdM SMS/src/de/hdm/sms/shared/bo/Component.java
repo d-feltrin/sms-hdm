@@ -1,5 +1,7 @@
 package de.hdm.sms.shared.bo;
 
+import de.hdm.sms.shared.LoginInfo;
+
 public class Component extends BusinessObject {
 
 	
@@ -7,6 +9,7 @@ public class Component extends BusinessObject {
 	private String description;
 	private String name;
 	private String material;
+	private String modifier = "";
 	
 	public Component(){
 		
@@ -17,6 +20,7 @@ public class Component extends BusinessObject {
 		this.description = description;
 		this.material = material;
 	}
+	
 	
 	public String getDescription() {
 		return description;
@@ -40,6 +44,15 @@ public class Component extends BusinessObject {
 
 	public void setMaterialDescription(String material) {
 		this.material = material;
+	}
+
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+		
+	}
+
+	public String getModifier() {
+		return this.modifier;
 	}
 
 }

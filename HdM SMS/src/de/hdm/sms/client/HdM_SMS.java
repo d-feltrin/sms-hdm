@@ -53,7 +53,9 @@ public class HdM_SMS implements EntryPoint {
 
 		// Logout Url holen
 		signOutLink.setHref(loginInfo.getLogoutUrl());
-		RootPanel.get("leftside").add(new Startside());
+		Startside startside = new Startside();
+		startside.setLoginInfo(loginInfo);
+		RootPanel.get("leftside").add(startside);
 		RootPanel.get("leftside").add(loggedInlabel);
 		RootPanel.get("leftside").add(signOutLink);
 	}

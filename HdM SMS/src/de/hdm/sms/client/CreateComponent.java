@@ -1,9 +1,14 @@
 package de.hdm.sms.client;
 
+import java.util.Date;
+import java.util.logging.Logger;
+
 import de.hdm.sms.client.gui.Startside;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
+import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.Component;
+import de.hdm.sms.shared.bo.User;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -27,11 +32,16 @@ public class CreateComponent extends VerticalPanel {
 	private Button createComponentButton = new Button("Bauteil anlegen");
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private Component c = new Component();
-
+	private LoginInfo loginInfo = null;
+	
 	public CreateComponent() {
 
 	}
 
+	public void setLoginInfo(LoginInfo loginInfo){
+		this.loginInfo = loginInfo;
+	}
+	
 	public void onLoad() {
 		createComponentPanel.add(nameLabel);
 		createComponentPanel.add(nameTextbox);
@@ -40,12 +50,13 @@ public class CreateComponent extends VerticalPanel {
 		createComponentPanel.add(materialDescriptionLabel);
 		createComponentPanel.add(materialDescriptionTextbox);
 		createComponentPanel.add(createComponentButton);
-		RootPanel.get("rightside").add(createComponentPanel);
-
+		RootPanel.get("leftside").add(createComponentPanel);
+		
 		createComponentButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				
 				if (nameTextbox.getValue().isEmpty()
 						|| descriptionTextbox.getValue().isEmpty()
 						|| materialDescriptionTextbox.getValue().isEmpty()) {
@@ -55,13 +66,15 @@ public class CreateComponent extends VerticalPanel {
 					c.setName(nameTextbox.getValue());
 					c.setMaterialDescription(materialDescriptionTextbox
 							.getValue());
+					c.setModifier(loginInfo.getEmailAddress());
+						
 					asyncObj.insertComponent(c, new AsyncCallback<Void>() {
 
 						@Override
 						public void onSuccess(Void result) {
 							Window.alert("Bauteil " + c.getName()
 									+ " erfolgreich angelegt.");
-							RootPanel.get("rightside").clear();
+							RootPanel.get("leftside").clear();
 							Startside sS = new Startside();
 							RootPanel.get().add(sS);
 

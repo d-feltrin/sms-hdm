@@ -1,5 +1,15 @@
 package de.hdm.sms.client.gui;
 
+import java.sql.Timestamp;
+import java.text.Format;
+import java.util.Date;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
 import de.hdm.sms.client.CreateUser;
@@ -7,6 +17,7 @@ import de.hdm.sms.client.EditComponent;
 import de.hdm.sms.client.EditComponentGroup;
 import de.hdm.sms.client.EditUser;
 import de.hdm.sms.shared.FieldVerifier;
+import de.hdm.sms.shared.LoginInfo;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -59,11 +70,16 @@ public class Startside extends VerticalPanel {
 	private RadioButton rb0 = new RadioButton("myRadioGroup", "Client/Viewer");
 	private RadioButton rb1 = new RadioButton("myRadioGroup", "Reportgenerator");
 	private DialogBox dialogBox = new DialogBox();
-
+	private LoginInfo loginInfo = null;
+	
 	public void StartSide() {
 
 	}
 
+	public void setLoginInfo(LoginInfo loginInfo){
+		this.loginInfo = loginInfo;
+	}
+	
 /*	public void login() {
 
 		errorLabel.setText("");
@@ -188,8 +204,18 @@ public class Startside extends VerticalPanel {
 			@Override
 			public void execute() {
 
-				RootPanel.get("rightside").clear();
-				RootPanel.get("rigthside").add(new CreateComponent());
+				RootPanel.get("leftside").clear();
+				CreateComponent cc = new CreateComponent();
+				// folgender Code auskommentiert, da noch nicht funktionsfähig aber zur Orientierung/ zum Nachschauen
+				//Date now = new Date();
+				//Date currDate = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+				//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				//Window.alert("--> " + sdf.format(currDate));
+				//String strTimestamp = new Format("yyyy-MM-dd HH:mm:ss").format(now);
+				//String strTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date() );
+				//Window.alert(strTimestamp);
+				cc.setLoginInfo(loginInfo);
+				RootPanel.get("leftside").add(cc);
 			}
 		});
 		componentMenu.addItem("Edit", new Command() {

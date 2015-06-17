@@ -1,9 +1,12 @@
 package de.hdm.sms.shared.bo;
 
+import java.util.Date;
+
 public class ComponentGroup extends BusinessObject {
 
-	private String name;
+	
 	private static final long serialVersionUID = 1L;
+	private String name;
 	
 public ComponentGroup(){
 		
