@@ -22,7 +22,7 @@ import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.bo.Component;
 
-public class EditComponent extends VerticalPanel {
+public class DeleteComponent extends VerticalPanel {
 	private final ListBox listOfComponents = new ListBox();
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private String selectedComponent;
@@ -38,34 +38,43 @@ public class EditComponent extends VerticalPanel {
 	private TextBox idOfComponent = new TextBox();
 	private String idOfComponentString;
 	private VerticalPanel componentItemPanel = new VerticalPanel();
-	private Button deleteComponentButton = new Button("Bauteil löschen");
+	//private Button deleteComponentButton = new Button("Bauteil löschen");
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
-	private Button editComponentButton = new Button("Bauteil editieren");
+	private Button deleteComponentButton = new Button("Bauteil löschen");
 
-	public EditComponent() {
+	public DeleteComponent() {
 
 	}
 
-	private void updateComponent(Component c) {
-		asyncObj.updateComponentById(c, new AsyncCallback<Void>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				Window.alert("Das Bauteil wurde editiert");
-				RootPanel.get("rightside").clear();
-				RootPanel.get("leftside").clear();
-				Startside sS = new Startside();
-				RootPanel.get().add(sS);
-				
-			}
-		});
-	}
+//	private void updateComponent(Component c) {
+//		asyncObj.updateComponentById(c, new AsyncCallback<Void>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//
+//			@Override
+//			public void onSuccess(Void result) {
+//				Window.alert("Das Bauteil wurde editiert");
+//				
+////				
+//				RootPanel.get("leftside").clear();
+//				 
+//				Startside reloadStartside = new Startside();
+//				RootPanel.get("leftside").add(reloadStartside);
+//
+////				HdM_SMS hdmS = new HdM_SMS();
+////				RootPanel.get("").add(new HdM_SMS());
+////				EditComponent edtComp = new EditComponent();
+//				RootPanel.get("rightside").clear();
+//				RootPanel.get("rightside").add(new EditComponent());
+//				
+//				
+//			}
+//		});
+//	}
 
 	private void loadAllComponents() {
 
@@ -94,31 +103,32 @@ public class EditComponent extends VerticalPanel {
 		RootPanel.get("rightside").add(listOfComponents);
 	}
 
-//	private void deleteComponent(int DeleteComponentId) {
-//		asyncObj.deleteComponentById(DeleteComponentId,
-//				new AsyncCallback<Void>() {
-//
-//					@Override
-//					public void onFailure(Throwable caught) {
-//						// TODO Auto-generated method stub
-//
-//					}
-//
-//					@Override
-//					public void onSuccess(Void result) {
-//						Window.alert("Bauteil erfolgreich gelöscht");
-//						RootPanel.get("rightside").clear();
-//						RootPanel.get("leftside").clear();
-////						Startside sS = new Startside();
-////						RootPanel.get().add(sS);
-//
-//					}
-//				});
-//	}
+	private void deleteComponent(int DeleteComponentId) {
+		asyncObj.deleteComponentById(DeleteComponentId,
+				new AsyncCallback<Void>() {
+			
+			
+			
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+					
+					@Override
+					public void onSuccess(Void result) {
+						Window.alert("Bauteil erfolgreich gelöscht");
+						RootPanel.get("rightside").clear();
+						RootPanel.get("leftside").clear();
+						Startside sS = new Startside();
+						RootPanel.get().add(sS);
+
+					}
+				});
+	}
 
 	public void onLoad() {
-		buttonPanel.add(editComponentButton);
-		//buttonPanel.add(deleteComponentButton);
+		buttonPanel.add(deleteComponentButton);
 		loadAllComponents();
 		listOfComponents.addChangeHandler(new ChangeHandler() {
 
@@ -165,45 +175,17 @@ public class EditComponent extends VerticalPanel {
 								RootPanel.get("rightside").clear();
 								RootPanel.get("rightside").add(
 										componentItemPanel);
-//								deleteComponentButton
-//										.addClickHandler(new ClickHandler() {
-//
-////											@Override
-////											public void onClick(ClickEvent event) {
-////												deleteComponent(Integer
-////														.parseInt(idOfComponentString));
-////
-////											}
-//										});
-								editComponentButton
+								deleteComponentButton
 										.addClickHandler(new ClickHandler() {
 
 											@Override
 											public void onClick(ClickEvent event) {
-												if (nameOfComponent.getValue()
-														.isEmpty()
-														|| descriptionOfComponent
-																.getValue()
-																.isEmpty()
-														|| materialDescriptionOfComponent
-																.getValue()
-																.isEmpty()) {
-													Window.alert("Bitte Felder befüllen!");
-												} else {
-													Component c = new Component();
-													c.setId(Integer
-															.parseInt(idOfComponentString));
-													c.setName(nameOfComponent
-															.getText());
-													c.setMaterialDescription(materialDescriptionOfComponent
-															.getText());
-													c.setDescription(descriptionOfComponent
-															.getText());
-													updateComponent(c);
-												}
+												deleteComponent(Integer
+														.parseInt(idOfComponentString));
 
 											}
 										});
+								
 
 							}
 						});

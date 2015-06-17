@@ -50,7 +50,7 @@ public class CreateComponent extends VerticalPanel {
 		createComponentPanel.add(materialDescriptionLabel);
 		createComponentPanel.add(materialDescriptionTextbox);
 		createComponentPanel.add(createComponentButton);
-		RootPanel.get("leftside").add(createComponentPanel);
+		RootPanel.get("rightside").add(createComponentPanel);
 		
 		createComponentButton.addClickHandler(new ClickHandler() {
 
@@ -74,9 +74,9 @@ public class CreateComponent extends VerticalPanel {
 						public void onSuccess(Void result) {
 							Window.alert("Bauteil " + c.getName()
 									+ " erfolgreich angelegt.");
-							RootPanel.get("leftside").clear();
-							Startside sS = new Startside();
-							RootPanel.get().add(sS);
+							RootPanel.get("rightside").clear();
+							//Startside sS = new Startside();
+							//RootPanel.get().add(sS);
 
 						}
 

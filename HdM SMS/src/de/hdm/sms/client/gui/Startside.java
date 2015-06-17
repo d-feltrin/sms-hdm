@@ -3,7 +3,6 @@ package de.hdm.sms.client.gui;
 import java.sql.Timestamp;
 import java.text.Format;
 import java.util.Date;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +12,7 @@ import java.util.Locale;
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
 import de.hdm.sms.client.CreateUser;
+import de.hdm.sms.client.DeleteComponent;
 import de.hdm.sms.client.EditComponent;
 import de.hdm.sms.client.EditComponentGroup;
 import de.hdm.sms.client.EditUser;
@@ -204,7 +204,7 @@ public class Startside extends VerticalPanel {
 			@Override
 			public void execute() {
 
-				RootPanel.get("leftside").clear();
+				RootPanel.get("rightside").clear();
 				CreateComponent cc = new CreateComponent();
 				// folgender Code auskommentiert, da noch nicht funktionsfähig aber zur Orientierung/ zum Nachschauen
 				//Date now = new Date();
@@ -215,7 +215,7 @@ public class Startside extends VerticalPanel {
 				//String strTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date() );
 				//Window.alert(strTimestamp);
 				cc.setLoginInfo(loginInfo);
-				RootPanel.get("leftside").add(cc);
+				RootPanel.get("rightside").add(cc);
 			}
 		});
 		componentMenu.addItem("Edit", new Command() {
@@ -226,6 +226,16 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").add(new EditComponent());
 			}
 		});
+		
+		componentMenu.addItem("Delete", new Command() {
+			@Override
+			public void execute() {
+
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new DeleteComponent());
+			}
+		});
+		
 		componentGroupMenu.addItem("Create", new Command() {
 			@Override
 			public void execute() {
@@ -247,7 +257,7 @@ public class Startside extends VerticalPanel {
 		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
 //hier verändert
 		dockPanel.add(menuPanel, DockPanel.WEST);
-		//RootPanel.get("leftside").clear();
+	//	RootPanel.get("leftside").clear();
 		menuPanel.add(menu);
 
 		

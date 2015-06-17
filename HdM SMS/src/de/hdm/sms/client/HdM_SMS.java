@@ -9,6 +9,8 @@ import de.hdm.sms.shared.LoginServiceAsync;
 
 
 
+
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,10 +18,14 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -32,6 +38,10 @@ public class HdM_SMS implements EntryPoint {
 	
 	private VerticalPanel bottomPanel = new VerticalPanel();
 	private Label aboutLabel = new Label("Impressum");
+	
+	//test 
+	private DockPanel dockPanel = new DockPanel();
+	private VerticalPanel menuPanel = new VerticalPanel();
 	
 	private LoginInfo loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
@@ -58,6 +68,7 @@ public class HdM_SMS implements EntryPoint {
 		RootPanel.get("leftside").add(startside);
 		RootPanel.get("leftside").add(loggedInlabel);
 		RootPanel.get("leftside").add(signOutLink);
+	
 	}
 	public void loadLogin() {
 		signInLink.setHref(loginInfo.getLoginUrl());
@@ -104,6 +115,7 @@ public class HdM_SMS implements EntryPoint {
 						if (loginInfo.isLoggedIn()) {
 							logger.log(Level.INFO, "Login erfolgreich");
 							loadStartside();
+		
 						} else {
 							// Ist der Nutzer nicht eingeloggt, wird ein Link
 							// zum Google Login angezeigt.
