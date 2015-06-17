@@ -23,31 +23,31 @@ import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.bo.Component;
 
 public class EditComponent extends VerticalPanel {
-	private final ListBox ListOfComponents = new ListBox();
-	private final AServiceAsync AsyncObj = GWT.create(AService.class);
+	private final ListBox listOfComponents = new ListBox();
+	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private String selectedComponent;
-	private TextBox NameOfComponent = new TextBox();
-	private final Label LabelOfNameComponentTextBox = new Label("Name");
-	private final Label LabelOfDescriptionComponentTextBox = new Label(
+	private TextBox nameOfComponent = new TextBox();
+	private final Label labelOfNameComponentTextBox = new Label("Name");
+	private final Label labelOfDescriptionComponentTextBox = new Label(
 			"Beschreibung");
-	private final Label LabelOfMaterialDescriptionComponentTextBox = new Label(
+	private final Label labelOfMaterialDescriptionComponentTextBox = new Label(
 			"Materialbeschreibung");
-	private final Label LabelOfIdComponentTextBox = new Label("Id");
-	private TextBox DescriptionOfComponent = new TextBox();
-	private TextBox MaterialDescriptionOfComponent = new TextBox();
-	private TextBox IdOfComponent = new TextBox();
-	private String IdOfComponentString;
-	private VerticalPanel ComponentItemPanel = new VerticalPanel();
-	private Button DeleteComponentButton = new Button("Bauteil löschen");
-	private HorizontalPanel ButtonPanel = new HorizontalPanel();
-	private Button EditComponentButton = new Button("Bauteil editieren");
+	private final Label labelOfIdComponentTextBox = new Label("Id");
+	private TextBox descriptionOfComponent = new TextBox();
+	private TextBox materialDescriptionOfComponent = new TextBox();
+	private TextBox idOfComponent = new TextBox();
+	private String idOfComponentString;
+	private VerticalPanel componentItemPanel = new VerticalPanel();
+	private Button deleteComponentButton = new Button("Bauteil löschen");
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private Button editComponentButton = new Button("Bauteil editieren");
 
 	public EditComponent() {
 
 	}
 
 	private void updateComponent(Component c) {
-		AsyncObj.updateComponentById(c, new AsyncCallback<Void>() {
+		asyncObj.updateComponentById(c, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -65,13 +65,13 @@ public class EditComponent extends VerticalPanel {
 		});
 	}
 
-	private void LoadAllComponents() {
+	private void loadAllComponents() {
 
-		ListOfComponents.setSize("180px", "35px");
+		listOfComponents.setSize("180px", "35px");
 		// ListOfComponents.addStyleName("mainmenu-dropdown");
-		ListOfComponents.addItem("---");
+		listOfComponents.addItem("---");
 
-		AsyncObj.loadAllComponents(new AsyncCallback<ArrayList<Component>>() {
+		asyncObj.loadAllComponents(new AsyncCallback<ArrayList<Component>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -83,17 +83,17 @@ public class EditComponent extends VerticalPanel {
 			public void onSuccess(ArrayList<Component> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					ListOfComponents.addItem(result.get(i).getName());
+					listOfComponents.addItem(result.get(i).getName());
 
 				}
 
 			}
 		});
-		RootPanel.get("rightside").add(ListOfComponents);
+		RootPanel.get("rightside").add(listOfComponents);
 	}
 
-	private void DeleteComponent(int DeleteComponentId) {
-		AsyncObj.deleteComponentById(DeleteComponentId,
+	private void deleteComponent(int DeleteComponentId) {
+		asyncObj.deleteComponentById(DeleteComponentId,
 				new AsyncCallback<Void>() {
 
 					@Override
@@ -114,18 +114,18 @@ public class EditComponent extends VerticalPanel {
 	}
 
 	public void onLoad() {
-		ButtonPanel.add(EditComponentButton);
-		ButtonPanel.add(DeleteComponentButton);
-		LoadAllComponents();
-		ListOfComponents.addChangeHandler(new ChangeHandler() {
+		buttonPanel.add(editComponentButton);
+		buttonPanel.add(deleteComponentButton);
+		loadAllComponents();
+		listOfComponents.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
 				RootPanel.get("rightside").clear();
-				selectedComponent = ListOfComponents
-						.getItemText(ListOfComponents.getSelectedIndex());
+				selectedComponent = listOfComponents
+						.getItemText(listOfComponents.getSelectedIndex());
 
-				AsyncObj.getOneComponentIdByName(selectedComponent,
+				asyncObj.getOneComponentIdByName(selectedComponent,
 						new AsyncCallback<Component>() {
 
 							@Override
@@ -136,65 +136,65 @@ public class EditComponent extends VerticalPanel {
 
 							@Override
 							public void onSuccess(Component result) {
-								IdOfComponentString = String.valueOf(result
+								idOfComponentString = String.valueOf(result
 										.getId());
-								IdOfComponent.setText(IdOfComponentString);
-								IdOfComponent.setEnabled(false);
-								NameOfComponent.setText(result.getName());
-								DescriptionOfComponent.setText(result
+								idOfComponent.setText(idOfComponentString);
+								idOfComponent.setEnabled(false);
+								nameOfComponent.setText(result.getName());
+								descriptionOfComponent.setText(result
 										.getDescription());
-								MaterialDescriptionOfComponent.setText(result
+								materialDescriptionOfComponent.setText(result
 										.getMaterialDescription());
-								ComponentItemPanel
-										.add(LabelOfIdComponentTextBox);
-								ComponentItemPanel.add(IdOfComponent);
-								ComponentItemPanel
-										.add(LabelOfNameComponentTextBox);
-								ComponentItemPanel.add(NameOfComponent);
-								ComponentItemPanel
-										.add(LabelOfDescriptionComponentTextBox);
-								ComponentItemPanel.add(DescriptionOfComponent);
-								ComponentItemPanel
-										.add(LabelOfMaterialDescriptionComponentTextBox);
-								ComponentItemPanel
-										.add(MaterialDescriptionOfComponent);
-								ComponentItemPanel.add(ButtonPanel);
+								componentItemPanel
+										.add(labelOfIdComponentTextBox);
+								componentItemPanel.add(idOfComponent);
+								componentItemPanel
+										.add(labelOfNameComponentTextBox);
+								componentItemPanel.add(nameOfComponent);
+								componentItemPanel
+										.add(labelOfDescriptionComponentTextBox);
+								componentItemPanel.add(descriptionOfComponent);
+								componentItemPanel
+										.add(labelOfMaterialDescriptionComponentTextBox);
+								componentItemPanel
+										.add(materialDescriptionOfComponent);
+								componentItemPanel.add(buttonPanel);
 								RootPanel.get("rightside").clear();
 								RootPanel.get("rightside").add(
-										ComponentItemPanel);
-								DeleteComponentButton
+										componentItemPanel);
+								deleteComponentButton
 										.addClickHandler(new ClickHandler() {
 
 											@Override
 											public void onClick(ClickEvent event) {
-												DeleteComponent(Integer
-														.parseInt(IdOfComponentString));
+												deleteComponent(Integer
+														.parseInt(idOfComponentString));
 
 											}
 										});
-								EditComponentButton
+								editComponentButton
 										.addClickHandler(new ClickHandler() {
 
 											@Override
 											public void onClick(ClickEvent event) {
-												if (NameOfComponent.getValue()
+												if (nameOfComponent.getValue()
 														.isEmpty()
-														|| DescriptionOfComponent
+														|| descriptionOfComponent
 																.getValue()
 																.isEmpty()
-														|| MaterialDescriptionOfComponent
+														|| materialDescriptionOfComponent
 																.getValue()
 																.isEmpty()) {
 													Window.alert("Bitte Felder befüllen!");
 												} else {
 													Component c = new Component();
 													c.setId(Integer
-															.parseInt(IdOfComponentString));
-													c.setName(NameOfComponent
+															.parseInt(idOfComponentString));
+													c.setName(nameOfComponent
 															.getText());
-													c.setMaterialDescription(MaterialDescriptionOfComponent
+													c.setMaterialDescription(materialDescriptionOfComponent
 															.getText());
-													c.setDescription(DescriptionOfComponent
+													c.setDescription(descriptionOfComponent
 															.getText());
 													updateComponent(c);
 												}
