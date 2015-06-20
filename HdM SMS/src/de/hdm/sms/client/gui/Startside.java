@@ -223,7 +223,9 @@ public class Startside extends VerticalPanel {
 			public void execute() {
 
 				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new EditComponent());
+				EditComponent ec = new EditComponent();
+				ec.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(ec);
 			}
 		});
 		

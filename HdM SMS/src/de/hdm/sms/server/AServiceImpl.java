@@ -19,6 +19,7 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	public void init() throws IllegalArgumentException {
 		this.cMapper = ComponentMapper.componentMapper();
 		this.uMapper = UserMapper.userMapper();
+		this.cgMapper = ComponentGroupMapper.componentGroupMapper();
 	}
 
 	public void insertComponent(Component c) {

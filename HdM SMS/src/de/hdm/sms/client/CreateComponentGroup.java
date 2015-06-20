@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateComponentGroup extends VerticalPanel {
 
-	private final AServiceAsync AsyncObj = GWT.create(AService.class);
+	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private Component c = new Component();
 	private final VerticalPanel createComponentGroupPanel = new VerticalPanel();
 	private final HorizontalPanel createComponentGroupPanel2 = new HorizontalPanel();
@@ -51,7 +51,7 @@ public class CreateComponentGroup extends VerticalPanel {
 		// ListOfComponents.addStyleName("mainmenu-dropdown");
 		listOfComponents.addItem("---");
 
-		AsyncObj.loadAllComponents(new AsyncCallback<ArrayList<Component>>() {
+		asyncObj.loadAllComponents(new AsyncCallback<ArrayList<Component>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -77,7 +77,7 @@ public class CreateComponentGroup extends VerticalPanel {
 		listOfComponentGroups.setSize("180px", "35px");
 		listOfComponentGroups.addItem("---");
 
-		AsyncObj.loadAllComponentGroups(new AsyncCallback<ArrayList<ComponentGroup>>() {
+		asyncObj.loadAllComponentGroups(new AsyncCallback<ArrayList<ComponentGroup>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -132,17 +132,17 @@ public class CreateComponentGroup extends VerticalPanel {
 					Window.alert("Bitte alle Felder befüllen");
 				} else {
 					
-					c.setName(nameOfComponentGroupTextBox.getValue());
+					cg.setName(nameOfComponentGroupTextBox.getValue());
 					
-					AsyncObj.insertComponentGroup(cg, new AsyncCallback<Void>() {
+					asyncObj.insertComponentGroup(cg, new AsyncCallback<Void>() {
 
 						@Override
 						public void onSuccess(Void result) {
 							Window.alert("Baugruppe " + cg.getName()
 									+ " erfolgreich angelegt.");
 							RootPanel.get("rightside").clear();
-							Startside sS = new Startside();
-							RootPanel.get().add(sS);
+							//Startside sS = new Startside();
+							//RootPanel.get().add(sS);
 
 						}
 

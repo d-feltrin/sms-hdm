@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.sms.client.gui.Startside;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
+import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.Component;
 
 public class EditComponent extends VerticalPanel {
@@ -41,11 +42,17 @@ public class EditComponent extends VerticalPanel {
 	private Button deleteComponentButton = new Button("Bauteil löschen");
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private Button editComponentButton = new Button("Bauteil editieren");
+	//private Component c = new Component();
+	private LoginInfo loginInfo = null;
 
 	public EditComponent() {
 
 	}
 
+	public void setLoginInfo(LoginInfo loginInfo){
+		this.loginInfo = loginInfo;
+	}
+	
 	private void updateComponent(Component c) {
 		asyncObj.updateComponentById(c, new AsyncCallback<Void>() {
 
@@ -199,6 +206,7 @@ public class EditComponent extends VerticalPanel {
 															.getText());
 													c.setDescription(descriptionOfComponent
 															.getText());
+													c.setModifier(loginInfo.getEmailAddress());
 													updateComponent(c);
 												}
 

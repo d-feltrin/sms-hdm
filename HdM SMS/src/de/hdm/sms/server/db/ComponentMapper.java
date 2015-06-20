@@ -136,7 +136,8 @@ public class ComponentMapper {
 
 			state.executeUpdate("UPDATE `Component` SET `Name`= '" + c.getName()
 					+ "', `Materialdescription`= '" + c.getMaterialDescription()
-					+ "', " + "`Description`= '" + c.getDescription() + "' "
+					+ "', " + "`Description`= '" + c.getDescription() + "', "
+					+ "`Modifier`= '" + c.getModifier( ) + "' "
 					+ "WHERE `Id` = '" + c.getId() + "';");
 
 		} catch (Exception e) {
