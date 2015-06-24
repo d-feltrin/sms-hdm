@@ -22,6 +22,7 @@ import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.Component;
+import de.hdm.sms.shared.bo.User;
 
 public class EditComponent extends VerticalPanel {
 	private final ListBox listOfComponents = new ListBox();
@@ -44,6 +45,7 @@ public class EditComponent extends VerticalPanel {
 	private Button editComponentButton = new Button("Bauteil editieren");
 	//private Component c = new Component();
 	private LoginInfo loginInfo = null;
+	private User u = new User();
 
 	public EditComponent() {
 
@@ -124,6 +126,26 @@ public class EditComponent extends VerticalPanel {
 //	}
 
 	public void onLoad() {
+		asyncObj.getUserByEmail(loginInfo.getEmailAddress(),
+				new AsyncCallback<User>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(User result) {
+						u.setId(result.getId());
+						u.setFirstName(result.getFirstName());
+						u.setLastName(result.getLastName());
+						u.seteMailAdress(result.geteMailAdress());
+
+					}
+
+				});
+
 		buttonPanel.add(editComponentButton);
 		//buttonPanel.add(deleteComponentButton);
 		loadAllComponents();
@@ -206,7 +228,7 @@ public class EditComponent extends VerticalPanel {
 															.getText());
 													c.setDescription(descriptionOfComponent
 															.getText());
-													c.setModifier(loginInfo.getEmailAddress());
+													c.setModifier(u.getId());
 													updateComponent(c);
 												}
 

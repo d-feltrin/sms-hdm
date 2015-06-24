@@ -1,5 +1,7 @@
 package de.hdm.sms.client;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -32,17 +34,38 @@ public class CreateComponent extends VerticalPanel {
 	private Button createComponentButton = new Button("Bauteil anlegen");
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private Component c = new Component();
+	private User u = new User();
 	private LoginInfo loginInfo = null;
-	
+	private String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
 	public CreateComponent() {
 
 	}
 
-	public void setLoginInfo(LoginInfo loginInfo){
+	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
-	
+
 	public void onLoad() {
+		asyncObj.getUserByEmail(loginInfo.getEmailAddress(),
+				new AsyncCallback<User>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(User result) {
+						u.setId(result.getId());
+						u.setFirstName(result.getFirstName());
+						u.setLastName(result.getLastName());
+						u.seteMailAdress(result.geteMailAdress());
+
+					}
+
+				});
+
 		createComponentPanel.add(nameLabel);
 		createComponentPanel.add(nameTextbox);
 		createComponentPanel.add(descriptionLabel);
@@ -51,12 +74,12 @@ public class CreateComponent extends VerticalPanel {
 		createComponentPanel.add(materialDescriptionTextbox);
 		createComponentPanel.add(createComponentButton);
 		RootPanel.get("rightside").add(createComponentPanel);
-		
+
 		createComponentButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
+
 				if (nameTextbox.getValue().isEmpty()
 						|| descriptionTextbox.getValue().isEmpty()
 						|| materialDescriptionTextbox.getValue().isEmpty()) {
@@ -66,8 +89,8 @@ public class CreateComponent extends VerticalPanel {
 					c.setName(nameTextbox.getValue());
 					c.setMaterialDescription(materialDescriptionTextbox
 							.getValue());
-					c.setModifier(loginInfo.getEmailAddress());
-						
+					c.setModifier(u.getId());
+
 					asyncObj.insertComponent(c, new AsyncCallback<Void>() {
 
 						@Override
@@ -75,8 +98,8 @@ public class CreateComponent extends VerticalPanel {
 							Window.alert("Bauteil " + c.getName()
 									+ " erfolgreich angelegt.");
 							RootPanel.get("rightside").clear();
-							//Startside sS = new Startside();
-							//RootPanel.get().add(sS);
+							// Startside sS = new Startside();
+							// RootPanel.get().add(sS);
 
 						}
 
