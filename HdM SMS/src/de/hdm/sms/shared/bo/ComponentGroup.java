@@ -1,6 +1,7 @@
 package de.hdm.sms.shared.bo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ComponentGroup extends BusinessObject {
 
@@ -12,6 +13,8 @@ public class ComponentGroup extends BusinessObject {
 	private String lastEditor;
 	private String tag;
 	private int amount;
+	private List<ComponentGroup> componengroupList;
+	private List<Component> componentList;
 	
 public ComponentGroup(){
 		
@@ -68,6 +71,22 @@ public ComponentGroup(){
 
 	public void setComponentId2(int componentId2) {
 		this.componentId2 = componentId2;
+	}
+
+	public List<ComponentGroup> getComponengroupList() {
+		return componengroupList;
+	}
+
+	public void setComponengroupList(List<ComponentGroup> componengroupList) {
+		this.componengroupList = componengroupList;
+	}
+
+	public List<Component> getComponentList() {
+		return componentList;
+	}
+
+	public void setComponentList(List<Component> componentList) {
+		this.componentList = componentList;
 	}
 
 
