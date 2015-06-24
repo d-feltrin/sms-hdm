@@ -13,6 +13,7 @@ public class Component extends BusinessObject {
 	private String material;
 	private int modifier;
 	private Date creationdate;
+	private Date lastModified;
 	
 	public Component(){
 		
@@ -65,5 +66,15 @@ public class Component extends BusinessObject {
 	public void setCreationdate(Date sqlDate) {
 		this.creationdate = sqlDate;
 	}
+
+	public Date getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
+	}
+
+
 
 }

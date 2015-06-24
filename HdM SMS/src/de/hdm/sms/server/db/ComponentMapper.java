@@ -5,15 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
-
-
-
-
-
-
-
-import com.google.gwt.user.client.Window;
 
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;
@@ -35,7 +26,7 @@ public class ComponentMapper {
 
 	public void insertComponent(Component c) {
 		Connection con = DatebaseConnection.connection();
-	//Date now = new Date();
+		// Date now = new Date();
 		try {
 			Statement state = con.createStatement();
 			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, Creationdate) VALUES ("
@@ -44,12 +35,10 @@ public class ComponentMapper {
 					+ "','"
 					+ c.getDescription()
 					+ "', '"
-					+ c.getMaterialDescription() 
+					+ c.getMaterialDescription()
 					+ "', '"
 					+ c.getModifier()
-					+ "', '"
-					+ c.getCreationdate()
-					+ "');";
+					+ "', '" + c.getCreationdate() + "');";
 			state.executeUpdate(sqlquery);
 
 		} catch (Exception e) {
@@ -63,15 +52,18 @@ public class ComponentMapper {
 
 		try {
 			Statement state = con.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM Component");
+			ResultSet rs = state.executeQuery("SELECT * FROM Component");
 
-			while (result.next()) {
+			while (rs.next()) {
 				Component c = new Component();
-				c.setId(result.getInt("Id"));
-				c.setName(result.getString("Name"));
-				c.setDescription(result.getString("Description"));
-				c.setMaterialDescription(result
+				c.setId(rs.getInt("Id"));
+				c.setName(rs.getString("Name"));
+				c.setDescription(rs.getString("Description"));
+				c.setMaterialDescription(rs
 						.getString("Materialdescription"));
+				c.setModifier(rs.getInt("Modifier"));
+				c.setCreationdate(rs.getDate("Creationdate"));
+				c.setLastModified(rs.getDate("LastModified"));
 
 				resultList.add(c);
 			}
@@ -89,8 +81,9 @@ public class ComponentMapper {
 
 		try {
 			Statement state = con.createStatement();
-			ResultSet rs = state.executeQuery("SELECT * FROM Component WHERE name='"
-					+ selectedComponent + "';");
+			ResultSet rs = state
+					.executeQuery("SELECT * FROM Component WHERE name='"
+							+ selectedComponent + "';");
 
 			while (rs.next()) {
 
@@ -98,6 +91,9 @@ public class ComponentMapper {
 				c.setName(rs.getString("Name"));
 				c.setDescription(rs.getString("Description"));
 				c.setMaterialDescription(rs.getString("Materialdescription"));
+				c.setModifier(rs.getInt("Modifier"));
+				c.setCreationdate(rs.getDate("Creationdate"));
+				c.setLastModified(rs.getDate("LastModified"));
 
 			}
 
@@ -118,7 +114,8 @@ public class ComponentMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("DELETE FROM Component WHERE Id='" + deleteComponentId + "';");
+			state.executeUpdate("DELETE FROM Component WHERE Id='"
+					+ deleteComponentId + "';");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,11 +131,12 @@ public class ComponentMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("UPDATE `Component` SET `Name`= '" + c.getName()
-					+ "', `Materialdescription`= '" + c.getMaterialDescription()
-					+ "', " + "`Description`= '" + c.getDescription() + "', "
-					+ "`Modifier`= '" + c.getModifier() + "' "
-					+ "WHERE `Id` = '" + c.getId() + "';");
+			state.executeUpdate("UPDATE `Component` SET `Name`= '"
+					+ c.getName() + "', `Materialdescription`= '"
+					+ c.getMaterialDescription() + "', " + "`Description`= '"
+					+ c.getDescription() + "', " + "`Modifier`= '"
+					+ c.getModifier() + "' " + "WHERE `Id` = '" + c.getId()
+					+ "';");
 
 		} catch (Exception e) {
 			e.printStackTrace();
