@@ -5,7 +5,6 @@ import java.util.List;
 
 public class ComponentGroup extends BusinessObject {
 
-	
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private int componentId;
@@ -15,20 +14,21 @@ public class ComponentGroup extends BusinessObject {
 	private int amount;
 	private List<ComponentGroup> componengroupList;
 	private List<Component> componentList;
-	
-public ComponentGroup(){
-		
+	private Date date;
+
+	public ComponentGroup() {
+
 	}
 
-	public ComponentGroup(String name){
+	public ComponentGroup(String name) {
 		this.name = name;
-		
+
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -89,5 +89,12 @@ public ComponentGroup(){
 		this.componentList = componentList;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 }
