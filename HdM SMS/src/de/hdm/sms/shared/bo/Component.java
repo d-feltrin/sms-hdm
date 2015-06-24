@@ -9,7 +9,7 @@ public class Component extends BusinessObject {
 	private String description;
 	private String name;
 	private String material;
-	private String modifier = "";
+	private int modifier;
 	
 	public Component(){
 		
@@ -46,12 +46,12 @@ public class Component extends BusinessObject {
 		this.material = material;
 	}
 
-	public void setModifier(String modifier) {
-		this.modifier = modifier;
+	public void setModifier(int i) {
+		this.modifier = i;
 		
 	}
 
-	public String getModifier() {
+	public int getModifier() {
 		return this.modifier;
 	}
 
