@@ -1,8 +1,9 @@
 package de.hdm.sms.client;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.logging.Logger;
 
 import de.hdm.sms.client.gui.Startside;
@@ -36,7 +37,9 @@ public class CreateComponent extends VerticalPanel {
 	private Component c = new Component();
 	private User u = new User();
 	private LoginInfo loginInfo = null;
-	private String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+	java.util.Date utilDate = new java.util.Date();
+    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	
 	public CreateComponent() {
 
 	}
@@ -90,6 +93,7 @@ public class CreateComponent extends VerticalPanel {
 					c.setMaterialDescription(materialDescriptionTextbox
 							.getValue());
 					c.setModifier(u.getId());
+					c.setCreationdate(sqlDate);
 
 					asyncObj.insertComponent(c, new AsyncCallback<Void>() {
 

@@ -38,7 +38,7 @@ public class ComponentMapper {
 	//Date now = new Date();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, LastModified) VALUES ("
+			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, Creationdate) VALUES ("
 					+ "'"
 					+ c.getName()
 					+ "','"
@@ -48,7 +48,7 @@ public class ComponentMapper {
 					+ "', '"
 					+ c.getModifier()
 					+ "', '"
-					+ "2015-06-15 22:39:01"
+					+ c.getCreationdate()
 					+ "');";
 			state.executeUpdate(sqlquery);
 
@@ -137,7 +137,7 @@ public class ComponentMapper {
 			state.executeUpdate("UPDATE `Component` SET `Name`= '" + c.getName()
 					+ "', `Materialdescription`= '" + c.getMaterialDescription()
 					+ "', " + "`Description`= '" + c.getDescription() + "', "
-					+ "`Modifier`= '" + c.getModifier( ) + "' "
+					+ "`Modifier`= '" + c.getModifier() + "' "
 					+ "WHERE `Id` = '" + c.getId() + "';");
 
 		} catch (Exception e) {
