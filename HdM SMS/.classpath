@@ -9,7 +9,5 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-api-labs.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-endpoints-deps.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/appengine-endpoints.jar"/>
-	<classpathentry exported="true" kind="lib" path="E:/Users/Sascha/git/sms-hdm/HdM SMS/war/WEB-INF/lib/appengine-api-1.0-sdk-1.9.21.jar"/>
-	<classpathentry exported="true" kind="lib" path="E:/Users/Sascha/git/sms-hdm/HdM SMS/war/WEB-INF/lib/appengine-jsr107cache-1.9.21.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
