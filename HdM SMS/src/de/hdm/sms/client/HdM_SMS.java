@@ -31,7 +31,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.client.gui.ImageSMS;
 import de.hdm.sms.client.gui.Impressum;
-import de.hdm.sms.client.gui.SearchComponent;
+
 import de.hdm.sms.client.gui.Startside;
 
 public class HdM_SMS implements EntryPoint {
