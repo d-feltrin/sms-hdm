@@ -11,12 +11,12 @@ import java.util.Locale;
 
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
+import de.hdm.sms.client.CreateComponentGroup_depr;
 import de.hdm.sms.client.CreateUser;
 import de.hdm.sms.client.DeleteComponent;
 import de.hdm.sms.client.EditComponent;
 import de.hdm.sms.client.EditComponentGroup;
 import de.hdm.sms.client.EditUser;
-import de.hdm.sms.shared.FieldVerifier;
 import de.hdm.sms.shared.LoginInfo;
 
 import com.google.gwt.core.client.GWT;
@@ -47,8 +47,7 @@ public class Startside extends VerticalPanel {
 	private static final String SERVER_ERROR = "An error occurred while "
 			+ "attempting to contact the server. Please check your network "
 			+ "connection and try again.";
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
+	
 
 	private DockPanel dockPanel = new DockPanel();
 	private VerticalPanel startsidePanel = new VerticalPanel();
@@ -244,6 +243,14 @@ public class Startside extends VerticalPanel {
 
 				RootPanel.get("rightside").clear();
 				RootPanel.get("rightside").add(new CreateComponentGroup());
+			}
+		});
+		componentGroupMenu.addItem("Create_depr", new Command() {
+			@Override
+			public void execute() {
+
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new CreateComponentGroup_depr());
 			}
 		});
 		componentGroupMenu.addItem("Edit", new Command() {
