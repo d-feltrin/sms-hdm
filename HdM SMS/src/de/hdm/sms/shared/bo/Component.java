@@ -1,7 +1,5 @@
 package de.hdm.sms.shared.bo;
 
-import java.sql.Date;
-
 import de.hdm.sms.shared.LoginInfo;
 
 public class Component extends BusinessObject {
@@ -12,8 +10,11 @@ public class Component extends BusinessObject {
 	private String name;
 	private String material;
 	private int modifier;
+<<<<<<< HEAD
 	private Date creationdate;
 	private Date lastModified;
+=======
+>>>>>>> origin/master
 	
 	public Component(){
 		
@@ -59,6 +60,7 @@ public class Component extends BusinessObject {
 		return this.modifier;
 	}
 
+<<<<<<< HEAD
 	public Date getCreationdate() {
 		return creationdate;
 	}
@@ -77,4 +79,6 @@ public class Component extends BusinessObject {
 
 
 
+=======
+>>>>>>> origin/master
 }

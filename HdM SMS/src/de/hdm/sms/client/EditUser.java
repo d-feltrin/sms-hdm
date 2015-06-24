@@ -44,27 +44,26 @@ public class EditUser extends VerticalPanel {
 	public EditUser() {
 
 	}
+private void updateUser(User u) {
+	asyncObj.updateUserById(u, new AsyncCallback<Void>() {
 
-	private void updateUser(User u) {
-		asyncObj.updateUserById(u, new AsyncCallback<Void>() {
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				Window.alert("Benutzer erfolgreich editiert");
-				RootPanel.get("rightside").clear();
-				Startside sS = new Startside();
-				RootPanel.get().add(sS);
-
-			}
-		});
-	}
-
+		@Override
+		public void onSuccess(Void result) {
+			Window.alert("Benutzer erfolgreich editiert");
+			RootPanel.get("rightside").clear();
+			Startside sS = new Startside();
+			RootPanel.get().add(sS);
+			
+			
+		}
+	});
+}
 	private void deleteUser(int DeleteUserId) {
 		asyncObj.deleteUserById(DeleteUserId, new AsyncCallback<Void>() {
 
@@ -79,10 +78,11 @@ public class EditUser extends VerticalPanel {
 				Window.alert("Benutzer erfolgreich gelöscht");
 				RootPanel.get("rightside").clear();
 				RootPanel.get("rightside").add(new ImageSMS());
-				// Startside sS = new Startside();
-				// RootPanel.get().add(sS);
+				//Startside sS = new Startside();
+				//RootPanel.get().add(sS);
 				RootPanel.get("leftside").clear();
 				RootPanel.get("leftside").add(new Startside());
+				
 
 			}
 		});
@@ -108,6 +108,7 @@ public class EditUser extends VerticalPanel {
 
 					listOfUsers.addItem(result.get(i).geteMailAdress());
 
+					
 				}
 
 			}
@@ -119,7 +120,7 @@ public class EditUser extends VerticalPanel {
 		loadAllUser();
 		buttonPanel.add(editUserButton);
 		buttonPanel.add(deleteUserButton);
-
+		
 		listOfUsers.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -166,38 +167,29 @@ public class EditUser extends VerticalPanel {
 												deleteUser(Integer
 														.parseInt(userIdString));
 
+												
+
 											}
 										});
-								editUserButton
-										.addClickHandler(new ClickHandler() {
+								editUserButton.addClickHandler(new ClickHandler() {
+									
+									@Override
+									public void onClick(ClickEvent event) {
 
-											@Override
-											public void onClick(ClickEvent event) {
-
-												if (firstnameTextBox.getValue()
-														.isEmpty()
-														|| lastnameTextBox
-																.getValue()
-																.isEmpty()
-														|| eMailAdressTextBox
-																.getValue()
-																.isEmpty()) {
-													Window.alert("Bitte alle Felder befüllen!");
-												} else {
-													User u = new User();
-													u.setId(Integer
-															.parseInt(userIdString));
-													u.setFirstName(firstnameTextBox
-															.getText());
-													u.setLastName(lastnameTextBox
-															.getText());
-													u.seteMailAdress(eMailAdressTextBox
-															.getText());
-													updateUser(u);
-
-												}
-											}
-										});
+										if (firstnameTextBox.getValue().isEmpty() || lastnameTextBox.getValue().isEmpty() || eMailAdressTextBox.getValue().isEmpty()) 
+										{
+											Window.alert("Bitte alle Felder befüllen!");
+										} else {
+											User u = new User();
+											u.setId(Integer.parseInt(userIdString));
+											u.setFirstName(firstnameTextBox.getText());
+											u.setLastName(lastnameTextBox.getText());
+											u.seteMailAdress(eMailAdressTextBox.getText());
+											updateUser(u);
+											
+										}
+									}
+								});
 
 							}
 						});

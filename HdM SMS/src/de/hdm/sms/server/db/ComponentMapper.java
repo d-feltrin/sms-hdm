@@ -29,7 +29,7 @@ public class ComponentMapper {
 		// Date now = new Date();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, Creationdate) VALUES ("
+			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, LastModified) VALUES ("
 					+ "'"
 					+ c.getName()
 					+ "','"
@@ -38,7 +38,13 @@ public class ComponentMapper {
 					+ c.getMaterialDescription()
 					+ "', '"
 					+ c.getModifier()
+<<<<<<< HEAD
 					+ "', '" + c.getCreationdate() + "');";
+=======
+					+ "', '"
+					+ "2015-06-15 22:39:01"
+					+ "');";
+>>>>>>> origin/master
 			state.executeUpdate(sqlquery);
 
 		} catch (Exception e) {
@@ -131,12 +137,20 @@ public class ComponentMapper {
 
 			Statement state = con.createStatement();
 
+<<<<<<< HEAD
 			state.executeUpdate("UPDATE `Component` SET `Name`= '"
 					+ c.getName() + "', `Materialdescription`= '"
 					+ c.getMaterialDescription() + "', " + "`Description`= '"
 					+ c.getDescription() + "', " + "`Modifier`= '"
 					+ c.getModifier() + "' " + "WHERE `Id` = '" + c.getId()
 					+ "';");
+=======
+			state.executeUpdate("UPDATE `Component` SET `Name`= '" + c.getName()
+					+ "', `Materialdescription`= '" + c.getMaterialDescription()
+					+ "', " + "`Description`= '" + c.getDescription() + "', "
+					+ "`Modifier`= '" + c.getModifier( ) + "' "
+					+ "WHERE `Id` = '" + c.getId() + "';");
+>>>>>>> origin/master
 
 		} catch (Exception e) {
 			e.printStackTrace();
