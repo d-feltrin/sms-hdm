@@ -29,22 +29,16 @@ public class ComponentMapper {
 		// Date now = new Date();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, LastModified) VALUES ("
+			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, Creationdate) VALUES ("
 					+ "'"
 					+ c.getName()
 					+ "','"
 					+ c.getDescription()
 					+ "', '"
-					+ c.getMaterialDescription()
-					+ "', '"
-					+ c.getModifier()
-<<<<<<< HEAD
+					+ c.getMaterialDescription() + "', '" + c.getModifier()
+
 					+ "', '" + c.getCreationdate() + "');";
-=======
-					+ "', '"
-					+ "2015-06-15 22:39:01"
-					+ "');";
->>>>>>> origin/master
+
 			state.executeUpdate(sqlquery);
 
 		} catch (Exception e) {
@@ -65,8 +59,7 @@ public class ComponentMapper {
 				c.setId(rs.getInt("Id"));
 				c.setName(rs.getString("Name"));
 				c.setDescription(rs.getString("Description"));
-				c.setMaterialDescription(rs
-						.getString("Materialdescription"));
+				c.setMaterialDescription(rs.getString("Materialdescription"));
 				c.setModifier(rs.getInt("Modifier"));
 				c.setCreationdate(rs.getDate("Creationdate"));
 				c.setLastModified(rs.getDate("LastModified"));
@@ -137,20 +130,19 @@ public class ComponentMapper {
 
 			Statement state = con.createStatement();
 
-<<<<<<< HEAD
 			state.executeUpdate("UPDATE `Component` SET `Name`= '"
 					+ c.getName() + "', `Materialdescription`= '"
 					+ c.getMaterialDescription() + "', " + "`Description`= '"
 					+ c.getDescription() + "', " + "`Modifier`= '"
 					+ c.getModifier() + "' " + "WHERE `Id` = '" + c.getId()
 					+ "';");
-=======
-			state.executeUpdate("UPDATE `Component` SET `Name`= '" + c.getName()
-					+ "', `Materialdescription`= '" + c.getMaterialDescription()
-					+ "', " + "`Description`= '" + c.getDescription() + "', "
-					+ "`Modifier`= '" + c.getModifier( ) + "' "
-					+ "WHERE `Id` = '" + c.getId() + "';");
->>>>>>> origin/master
+
+			state.executeUpdate("UPDATE `Component` SET `Name`= '"
+					+ c.getName() + "', `Materialdescription`= '"
+					+ c.getMaterialDescription() + "', " + "`Description`= '"
+					+ c.getDescription() + "', " + "`Modifier`= '"
+					+ c.getModifier() + "' " + "WHERE `Id` = '" + c.getId()
+					+ "';");
 
 		} catch (Exception e) {
 			e.printStackTrace();
