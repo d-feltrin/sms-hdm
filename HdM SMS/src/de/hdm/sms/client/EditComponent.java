@@ -1,5 +1,7 @@
 package de.hdm.sms.client;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.google.gwt.core.client.GWT;
@@ -7,6 +9,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -34,7 +37,7 @@ public class EditComponent extends VerticalPanel {
 			"Beschreibung");
 	private final Label labelOfMaterialDescriptionComponentTextBox = new Label(
 			"Materialbeschreibung");
-	private final Label labelOfIdComponentTextBox = new Label("Id");
+	private final Label labelOfIdComponentTextBox = new Label("Artikelnummer");
 	private TextBox descriptionOfComponent = new TextBox();
 	private TextBox materialDescriptionOfComponent = new TextBox();
 	private TextBox idOfComponent = new TextBox();
@@ -42,10 +45,13 @@ public class EditComponent extends VerticalPanel {
 	private VerticalPanel componentItemPanel = new VerticalPanel();
 	private Button deleteComponentButton = new Button("Bauteil löschen");
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private Button editComponentButton = new Button("Bauteil editieren");
 	//private Component c = new Component();
 	private LoginInfo loginInfo = null;
 	private User u = new User();
+	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
+	private VerticalPanel InfoPanel = new VerticalPanel();
 
 	public EditComponent() {
 
@@ -55,6 +61,24 @@ public class EditComponent extends VerticalPanel {
 		this.loginInfo = loginInfo;
 	}
 	
+	private void getLastModifier(Component c) {
+		asyncObj.getLastModifierOfComponent(c, new AsyncCallback<User>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(User result) {
+				InfoPanel.add(new Label("Letzter Bearbeiter"));
+				InfoPanel.add(new Label(result.getFirstName() +" "+ result.getLastName()));
+				
+				
+			}
+		});
+	}
 	private void updateComponent(Component c) {
 		asyncObj.updateComponentById(c, new AsyncCallback<Void>() {
 
@@ -168,6 +192,7 @@ public class EditComponent extends VerticalPanel {
 
 							@Override
 							public void onSuccess(Component result) {
+								getLastModifier(result);
 								idOfComponentString = String.valueOf(result
 										.getId());
 								idOfComponent.setText(idOfComponentString);
@@ -191,9 +216,17 @@ public class EditComponent extends VerticalPanel {
 								componentItemPanel
 										.add(materialDescriptionOfComponent);
 								componentItemPanel.add(buttonPanel);
+								InfoPanel.add(new Label("Erstellungsdatum"));
+								Window.alert(""+dF.format(result.getLastModified()));
+								InfoPanel.add(new Label(dF.format(result.getCreationdate())));
+								InfoPanel.add(new Label("Bearbeitungsdatum"));
+								InfoPanel.add(new Label(dF.format(result.getLastModified())));
+								contentPanel.add(componentItemPanel);
+								contentPanel.add(InfoPanel);
 								RootPanel.get("rightside").clear();
-								RootPanel.get("rightside").add(
-										componentItemPanel);
+								RootPanel.get("rightside").add(contentPanel);
+								
+								
 //								deleteComponentButton
 //										.addClickHandler(new ClickHandler() {
 //

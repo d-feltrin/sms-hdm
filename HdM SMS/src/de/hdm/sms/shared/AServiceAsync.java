@@ -41,6 +41,9 @@ public interface AServiceAsync {
 
 	void getUserByEmail(String eMailAdress, AsyncCallback<User> callback);
 
+	void getLastModifierOfComponent(Component c,
+			AsyncCallback<User> asyncCallback);
+
 	
 
 	

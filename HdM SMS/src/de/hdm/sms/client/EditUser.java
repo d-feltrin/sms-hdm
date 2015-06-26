@@ -58,6 +58,7 @@ private void updateUser(User u) {
 			Window.alert("Benutzer erfolgreich editiert");
 			RootPanel.get("rightside").clear();
 			Startside sS = new Startside();
+			RootPanel.get().clear();
 			RootPanel.get().add(sS);
 			
 			

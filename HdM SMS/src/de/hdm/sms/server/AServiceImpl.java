@@ -81,7 +81,7 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public User getOneUserIdByName(String selectedUser) {
 		User u = new User();
-		u = uMapper.getOneComponentIdByName(selectedUser);
+		u = uMapper.getOneComponentIdByEmailAdress(selectedUser);
 		return u;
 	}
 
@@ -99,6 +99,13 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	public User getUserByEmail(String eMailAdress) {
 		User u = new User();
 		u = uMapper.getUserByEmail(eMailAdress);
+		return u;
+	}
+
+	@Override
+	public User getLastModifierOfComponent(Component c) {
+		User u = new User();
+		u = cMapper.getLastMofierOfComponentById(c);
 		return u;
 	}
 }

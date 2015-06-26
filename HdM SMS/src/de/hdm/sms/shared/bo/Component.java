@@ -20,14 +20,7 @@ public class Component extends BusinessObject {
 	public Component(){
 		
 	}
-	
-	public Component(String name, String description, String material){
-		this.name = name;
-		this.description = description;
-		this.material = material;
-	}
-	
-	
+		
 	public String getDescription() {
 		return description;
 	}

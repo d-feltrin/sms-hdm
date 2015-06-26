@@ -39,4 +39,6 @@ public interface AService extends RemoteService {
 
 	User getUserByEmail(String eMailAdress);
 
+	User getLastModifierOfComponent(Component c);
+
 }

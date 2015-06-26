@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;
+import de.hdm.sms.shared.bo.User;
 
 public class ComponentMapper {
 	private static ComponentMapper componentMapper = null;
@@ -63,6 +65,7 @@ public class ComponentMapper {
 				c.setModifier(rs.getInt("Modifier"));
 				c.setCreationdate(rs.getDate("Creationdate"));
 				c.setLastModified(rs.getDate("LastModified"));
+				System.out.println(c.getCreationdate());
 
 				resultList.add(c);
 			}
@@ -150,4 +153,33 @@ public class ComponentMapper {
 		}
 	}
 
-}
+	public User getLastMofierOfComponentById(Component c) {
+		Connection con = DatebaseConnection.connection();
+
+			User u = new User();
+
+			try {
+
+				Statement state = con.createStatement();
+				ResultSet rs = state
+						.executeQuery("SELECT * From Component INNER JOIN User ON Component.Modifier = User.Id AND User.Id='"+c.getModifier()+"';");
+
+				while (rs.next()) {
+
+					u.setId(rs.getInt("Id"));
+					u.setFirstName(rs.getString("Firstname"));
+					u.setLastName(rs.getString("Lastname"));
+					u.seteMailAdress(rs.getString("EmailAdress"));
+
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return u;
+		}
+
+	}
+
+

@@ -47,73 +47,57 @@ public class Startside extends VerticalPanel {
 	private static final String SERVER_ERROR = "An error occurred while "
 			+ "attempting to contact the server. Please check your network "
 			+ "connection and try again.";
-	
 
 	private DockPanel dockPanel = new DockPanel();
 	private VerticalPanel startsidePanel = new VerticalPanel();
 	private VerticalPanel menuPanel = new VerticalPanel();
-	private VerticalPanel radioButtonPanel = new VerticalPanel();
+
 	private VerticalPanel dialogboxVPanel = new VerticalPanel();
 	private FlowPanel buttonPanel = new FlowPanel();
-	//private Button loginButton = new Button("Anmelden");
+
 	private Button registerButton = new Button("Registrieren");
 	private Button closeButton = new Button("Close");
-	//private TextBox nameTextBox = new TextBox();
-	//private TextBox keywordTextBox = new TextBox();
-	//private Label nameLabel = new Label("Benutzername");
-	//private Label keywordLabel = new Label("Passwort");
-	//private Label loginLabel = new Label("Login");
+
 	private Label errorLabel = new Label();
 	private Label textToServerLabel = new Label();
 	private HTML serverResponseLabel = new HTML();
-	private RadioButton rb0 = new RadioButton("myRadioGroup", "Client/Viewer");
-	private RadioButton rb1 = new RadioButton("myRadioGroup", "Reportgenerator");
+
 	private DialogBox dialogBox = new DialogBox();
 	private LoginInfo loginInfo = null;
-	
+
 	public void StartSide() {
 
 	}
 
-	public void setLoginInfo(LoginInfo loginInfo){
+	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
-	
-/*	public void login() {
 
-		errorLabel.setText("");
-		String textToServer = nameTextBox.getText();
-		if (!FieldVerifier.isValidName(textToServer)) {
-			errorLabel.setText("Bitte geben Sie mindestens 4 Zeichen ein!");
-			errorLabel.addStyleName("serverResponseLabelError");
-			return;
-		}
-
-		//loginButton.setEnabled(false);
-		registerButton.setEnabled(false);
-		textToServerLabel.setText("");
-		serverResponseLabel.setText("");
-		greetingService.getName(textToServer, new AsyncCallback<String>() {
-			public void onFailure(Throwable caught) {
-				dialogBox.setText("Anmeldung: Fehler");
-				serverResponseLabel.addStyleName("serverResponseLabelError");
-				serverResponseLabel.setHTML(SERVER_ERROR);
-				dialogBox.center();
-				closeButton.setFocus(true);
-			}
-
-			public void onSuccess(String result) {
-				serverResponseLabel.removeStyleName("serverResponseLabelError");
-				serverResponseLabel.setHTML(result);
-				dialogBox.center();
-				closeButton.setFocus(true);
-				RootPanel.get("leftside").clear();
-				RootPanel.get("leftside").add(new SearchComponent());
-
-			}
-		});
-	}
-*/
+	/*
+	 * public void login() {
+	 * 
+	 * errorLabel.setText(""); String textToServer = nameTextBox.getText(); if
+	 * (!FieldVerifier.isValidName(textToServer)) {
+	 * errorLabel.setText("Bitte geben Sie mindestens 4 Zeichen ein!");
+	 * errorLabel.addStyleName("serverResponseLabelError"); return; }
+	 * 
+	 * //loginButton.setEnabled(false); registerButton.setEnabled(false);
+	 * textToServerLabel.setText(""); serverResponseLabel.setText("");
+	 * greetingService.getName(textToServer, new AsyncCallback<String>() {
+	 * public void onFailure(Throwable caught) {
+	 * dialogBox.setText("Anmeldung: Fehler");
+	 * serverResponseLabel.addStyleName("serverResponseLabelError");
+	 * serverResponseLabel.setHTML(SERVER_ERROR); dialogBox.center();
+	 * closeButton.setFocus(true); }
+	 * 
+	 * public void onSuccess(String result) {
+	 * serverResponseLabel.removeStyleName("serverResponseLabelError");
+	 * serverResponseLabel.setHTML(result); dialogBox.center();
+	 * closeButton.setFocus(true); RootPanel.get("leftside").clear();
+	 * RootPanel.get("leftside").add(new SearchComponent());
+	 * 
+	 * } }); }
+	 */
 	public void openReport() {
 
 	}
@@ -128,40 +112,36 @@ public class Startside extends VerticalPanel {
 
 	public void onLoad() {
 
-	//	loginButton.setPixelSize(180, 30);
+		// loginButton.setPixelSize(180, 30);
 		registerButton.setPixelSize(180, 30);
-		//nameTextBox.setText("Benutzername");
-		//keywordTextBox.setText("********");
-		rb0.setChecked(true);
+		// nameTextBox.setText("Benutzername");
+		// keywordTextBox.setText("********");
 
-		radioButtonPanel.add(rb0);
-		radioButtonPanel.add(rb1);
-
-		//buttonPanel.add(loginButton);
+		// buttonPanel.add(loginButton);
 		buttonPanel.add(registerButton);
 
-		//startsidePanel.add(nameLabel);
-		//startsidePanel.add(nameTextBox);
-		//startsidePanel.add(keywordLabel);
-		//startsidePanel.add(keywordTextBox);
+		// startsidePanel.add(nameLabel);
+		// startsidePanel.add(nameTextBox);
+		// startsidePanel.add(keywordLabel);
+		// startsidePanel.add(keywordTextBox);
 		startsidePanel.add(errorLabel);
 
-		//dockPanel.add(loginLabel, DockPanel.NORTH); // North
+		// dockPanel.add(loginLabel, DockPanel.NORTH); // North
 		dockPanel.add(startsidePanel, DockPanel.WEST); // West
 		dockPanel.add(new HTML(" "), DockPanel.EAST); // East
 		dockPanel.add(new HTML(" "), DockPanel.SOUTH); // South
-		dockPanel.add(radioButtonPanel, DockPanel.NORTH); // Second North
+
 		dockPanel.add(buttonPanel, DockPanel.SOUTH); // Second South
 
 		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		dockPanel.setStyleName("dockpanel");
 		dockPanel.setSpacing(5);
-	//	loginLabel.setStyleName("header");
+		// loginLabel.setStyleName("header");
 
 		RootPanel.get("leftside").add(dockPanel);
 
-		//nameTextBox.setFocus(true);
-		//nameTextBox.selectAll();
+		// nameTextBox.setFocus(true);
+		// nameTextBox.selectAll();
 
 		// DIALOGBOX
 		// ########################################################################################################
@@ -205,14 +185,6 @@ public class Startside extends VerticalPanel {
 
 				RootPanel.get("rightside").clear();
 				CreateComponent cc = new CreateComponent();
-				// folgender Code auskommentiert, da noch nicht funktionsfähig aber zur Orientierung/ zum Nachschauen
-				//Date now = new Date();
-				//Date currDate = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
-				//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				//Window.alert("--> " + sdf.format(currDate));
-				//String strTimestamp = new Format("yyyy-MM-dd HH:mm:ss").format(now);
-				//String strTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date() );
-				//Window.alert(strTimestamp);
 				cc.setLoginInfo(loginInfo);
 				RootPanel.get("rightside").add(cc);
 			}
@@ -227,7 +199,7 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").add(ec);
 			}
 		});
-		
+
 		componentMenu.addItem("Delete", new Command() {
 			@Override
 			public void execute() {
@@ -236,7 +208,7 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").add(new DeleteComponent());
 			}
 		});
-		
+
 		componentGroupMenu.addItem("Create", new Command() {
 			@Override
 			public void execute() {
@@ -264,70 +236,41 @@ public class Startside extends VerticalPanel {
 		menu.addItem(new MenuItem("User", userMenu));
 		menu.addItem(new MenuItem("Component", componentMenu));
 		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
-//hier verändert
-		dockPanel.add(menuPanel, DockPanel.WEST);
-	//	RootPanel.get("leftside").clear();
+
 		menuPanel.add(menu);
 
-		
-		// HANDLER
-		// ########################################################################################################
-/*
-		keywordTextBox.addKeyUpHandler(new KeyUpHandler() {
+		RootPanel.get("leftside").add(menuPanel);
+		menuPanel.add(menu);
 
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					login();
-				}
-			}
-		});
-*/
-	/*	nameTextBox.addKeyUpHandler(new KeyUpHandler() {
-
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					login();
-				}
-			}
-		}); 
-*/
 		closeButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 
 				dialogBox.hide();
-				//loginButton.setEnabled(true);
-				//loginButton.setFocus(true);
+				// loginButton.setEnabled(true);
+				// loginButton.setFocus(true);
 				registerButton.setEnabled(true);
 
 			}
 		});
 
-	/*	loginButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				if (rb0.getValue() == true) {
-					login();
-				} else {
-					openReport();
-				}
-			}
-
-		});
-*/
+		/*
+		 * loginButton.addClickHandler(new ClickHandler() {
+		 * 
+		 * @Override public void onClick(ClickEvent event) { if (rb0.getValue()
+		 * == true) { login(); } else { openReport(); } }
+		 * 
+		 * });
+		 */
 		registerButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 
-				
-					RootPanel.get("rightside").clear();
-					RootPanel.get("rightside").add(new CreateUser());
-				
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new CreateUser());
+
 			}
 
 		});

@@ -98,7 +98,7 @@ public class UserMapper {
 		return u;
 	}
 
-	public User getOneComponentIdByName(String selectedUser) {
+	public User getOneComponentIdByEmailAdress(String selectedUser) {
 
 		Connection con = DatebaseConnection.connection();
 

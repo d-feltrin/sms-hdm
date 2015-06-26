@@ -13,8 +13,11 @@ public class ComponentGroup extends BusinessObject {
 	private String tag;
 	private int amount;
 	private List<ComponentGroup> componengroupList;
+	private List<Integer> amountListOfComponentGroup;
+	private List<Integer> amountListOfComponent;
 	private List<Component> componentList;
-	private Date date;
+	private Date creationDate;
+	private Date modificationDate;
 
 	public ComponentGroup() {
 
@@ -89,12 +92,39 @@ public class ComponentGroup extends BusinessObject {
 		this.componentList = componentList;
 	}
 
-	public Date getDate() {
-		return date;
+	public List<Integer> getAmountListOfComponentGroup() {
+		return amountListOfComponentGroup;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setAmountListOfComponentGroup(
+			List<Integer> amountListOfComponentGroup) {
+		this.amountListOfComponentGroup = amountListOfComponentGroup;
 	}
+
+	public List<Integer> getAmountListOfComponent() {
+		return amountListOfComponent;
+	}
+
+	public void setAmountListOfComponent(List<Integer> amountListOfComponent) {
+		this.amountListOfComponent = amountListOfComponent;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getModificationDate() {
+		return modificationDate;
+	}
+
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
+
+	
 
 }

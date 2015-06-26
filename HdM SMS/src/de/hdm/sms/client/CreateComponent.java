@@ -37,8 +37,7 @@ public class CreateComponent extends VerticalPanel {
 	private Component c = new Component();
 	private User u = new User();
 	private LoginInfo loginInfo = null;
-	java.util.Date utilDate = new java.util.Date();
-    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	private final Date today = new Date(System.currentTimeMillis());
 	
 	public CreateComponent() {
 
@@ -93,7 +92,7 @@ public class CreateComponent extends VerticalPanel {
 					c.setMaterialDescription(materialDescriptionTextbox
 							.getValue());
 					c.setModifier(u.getId());
-					c.setCreationdate(sqlDate);
+					c.setCreationdate(today);
 
 					asyncObj.insertComponent(c, new AsyncCallback<Void>() {
 
