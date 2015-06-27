@@ -9,7 +9,7 @@ public class ComponentGroup extends BusinessObject {
 	private String name;
 	private int componentId;
 	private int componentId2;
-	private String lastEditor;
+	private int modifier;
 	private String tag;
 	private int amount;
 	private List<ComponentGroup> componengroupList;
@@ -42,14 +42,6 @@ public class ComponentGroup extends BusinessObject {
 
 	public void setComponentId(int componentId) {
 		this.componentId = componentId;
-	}
-
-	public String getLastEditor() {
-		return lastEditor;
-	}
-
-	public void setLastEditor(String lastEditor) {
-		this.lastEditor = lastEditor;
 	}
 
 	public String getTag() {
@@ -123,6 +115,14 @@ public class ComponentGroup extends BusinessObject {
 
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate = modificationDate;
+	}
+
+	public int getModifier() {
+		return modifier;
+	}
+
+	public void setModifier(int modifier) {
+		this.modifier = modifier;
 	}
 
 	

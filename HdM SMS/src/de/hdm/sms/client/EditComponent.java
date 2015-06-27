@@ -92,9 +92,8 @@ public class EditComponent extends VerticalPanel {
 			public void onSuccess(Void result) {
 				Window.alert("Das Bauteil wurde editiert");
 				RootPanel.get("rightside").clear();
-				RootPanel.get("leftside").clear();
-				Startside sS = new Startside();
-				RootPanel.get().add(sS);
+				
+				
 				
 			}
 		});
@@ -126,28 +125,6 @@ public class EditComponent extends VerticalPanel {
 		});
 		RootPanel.get("rightside").add(listOfComponents);
 	}
-
-//	private void deleteComponent(int DeleteComponentId) {
-//		asyncObj.deleteComponentById(DeleteComponentId,
-//				new AsyncCallback<Void>() {
-//
-//					@Override
-//					public void onFailure(Throwable caught) {
-//						// TODO Auto-generated method stub
-//
-//					}
-//
-//					@Override
-//					public void onSuccess(Void result) {
-//						Window.alert("Bauteil erfolgreich gelöscht");
-//						RootPanel.get("rightside").clear();
-//						RootPanel.get("leftside").clear();
-////						Startside sS = new Startside();
-////						RootPanel.get().add(sS);
-//
-//					}
-//				});
-//	}
 
 	public void onLoad() {
 		asyncObj.getUserByEmail(loginInfo.getEmailAddress(),
@@ -217,7 +194,7 @@ public class EditComponent extends VerticalPanel {
 										.add(materialDescriptionOfComponent);
 								componentItemPanel.add(buttonPanel);
 								InfoPanel.add(new Label("Erstellungsdatum"));
-								Window.alert(""+dF.format(result.getLastModified()));
+								
 								InfoPanel.add(new Label(dF.format(result.getCreationdate())));
 								InfoPanel.add(new Label("Bearbeitungsdatum"));
 								InfoPanel.add(new Label(dF.format(result.getLastModified())));
@@ -226,17 +203,6 @@ public class EditComponent extends VerticalPanel {
 								RootPanel.get("rightside").clear();
 								RootPanel.get("rightside").add(contentPanel);
 								
-								
-//								deleteComponentButton
-//										.addClickHandler(new ClickHandler() {
-//
-////											@Override
-////											public void onClick(ClickEvent event) {
-////												deleteComponent(Integer
-////														.parseInt(idOfComponentString));
-////
-////											}
-//										});
 								editComponentButton
 										.addClickHandler(new ClickHandler() {
 

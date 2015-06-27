@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.logging.Logger;
 
 import de.hdm.sms.client.gui.Startside;
@@ -36,8 +37,8 @@ public class CreateComponent extends VerticalPanel {
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private Component c = new Component();
 	private User u = new User();
-	private LoginInfo loginInfo = null;
-	private final Date today = new Date(System.currentTimeMillis());
+	private LoginInfo loginInfo;
+	
 	
 	public CreateComponent() {
 
@@ -92,7 +93,7 @@ public class CreateComponent extends VerticalPanel {
 					c.setMaterialDescription(materialDescriptionTextbox
 							.getValue());
 					c.setModifier(u.getId());
-					c.setCreationdate(today);
+					
 
 					asyncObj.insertComponent(c, new AsyncCallback<Void>() {
 
@@ -101,8 +102,7 @@ public class CreateComponent extends VerticalPanel {
 							Window.alert("Bauteil " + c.getName()
 									+ " erfolgreich angelegt.");
 							RootPanel.get("rightside").clear();
-							// Startside sS = new Startside();
-							// RootPanel.get().add(sS);
+							
 
 						}
 

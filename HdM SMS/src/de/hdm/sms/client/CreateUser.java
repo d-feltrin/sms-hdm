@@ -66,7 +66,9 @@ public class CreateUser extends VerticalPanel {
 						@Override
 						public void onSuccess(Void result) {
 							Window.alert("Benutzer " + u.getFirstName() + " "
-									+ u.getLastName() + " erfolgreich angelegt.");
+									+ u.getLastName() + " erfolgreich angelegt. Bitte loggen Sie sich mit Ihren Benutzerdaten ein.");
+							RootPanel.get("leftside").clear();
+							RootPanel.get().add(new HdM_SMS());
 							
 
 						}

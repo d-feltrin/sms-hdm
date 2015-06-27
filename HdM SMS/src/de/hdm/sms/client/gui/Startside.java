@@ -63,7 +63,7 @@ public class Startside extends VerticalPanel {
 	private HTML serverResponseLabel = new HTML();
 
 	private DialogBox dialogBox = new DialogBox();
-	private LoginInfo loginInfo = null;
+	private LoginInfo loginInfo;
 
 	public void StartSide() {
 
@@ -73,52 +73,9 @@ public class Startside extends VerticalPanel {
 		this.loginInfo = loginInfo;
 	}
 
-	/*
-	 * public void login() {
-	 * 
-	 * errorLabel.setText(""); String textToServer = nameTextBox.getText(); if
-	 * (!FieldVerifier.isValidName(textToServer)) {
-	 * errorLabel.setText("Bitte geben Sie mindestens 4 Zeichen ein!");
-	 * errorLabel.addStyleName("serverResponseLabelError"); return; }
-	 * 
-	 * //loginButton.setEnabled(false); registerButton.setEnabled(false);
-	 * textToServerLabel.setText(""); serverResponseLabel.setText("");
-	 * greetingService.getName(textToServer, new AsyncCallback<String>() {
-	 * public void onFailure(Throwable caught) {
-	 * dialogBox.setText("Anmeldung: Fehler");
-	 * serverResponseLabel.addStyleName("serverResponseLabelError");
-	 * serverResponseLabel.setHTML(SERVER_ERROR); dialogBox.center();
-	 * closeButton.setFocus(true); }
-	 * 
-	 * public void onSuccess(String result) {
-	 * serverResponseLabel.removeStyleName("serverResponseLabelError");
-	 * serverResponseLabel.setHTML(result); dialogBox.center();
-	 * closeButton.setFocus(true); RootPanel.get("leftside").clear();
-	 * RootPanel.get("leftside").add(new SearchComponent());
-	 * 
-	 * } }); }
-	 */
-	public void openReport() {
-
-	}
-
-	public void createUser() {
-		RootPanel.get("rightside").clear();
-		RootPanel.get("rightside").add(new CreateUser());
-	}
-
-	// ONLOAD
-	// ########################################################################################################
-
 	public void onLoad() {
 
-		// loginButton.setPixelSize(180, 30);
 		registerButton.setPixelSize(180, 30);
-		// nameTextBox.setText("Benutzername");
-		// keywordTextBox.setText("********");
-
-		// buttonPanel.add(loginButton);
-		buttonPanel.add(registerButton);
 
 		// startsidePanel.add(nameLabel);
 		// startsidePanel.add(nameTextBox);
@@ -196,6 +153,7 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").clear();
 				EditComponent ec = new EditComponent();
 				ec.setLoginInfo(loginInfo);
+
 				RootPanel.get("rightside").add(ec);
 			}
 		});
@@ -253,26 +211,6 @@ public class Startside extends VerticalPanel {
 				registerButton.setEnabled(true);
 
 			}
-		});
-
-		/*
-		 * loginButton.addClickHandler(new ClickHandler() {
-		 * 
-		 * @Override public void onClick(ClickEvent event) { if (rb0.getValue()
-		 * == true) { login(); } else { openReport(); } }
-		 * 
-		 * });
-		 */
-		registerButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-
-				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new CreateUser());
-
-			}
-
 		});
 
 	}

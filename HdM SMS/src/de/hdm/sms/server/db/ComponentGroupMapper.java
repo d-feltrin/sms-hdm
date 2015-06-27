@@ -30,8 +30,13 @@ public class ComponentGroupMapper {
 		Connection con = DatebaseConnection.connection();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Componentgroup (Name) VALUES ("
-					+ "'" + cg.getName() + "');";
+			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate) VALUES ("
+					+ "'"
+					+ cg.getName()
+					+ "','"
+					+ cg.getModifier()
+					+ "', '"
+					+ DateHelperClass.getCurrentTime() + "');";
 
 			state.executeUpdate(sqlquery);
 

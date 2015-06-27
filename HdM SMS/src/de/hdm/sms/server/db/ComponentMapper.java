@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.User;
@@ -31,15 +30,20 @@ public class ComponentMapper {
 		// Date now = new Date();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, Creationdate) VALUES ("
+			String sqlquery = "INSERT INTO Component (Name, Description, Materialdescription, Modifier, Creationdate, LastModified) VALUES ("
 					+ "'"
 					+ c.getName()
 					+ "','"
 					+ c.getDescription()
 					+ "', '"
-					+ c.getMaterialDescription() + "', '" + c.getModifier()
+					+ c.getMaterialDescription()
+					+ "', '"
+					+ c.getModifier()
 
-					+ "', '" + c.getCreationdate() + "');";
+					+ "', '"
+					+ DateHelperClass.getCurrentTime()
+					+ "', '"
+					+ DateHelperClass.getCurrentTime() + "');";
 
 			state.executeUpdate(sqlquery);
 
@@ -63,9 +67,8 @@ public class ComponentMapper {
 				c.setDescription(rs.getString("Description"));
 				c.setMaterialDescription(rs.getString("Materialdescription"));
 				c.setModifier(rs.getInt("Modifier"));
-				c.setCreationdate(rs.getDate("Creationdate"));
-				c.setLastModified(rs.getDate("LastModified"));
-				System.out.println(c.getCreationdate());
+				c.setCreationdate(rs.getTimestamp("Creationdate"));
+				c.setLastModified(rs.getTimestamp("LastModified"));
 
 				resultList.add(c);
 			}
@@ -94,8 +97,8 @@ public class ComponentMapper {
 				c.setDescription(rs.getString("Description"));
 				c.setMaterialDescription(rs.getString("Materialdescription"));
 				c.setModifier(rs.getInt("Modifier"));
-				c.setCreationdate(rs.getDate("Creationdate"));
-				c.setLastModified(rs.getDate("LastModified"));
+				c.setCreationdate(rs.getTimestamp("Creationdate"));
+				c.setLastModified(rs.getTimestamp("LastModified"));
 
 			}
 
@@ -133,18 +136,12 @@ public class ComponentMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("UPDATE `Component` SET `Name`= '"
-					+ c.getName() + "', `Materialdescription`= '"
-					+ c.getMaterialDescription() + "', " + "`Description`= '"
-					+ c.getDescription() + "', " + "`Modifier`= '"
-					+ c.getModifier() + "' " + "WHERE `Id` = '" + c.getId()
-					+ "';");
-
-			state.executeUpdate("UPDATE `Component` SET `Name`= '"
-					+ c.getName() + "', `Materialdescription`= '"
-					+ c.getMaterialDescription() + "', " + "`Description`= '"
-					+ c.getDescription() + "', " + "`Modifier`= '"
-					+ c.getModifier() + "' " + "WHERE `Id` = '" + c.getId()
+			state.executeUpdate("UPDATE Component SET LastModified= '"
+					+ DateHelperClass.getCurrentTime() + "', Name= '"
+					+ c.getName() + "', Materialdescription= '"
+					+ c.getMaterialDescription() + "', " + "Description= '"
+					+ c.getDescription() + "', " + "Modifier= '"
+					+ c.getModifier() + "' " + "WHERE Id = '" + c.getId()
 					+ "';");
 
 		} catch (Exception e) {
@@ -156,30 +153,29 @@ public class ComponentMapper {
 	public User getLastMofierOfComponentById(Component c) {
 		Connection con = DatebaseConnection.connection();
 
-			User u = new User();
+		User u = new User();
 
-			try {
+		try {
 
-				Statement state = con.createStatement();
-				ResultSet rs = state
-						.executeQuery("SELECT * From Component INNER JOIN User ON Component.Modifier = User.Id AND User.Id='"+c.getModifier()+"';");
+			Statement state = con.createStatement();
+			ResultSet rs = state
+					.executeQuery("SELECT * From Component INNER JOIN User ON Component.Modifier = User.Id AND User.Id='"
+							+ c.getModifier() + "';");
 
-				while (rs.next()) {
+			while (rs.next()) {
 
-					u.setId(rs.getInt("Id"));
-					u.setFirstName(rs.getString("Firstname"));
-					u.setLastName(rs.getString("Lastname"));
-					u.seteMailAdress(rs.getString("EmailAdress"));
+				u.setId(rs.getInt("Id"));
+				u.setFirstName(rs.getString("Firstname"));
+				u.setLastName(rs.getString("Lastname"));
+				u.seteMailAdress(rs.getString("EmailAdress"));
 
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 
-			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
+		return u;
 	}
 
-
+}
