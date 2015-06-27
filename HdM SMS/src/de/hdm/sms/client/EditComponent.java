@@ -47,7 +47,7 @@ public class EditComponent extends VerticalPanel {
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private Button editComponentButton = new Button("Bauteil editieren");
-	//private Component c = new Component();
+	// private Component c = new Component();
 	private LoginInfo loginInfo = null;
 	private User u = new User();
 	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
@@ -57,28 +57,47 @@ public class EditComponent extends VerticalPanel {
 
 	}
 
-	public void setLoginInfo(LoginInfo loginInfo){
+	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
-	
+
 	private void getLastModifier(Component c) {
 		asyncObj.getLastModifierOfComponent(c, new AsyncCallback<User>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onSuccess(User result) {
 				InfoPanel.add(new Label("Letzter Bearbeiter"));
-				InfoPanel.add(new Label(result.getFirstName() +" "+ result.getLastName()));
-				
-				
+				InfoPanel.add(new Label(result.getFirstName() + " "
+						+ result.getLastName()));
+
 			}
 		});
 	}
+
+	private void deleteComponent(int DeleteComponentId) {
+		asyncObj.deleteComponentById(DeleteComponentId,
+				new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						Window.alert("Bauteil erfolgreich gelöscht");
+						RootPanel.get("rightside").clear();
+					}
+				});
+	}
+
 	private void updateComponent(Component c) {
 		asyncObj.updateComponentById(c, new AsyncCallback<Void>() {
 
@@ -92,9 +111,7 @@ public class EditComponent extends VerticalPanel {
 			public void onSuccess(Void result) {
 				Window.alert("Das Bauteil wurde editiert");
 				RootPanel.get("rightside").clear();
-				
-				
-				
+
 			}
 		});
 	}
@@ -148,7 +165,7 @@ public class EditComponent extends VerticalPanel {
 				});
 
 		buttonPanel.add(editComponentButton);
-		//buttonPanel.add(deleteComponentButton);
+		buttonPanel.add(deleteComponentButton);
 		loadAllComponents();
 		listOfComponents.addChangeHandler(new ChangeHandler() {
 
@@ -194,15 +211,27 @@ public class EditComponent extends VerticalPanel {
 										.add(materialDescriptionOfComponent);
 								componentItemPanel.add(buttonPanel);
 								InfoPanel.add(new Label("Erstellungsdatum"));
-								
-								InfoPanel.add(new Label(dF.format(result.getCreationdate())));
+
+								InfoPanel.add(new Label(dF.format(result
+										.getCreationdate())));
 								InfoPanel.add(new Label("Bearbeitungsdatum"));
-								InfoPanel.add(new Label(dF.format(result.getLastModified())));
+								InfoPanel.add(new Label(dF.format(result
+										.getLastModified())));
 								contentPanel.add(componentItemPanel);
 								contentPanel.add(InfoPanel);
 								RootPanel.get("rightside").clear();
 								RootPanel.get("rightside").add(contentPanel);
-								
+								deleteComponentButton
+								.addClickHandler(new ClickHandler() {
+
+									@Override
+									public void onClick(ClickEvent event) {
+										deleteComponent(Integer
+												.parseInt(idOfComponentString));
+
+									}
+								});
+
 								editComponentButton
 										.addClickHandler(new ClickHandler() {
 

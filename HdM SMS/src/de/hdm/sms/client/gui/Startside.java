@@ -44,25 +44,15 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class Startside extends VerticalPanel {
 
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network "
-			+ "connection and try again.";
-
-	private DockPanel dockPanel = new DockPanel();
-	private VerticalPanel startsidePanel = new VerticalPanel();
+	
 	private VerticalPanel menuPanel = new VerticalPanel();
 
-	private VerticalPanel dialogboxVPanel = new VerticalPanel();
-	private FlowPanel buttonPanel = new FlowPanel();
 
-	private Button registerButton = new Button("Registrieren");
+
+	
 	private Button closeButton = new Button("Close");
 
-	private Label errorLabel = new Label();
-	private Label textToServerLabel = new Label();
-	private HTML serverResponseLabel = new HTML();
-
-	private DialogBox dialogBox = new DialogBox();
+	
 	private LoginInfo loginInfo;
 
 	public void StartSide() {
@@ -74,47 +64,6 @@ public class Startside extends VerticalPanel {
 	}
 
 	public void onLoad() {
-
-		registerButton.setPixelSize(180, 30);
-
-		// startsidePanel.add(nameLabel);
-		// startsidePanel.add(nameTextBox);
-		// startsidePanel.add(keywordLabel);
-		// startsidePanel.add(keywordTextBox);
-		startsidePanel.add(errorLabel);
-
-		// dockPanel.add(loginLabel, DockPanel.NORTH); // North
-		dockPanel.add(startsidePanel, DockPanel.WEST); // West
-		dockPanel.add(new HTML(" "), DockPanel.EAST); // East
-		dockPanel.add(new HTML(" "), DockPanel.SOUTH); // South
-
-		dockPanel.add(buttonPanel, DockPanel.SOUTH); // Second South
-
-		dockPanel.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
-		dockPanel.setStyleName("dockpanel");
-		dockPanel.setSpacing(5);
-		// loginLabel.setStyleName("header");
-
-		RootPanel.get("leftside").add(dockPanel);
-
-		// nameTextBox.setFocus(true);
-		// nameTextBox.selectAll();
-
-		// DIALOGBOX
-		// ########################################################################################################
-
-		dialogBox.setText("Login");
-		dialogBox.setAnimationEnabled(true);
-
-		dialogboxVPanel.add(textToServerLabel);
-		dialogboxVPanel.add(new HTML("<br>"));
-		dialogboxVPanel.add(serverResponseLabel);
-		dialogboxVPanel.add(new HTML(
-				"<br>Sie wurden erfolgreich angemeldet!<br>"));
-		dialogboxVPanel.add(new HTML("<br>"));
-		dialogboxVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogboxVPanel.add(closeButton);
-		dialogBox.setWidget(dialogboxVPanel);
 
 		// Create a menu bar
 		MenuBar menu = new MenuBar(true);
@@ -158,15 +107,6 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		componentMenu.addItem("Delete", new Command() {
-			@Override
-			public void execute() {
-
-				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new DeleteComponent());
-			}
-		});
-
 		componentGroupMenu.addItem("Create", new Command() {
 			@Override
 			public void execute() {
@@ -205,12 +145,7 @@ public class Startside extends VerticalPanel {
 			@Override
 			public void onClick(ClickEvent event) {
 
-				dialogBox.hide();
-				// loginButton.setEnabled(true);
-				// loginButton.setFocus(true);
-				registerButton.setEnabled(true);
-
-			}
+							}
 		});
 
 	}

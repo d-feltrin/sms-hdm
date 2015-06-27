@@ -40,7 +40,7 @@ public class CreateUser extends VerticalPanel {
 		createUserPanel.add(eMailAdressTextBoxOfUser);
 		createUserPanel.add(userCreateButton);
 		
-		RootPanel.get("leftside").add(createUserPanel);
+		RootPanel.get("rightside").add(createUserPanel);
 
 		userCreateButton.addClickHandler(new ClickHandler() {
 
@@ -67,8 +67,8 @@ public class CreateUser extends VerticalPanel {
 						public void onSuccess(Void result) {
 							Window.alert("Benutzer " + u.getFirstName() + " "
 									+ u.getLastName() + " erfolgreich angelegt. Bitte loggen Sie sich mit Ihren Benutzerdaten ein.");
-							RootPanel.get("leftside").clear();
-							RootPanel.get().add(new HdM_SMS());
+							RootPanel.get("rightside").clear();
+							
 							
 
 						}

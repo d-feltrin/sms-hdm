@@ -51,6 +51,16 @@ public class ComponentGroupMapper {
 						+ "');";
 
 			}
+			for (ComponentGroup componentgroup : cg.getComponentgroupList()) {
+				String sqlqueryComponent = "INSERT INTO `db_sms`.`ComponenGroupRelations` (`ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) "
+						+ "VALUES ('"
+						+ cg.getId()
+						+ "', '"
+						+ componentgroup.getId()
+						+ "', '', 'G', '"
+						+ cg.getAmount() + "');";
+
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,7 +1,9 @@
 package de.hdm.sms.shared.bo;
 
-import java.util.Date;
+
 import java.util.List;
+
+import java.sql.Timestamp;
 
 public class ComponentGroup extends BusinessObject {
 
@@ -12,12 +14,12 @@ public class ComponentGroup extends BusinessObject {
 	private int modifier;
 	private String tag;
 	private int amount;
-	private List<ComponentGroup> componengroupList;
+	private List<ComponentGroup> componentgroupList;
 	private List<Integer> amountListOfComponentGroup;
 	private List<Integer> amountListOfComponent;
 	private List<Component> componentList;
-	private Date creationDate;
-	private Date modificationDate;
+	private Timestamp creationDate;
+	private Timestamp modificationDate;
 
 	public ComponentGroup() {
 
@@ -68,12 +70,12 @@ public class ComponentGroup extends BusinessObject {
 		this.componentId2 = componentId2;
 	}
 
-	public List<ComponentGroup> getComponengroupList() {
-		return componengroupList;
+	public List<ComponentGroup> getComponentgroupList() {
+		return componentgroupList;
 	}
 
-	public void setComponengroupList(List<ComponentGroup> componengroupList) {
-		this.componengroupList = componengroupList;
+	public void setComponentgroupList(List<ComponentGroup> componengroupList) {
+		this.componentgroupList = componengroupList;
 	}
 
 	public List<Component> getComponentList() {
@@ -101,19 +103,19 @@ public class ComponentGroup extends BusinessObject {
 		this.amountListOfComponent = amountListOfComponent;
 	}
 
-	public Date getCreationDate() {
+	public Timestamp getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Timestamp creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	public Date getModificationDate() {
+	public Timestamp getModificationDate() {
 		return modificationDate;
 	}
 
-	public void setModificationDate(Date modificationDate) {
+	public void setModificationDate(Timestamp modificationDate) {
 		this.modificationDate = modificationDate;
 	}
 

@@ -57,11 +57,7 @@ private void updateUser(User u) {
 		public void onSuccess(Void result) {
 			Window.alert("Benutzer erfolgreich editiert");
 			RootPanel.get("rightside").clear();
-			Startside sS = new Startside();
-			RootPanel.get().clear();
-			RootPanel.get().add(sS);
-			
-			
+						
 		}
 	});
 }
@@ -79,8 +75,6 @@ private void updateUser(User u) {
 				Window.alert("Benutzer erfolgreich gelöscht");
 				RootPanel.get("rightside").clear();
 				RootPanel.get("rightside").add(new ImageSMS());
-				//Startside sS = new Startside();
-				//RootPanel.get().add(sS);
 				RootPanel.get("leftside").clear();
 				RootPanel.get("leftside").add(new Startside());
 				

@@ -1,9 +1,9 @@
 package de.hdm.sms.shared.bo;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
 
-import de.hdm.sms.shared.LoginInfo;
+
 
 public class Component extends BusinessObject {
 

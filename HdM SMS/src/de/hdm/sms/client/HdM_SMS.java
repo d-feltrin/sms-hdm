@@ -17,6 +17,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
@@ -33,10 +34,6 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 	private VerticalPanel bottomPanel = new VerticalPanel();
 	private Label aboutLabel = new Label("Impressum");
 
-	// test
-	private DockPanel dockPanel = new DockPanel();
-	private VerticalPanel menuPanel = new VerticalPanel();
-
 	private LoginInfo loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
 
@@ -44,9 +41,8 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 			"Bitte melden Sie sich mit ihrem Google Account an, um Zugang zur Applikation zu bekommen. Falls Sie noch keinen Benutzeraccount haben, benutzern Sie bitte den Button Registrieren um einen zu erstellen.");
 
 	private Anchor signInLink = new Anchor("Anmelden");
-	private Anchor signOutLink = new Anchor("Abmelden");
-
-	private Button RegisterButton = new Button("Registrieren");
+	private Anchor signOutLink = new Anchor("Abmelden");	
+	private Anchor registerLink = new Anchor("Registrieren");
 
 	public HdM_SMS() {
 
@@ -75,8 +71,8 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 	public Widget loadLogin() {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
-		loginPanel.add(signInLink);
-		loginPanel.add(RegisterButton);
+		loginPanel.add(signInLink);		
+		loginPanel.add(registerLink);
 		RootPanel.get("leftside").add(loginPanel);
 		return loginPanel;
 	}
@@ -85,15 +81,16 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 	// ########################################################################################################
 
 	public void onModuleLoad() {
-		RegisterButton.addClickHandler(new ClickHandler() {
-
+		registerLink.addClickHandler(new ClickHandler() {
+			
 			@Override
 			public void onClick(ClickEvent event) {
-				RootPanel.get("leftside").clear();
-				RootPanel.get("leftside").add(new CreateUser());
-
+				RootPanel.get("rightside").clear();
+				RootPanel.get("rightside").add(new CreateUser());
+				
 			}
 		});
+		
 
 		aboutLabel.addStyleName("impressum");
 		bottomPanel.add(aboutLabel);
