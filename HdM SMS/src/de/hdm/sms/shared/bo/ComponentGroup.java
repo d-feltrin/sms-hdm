@@ -21,7 +21,9 @@ public class ComponentGroup extends BusinessObject {
 	private Timestamp creationDate;
 	private Timestamp modificationDate;
 
-	
+	public ComponentGroup() {
+		
+	}
 	public ComponentGroup(String _ComponentGroupName) {
 		this.ComponentGroupName = _ComponentGroupName;
 		
