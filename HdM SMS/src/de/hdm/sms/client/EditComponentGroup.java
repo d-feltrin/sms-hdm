@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
+import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.User;
@@ -32,17 +33,29 @@ public class EditComponentGroup extends VerticalPanel {
 
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 
+	private ArrayList<Component> allComponents = new ArrayList<Component>();
 	private ArrayList<ComponentGroup> allComponentGroups = new ArrayList<ComponentGroup>();
 	private ArrayList<User> allUsers = new ArrayList<User>();
 
 	// GUI Objects
+	// Select (FIRSTPAGE)
 	private final HorizontalPanel PanelSelectGroupToEdit = new HorizontalPanel();
 	private final ListBox listboxListOfGroupsToEdit = new ListBox();
 	private final Button buttonEditGroup = new Button("Editieren");
+
 	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
 
+	private LoginInfo loginInfo;
+	private User u = new User();
+
+	public void setLoginInfo(LoginInfo loginInfo) {
+		this.loginInfo = loginInfo;
+	}
+
 	public void onLoad() {
-		loadComponentGroups();
+		getUserIdByEMailAdress(loginInfo.getEmailAddress());
+		loadComponentsANDComponentGroup();
+		loadAllUser();
 
 		// Panel: Name
 		PanelSelectGroupToEdit.add(new Label("Wahlen Sie die Baugruppe aus, die Sie editieren moechten:"));
@@ -60,8 +73,10 @@ public class EditComponentGroup extends VerticalPanel {
 				String IdOfSelectedItem = getELementTypeIdName(listboxListOfGroupsToEdit
 						.getItemText(listboxListOfGroupsToEdit.getSelectedIndex()))[0];
 				for (ComponentGroup componentGroup : allComponentGroups) {
-					if (componentGroup.getId() == Integer.valueOf(IdOfSelectedItem))
+					if (componentGroup.getId() == Integer.valueOf(IdOfSelectedItem)) {
 						LoadElementEdit(componentGroup);
+						continue;
+					}
 
 				}
 			}
@@ -82,7 +97,7 @@ public class EditComponentGroup extends VerticalPanel {
 
 		HorizontalPanel PanelCGEName = new HorizontalPanel();
 		PanelCGEName.add(new Label("Name:"));
-		PanelCGEName.add(new Label(ComponentGroupToEdit.getName()));
+		PanelCGEName.add(new Label(ComponentGroupToEdit.getComponentGroupName()));
 		PanelCGEName.add(new Label(" "));
 		RootPanel.get("rightside").add(PanelCGEName);
 
@@ -103,9 +118,70 @@ public class EditComponentGroup extends VerticalPanel {
 		PanelCGEModified.add(new Label(" "));
 		RootPanel.get("rightside").add(PanelCGEModified);
 
+		HorizontalPanel PanelTableOfElements = new HorizontalPanel();
+		FlexTable flextableComponentgroupElements = new FlexTable();
+		flextableComponentgroupElements.setText(0, 0, "Typ");
+		flextableComponentgroupElements.setText(0, 1, "ArtikelNr.");
+		flextableComponentgroupElements.setText(0, 2, "Name");
+		flextableComponentgroupElements.setText(0, 3, "Anzahl");
+
+		for (int i = 0; i < ComponentGroupToEdit.getComponentgroupList().size(); i++) {
+			int rowNumToInsert = flextableComponentgroupElements.getRowCount();
+			flextableComponentgroupElements.setText(rowNumToInsert, 0, "Baugruppe");
+			flextableComponentgroupElements.setText(rowNumToInsert, 1,
+					String.valueOf(ComponentGroupToEdit.getComponentgroupList().get(i).getId()));
+			flextableComponentgroupElements.setText(rowNumToInsert, 2, ComponentGroupToEdit.getComponentgroupList()
+					.get(i).getComponentGroupName());
+
+			TextBox Amount = new TextBox();
+			Amount.setText(String.valueOf(ComponentGroupToEdit.getAmountListOfComponentGroup().get(i)));
+
+			flextableComponentgroupElements.setWidget(rowNumToInsert, 3, Amount);
+		}
+
+		for (int i = 0; i < ComponentGroupToEdit.getComponentList().size(); i++) {
+			int rowNumToInsert = flextableComponentgroupElements.getRowCount();
+			flextableComponentgroupElements.setText(rowNumToInsert, 0, "Bauteil");
+			flextableComponentgroupElements.setText(rowNumToInsert, 1,
+					String.valueOf(ComponentGroupToEdit.getComponentList().get(i).getId()));
+			flextableComponentgroupElements.setText(rowNumToInsert, 2, ComponentGroupToEdit.getComponentList().get(i)
+					.getName());
+
+			TextBox Amount = new TextBox();
+			Amount.setText(String.valueOf(ComponentGroupToEdit.getAmountListOfComponent().get(i)));
+
+			flextableComponentgroupElements.setWidget(rowNumToInsert, 3, Amount);
+		}
+		PanelTableOfElements.add(flextableComponentgroupElements);
+		RootPanel.get("rightside").add(PanelTableOfElements);
+
 	}
 
-	private void loadComponentGroups() {
+	public User getUserIdByEMailAdress(String eMailAdress) {
+
+		asyncObj.getUserByEmail(eMailAdress, new AsyncCallback<User>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(User result) {
+				u.setId(result.getId());
+				u.setFirstName(result.getFirstName());
+				u.setLastName(result.getLastName());
+				u.seteMailAdress(result.geteMailAdress());
+
+			}
+
+		});
+		return u;
+
+	}
+
+	private void loadComponentsANDComponentGroup() {
 		asyncObj.loadAllComponentGroups(new AsyncCallback<ArrayList<ComponentGroup>>() {
 
 			@Override
@@ -120,8 +196,26 @@ public class EditComponentGroup extends VerticalPanel {
 				listboxListOfGroupsToEdit.addItem("Baugruppe");
 				for (ComponentGroup componentgroup : ComponentGroups) {
 					allComponentGroups.add(componentgroup);
-					listboxListOfGroupsToEdit.addItem(" - " + componentgroup.getId() + ":" + componentgroup.getName());
+					listboxListOfGroupsToEdit.addItem(" - " + componentgroup.getId() + ":"
+							+ componentgroup.getComponentGroupName());
 				}
+
+				asyncObj.loadAllComponents(new AsyncCallback<ArrayList<Component>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(ArrayList<Component> Components) {
+
+						for (Component component : Components) {
+							allComponents.add(component);
+						}
+					}
+				});
 
 			}
 
