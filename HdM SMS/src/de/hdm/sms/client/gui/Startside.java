@@ -119,7 +119,9 @@ public class Startside extends VerticalPanel {
 			public void execute() {
 
 				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new EditComponentGroup());
+				EditComponentGroup ECG = new EditComponentGroup();
+				ECG.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(ECG);
 			}
 		});
 

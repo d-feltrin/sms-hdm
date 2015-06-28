@@ -17,9 +17,13 @@ public class Component extends BusinessObject {
 	private Timestamp creationdate;
 	private Timestamp lastModified;
 
-	
+
 	public Component(){
 		
+	}
+	
+	public Component(int _id){
+		this.setId(_id);
 	}
 		
 	public String getDescription() {

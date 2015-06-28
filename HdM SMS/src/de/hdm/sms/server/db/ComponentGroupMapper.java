@@ -31,8 +31,8 @@ public class ComponentGroupMapper {
 		Connection con = DatebaseConnection.connection();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate) VALUES (" + "'" + cg.getComponentGroupName()
-					+ "','" + cg.getModifier() + "', '" + DateHelperClass.getCurrentTime() + "');";
+			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate, LastModified) VALUES (" + "'" + cg.getComponentGroupName()
+					+ "','" + cg.getModifier() + "', '" + DateHelperClass.getCurrentTime() + "', '" + DateHelperClass.getCurrentTime() + "');";
 
 			state.executeUpdate(sqlquery);
 
@@ -115,15 +115,38 @@ public class ComponentGroupMapper {
 			while (result.next()) {
 				ComponentGroup cg = new ComponentGroup();
 				cg.setId(result.getInt("Id"));
+				cg.setComponentGroupName(result.getString("Name"));
 				cg.setCreationDate(result.getTimestamp("Creationdate"));
 				cg.setModificationDate(result.getTimestamp("LastModified"));
 				cg.setModifier(result.getInt("Modifier"));
 
+				//Get all ComponentGroupRelations
+				try {
+					Statement statement2 = con.createStatement();
+					ResultSet resultRelations = statement2.executeQuery("SELECT * FROM ComponenGroupRelations WHERE `ComponentGroupID` = '" + cg.getId() + "'");
+					
+					//Add Dummy Objects to ComponentGroup
+					while (resultRelations.next()) {
+						if(resultRelations.getInt("ComponentGroupID2") != 0){
+							cg.addComponentGroup(new ComponentGroup(resultRelations.getInt("ComponentGroupID2")), resultRelations.getInt("Amount"));
+						}
+						else if(resultRelations.getInt("ComponentId") != 0){
+							cg.addComponent(new Component(resultRelations.getInt("ComponentId")), resultRelations.getInt("Amount"));
+						}
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
 				resultList.add(cg);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 		return resultList;
 	}
 
@@ -168,4 +191,5 @@ public class ComponentGroupMapper {
 		}
 
 	}
+
 }
