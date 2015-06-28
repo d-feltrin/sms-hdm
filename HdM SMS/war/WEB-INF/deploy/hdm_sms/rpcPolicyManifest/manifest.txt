@@ -1,2 +1,4 @@
 # Module hdm_sms
 # RPC service class, partial path of RPC policy file
+de.hdm.sms.shared.AService, 2424B794ED435D431B1AE7AD7988D2A8.gwt.rpc
+de.hdm.sms.shared.LoginService, 0E8C1B4EE990E21978E2037BF1440446.gwt.rpc

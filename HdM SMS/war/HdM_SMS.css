@@ -60,16 +60,6 @@ h1 {
   text-align: left;
   
 }
-
-.dockpanel td {
-   padding: 3px;
-   text-align: centre;
-   width: 15%;
-}
-
-.serverResponseLabelError {
-  color: red;
-}
 .gwt-MenuBar {
    cursor: default;  
 }
@@ -113,7 +103,7 @@ h1 {
    border-collapse: collapse;
 }
 .gwt-MenuBar-vertical .gwt-MenuItem {
-   padding: 2px 40px 2px 1px;
+   padding: 2px 30px 2px 1px;
 }
 .gwt-MenuBar-vertical .gwt-MenuItemSeparator {
    padding: 2px 0px;

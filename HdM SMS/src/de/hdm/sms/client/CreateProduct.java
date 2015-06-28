@@ -39,31 +39,29 @@ public class CreateProduct extends VerticalPanel {
 	private String selectedComponentGroup;
 
 	public CreateProduct() {
-		
-		
+
 	}
 
 	public User getUserIdByEMailAdress(String eMailAdress) {
 
-		asyncObj.getUserByEmail(eMailAdress,
-				new AsyncCallback<User>() {
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress, new AsyncCallback<User>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
 
-					}
+			}
 
-					@Override
-					public void onSuccess(User result) {
-						u.setId(result.getId());
-						u.setFirstName(result.getFirstName());
-						u.setLastName(result.getLastName());
-						u.seteMailAdress(result.geteMailAdress());
+			@Override
+			public void onSuccess(User result) {
+				u.setId(result.getId());
+				u.setFirstName(result.getFirstName());
+				u.setLastName(result.getLastName());
+				u.seteMailAdress(result.geteMailAdress());
 
-					}
+			}
 
-				});
+		});
 		return u;
 
 	}
@@ -135,7 +133,7 @@ public class CreateProduct extends VerticalPanel {
 				if (productName.getValue().isEmpty()) {
 					Window.alert("Bitte Produktnamen eingeben");
 				} else {
-					
+
 					p.setComponentId(Integer
 							.parseInt(getIDbyDropDownText(selectedComponentGroup)));
 					p.setProductName(productName.getText());

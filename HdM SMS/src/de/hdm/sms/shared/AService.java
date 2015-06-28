@@ -32,14 +32,11 @@ public interface AService extends RemoteService {
 
 	ArrayList<User> loadAllUsers();
 
-	User getOneUserIdByName(String selectedUser);
+	User getOneUserIdByEmailAdress(String selectedUser);
 
 	void deleteUserById(int deleteUserId);
 
 	void updateUserById(User u);
-
-	User getUserByEmail(String eMailAdress);
-
 	User getLastModifierOfComponent(Component c);
 
 	void insertProduct(Product p);
@@ -53,5 +50,7 @@ public interface AService extends RemoteService {
 	void updateProduct(Product p);
 
 	void deleteProduct(Product p);
+
+	User getOneUserById(int tempUserId);
 
 }

@@ -35,7 +35,7 @@ public class EditProduct extends VerticalPanel {
 	private VerticalPanel InfoPanel = new VerticalPanel();
 	private LoginInfo loginInfo;
 	private String selectedProduct;
-	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
+	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private int tempId;
@@ -51,7 +51,7 @@ public class EditProduct extends VerticalPanel {
 
 	public User getUserIdByEMailAdress(String eMailAdress) {
 
-		asyncObj.getUserByEmail(eMailAdress, new AsyncCallback<User>() {
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress, new AsyncCallback<User>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

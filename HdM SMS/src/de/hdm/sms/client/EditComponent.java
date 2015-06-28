@@ -37,7 +37,6 @@ public class EditComponent extends VerticalPanel {
 			"Beschreibung");
 	private final Label labelOfMaterialDescriptionComponentTextBox = new Label(
 			"Materialbeschreibung");
-	private final Label labelOfIdComponentTextBox = new Label("Artikelnummer");
 	private TextBox descriptionOfComponent = new TextBox();
 	private TextBox materialDescriptionOfComponent = new TextBox();
 	private TextBox idOfComponent = new TextBox();
@@ -49,7 +48,7 @@ public class EditComponent extends VerticalPanel {
 	private Button editComponentButton = new Button("Bauteil editieren");
 	private LoginInfo loginInfo;
 	private User u = new User();
-	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
+	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 	private VerticalPanel InfoPanel = new VerticalPanel();
 
 	public EditComponent() {
@@ -143,7 +142,7 @@ public class EditComponent extends VerticalPanel {
 	}
 
 	public void onLoad() {
-		asyncObj.getUserByEmail(loginInfo.getEmailAddress(),
+		asyncObj.getOneUserIdByEmailAdress(loginInfo.getEmailAddress(),
 				new AsyncCallback<User>() {
 
 					@Override
@@ -162,8 +161,7 @@ public class EditComponent extends VerticalPanel {
 
 				});
 
-		buttonPanel.add(editComponentButton);
-		buttonPanel.add(deleteComponentButton);
+		
 		loadAllComponents();
 		listOfComponents.addChangeHandler(new ChangeHandler() {
 
@@ -218,6 +216,8 @@ public class EditComponent extends VerticalPanel {
 								contentPanel.add(InfoPanel);
 								RootPanel.get("rightside").clear();
 								RootPanel.get("rightside").add(contentPanel);
+								buttonPanel.add(editComponentButton);
+								buttonPanel.add(deleteComponentButton);
 								deleteComponentButton
 										.addClickHandler(new ClickHandler() {
 

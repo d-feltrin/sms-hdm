@@ -49,7 +49,7 @@ public class CreateComponent extends VerticalPanel {
 	}
 
 	public void onLoad() {
-		asyncObj.getUserByEmail(loginInfo.getEmailAddress(),
+		asyncObj.getOneUserIdByEmailAdress(loginInfo.getEmailAddress(),
 				new AsyncCallback<User>() {
 
 					@Override

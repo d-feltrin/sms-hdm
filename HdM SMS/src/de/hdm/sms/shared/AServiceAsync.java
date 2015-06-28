@@ -36,14 +36,12 @@ public interface AServiceAsync {
 
 	void loadAllUsers(AsyncCallback<ArrayList<User>> asyncCallback);
 
-	void getOneUserIdByName(String selectedUser,
+	void getOneUserIdByEmailAdress(String selectedUser,
 			AsyncCallback<User> asyncCallback);
 
 	void deleteUserById(int deleteUserId, AsyncCallback<Void> asyncCallback);
 
 	void updateUserById(User u, AsyncCallback<Void> asyncCallback);
-
-	void getUserByEmail(String eMailAdress, AsyncCallback<User> callback);
 
 	void getLastModifierOfComponent(Component c,
 			AsyncCallback<User> asyncCallback);
@@ -59,5 +57,7 @@ public interface AServiceAsync {
 	void updateProduct(Product p, AsyncCallback<Void> asyncCallback);
 
 	void deleteProduct(Product p, AsyncCallback<Void> asyncCallback);
+
+	void getOneUserById(int tempUserId, AsyncCallback<User> asyncCallback);
 
 }

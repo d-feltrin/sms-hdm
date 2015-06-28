@@ -1,2 +1,0 @@
-serviceClass: de.hdm.sms.shared.AService
-path: FA3241E226633C64C26F64902E2890DD.gwt.rpc

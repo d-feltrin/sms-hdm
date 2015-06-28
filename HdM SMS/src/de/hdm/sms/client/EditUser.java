@@ -35,7 +35,7 @@ public class EditUser extends VerticalPanel {
 	private TextBox firstnameTextBox = new TextBox();
 	private TextBox lastnameTextBox = new TextBox();
 	private TextBox eMailAdressTextBox = new TextBox();
-	private String userIdString;
+	private int tempUserId;
 	private VerticalPanel userItemPanel = new VerticalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private Button deleteUserButton = new Button("Benutzer löschen");
@@ -44,23 +44,37 @@ public class EditUser extends VerticalPanel {
 	public EditUser() {
 
 	}
-private void updateUser(User u) {
-	asyncObj.updateUserById(u, new AsyncCallback<Void>() {
 
-		@Override
-		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-			
-		}
+	private String getIDbyDropDownText(String selectedUser) {
 
-		@Override
-		public void onSuccess(Void result) {
-			Window.alert("Benutzer erfolgreich editiert");
-			RootPanel.get("rightside").clear();
-						
-		}
-	});
-}
+		// get ID by ListBox text
+		// Splitt " - 569:Bla" into " - 569", "Bla"
+		String[] SplitStepOne = selectedUser.split(":");
+
+		// Splitt " - 569" into " - ", "569"
+		String[] SplitStepTwo = SplitStepOne[0].split(" ");
+
+		return SplitStepTwo[1];
+	}
+
+	private void updateUser(User u) {
+		asyncObj.updateUserById(u, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Window.alert("Benutzer erfolgreich editiert");
+				RootPanel.get("rightside").clear();
+
+			}
+		});
+	}
+
 	private void deleteUser(int DeleteUserId) {
 		asyncObj.deleteUserById(DeleteUserId, new AsyncCallback<Void>() {
 
@@ -74,10 +88,6 @@ private void updateUser(User u) {
 			public void onSuccess(Void result) {
 				Window.alert("Benutzer erfolgreich gelöscht");
 				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new ImageSMS());
-				RootPanel.get("leftside").clear();
-				RootPanel.get("leftside").add(new Startside());
-				
 
 			}
 		});
@@ -101,9 +111,11 @@ private void updateUser(User u) {
 			public void onSuccess(ArrayList<User> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					listOfUsers.addItem(result.get(i).geteMailAdress());
+					listOfUsers.addItem(" - " + result.get(i).getId() + ":"
+							+ result.get(i).getFirstName() + " "
+							+ result.get(i).getLastName() + " ("
+							+ result.get(i).geteMailAdress() + ")");
 
-					
 				}
 
 			}
@@ -113,9 +125,7 @@ private void updateUser(User u) {
 
 	public void onLoad() {
 		loadAllUser();
-		buttonPanel.add(editUserButton);
-		buttonPanel.add(deleteUserButton);
-		
+
 		listOfUsers.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -123,71 +133,69 @@ private void updateUser(User u) {
 				RootPanel.get("rightside").clear();
 				selectedUser = listOfUsers.getItemText(listOfUsers
 						.getSelectedIndex());
+				tempUserId = Integer
+						.parseInt(getIDbyDropDownText(selectedUser));
+			
 
-				asyncObj.getOneUserIdByName(selectedUser,
-						new AsyncCallback<User>() {
+				asyncObj.getOneUserById(tempUserId, new AsyncCallback<User>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("fehlgeschlagen");
+
+					}
+
+					@Override
+					public void onSuccess(User result) {
+						
+						firstnameTextBox.setText(result.getFirstName());
+						lastnameTextBox.setText(result.getLastName());
+						eMailAdressTextBox.setText(result.geteMailAdress());
+						
+						userItemPanel.add(firstnameLabel);
+						userItemPanel.add(firstnameTextBox);
+						userItemPanel.add(lastnameLabel);
+						userItemPanel.add(lastnameTextBox);
+						userItemPanel.add(eMailAdressLabel);
+						userItemPanel.add(eMailAdressTextBox);
+						userItemPanel.add(buttonPanel);
+						buttonPanel.add(editUserButton);
+						buttonPanel.add(deleteUserButton);
+						RootPanel.get("rightside").add(userItemPanel);
+						RootPanel.get("rightside").add(buttonPanel);
+						deleteUserButton.addClickHandler(new ClickHandler() {
 
 							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-
-							}
-
-							@Override
-							public void onSuccess(User result) {
-								userIdString = String.valueOf(result.getId());
-								userIdTextBox.setText(userIdString);
-								userIdTextBox.setEnabled(false);
-								firstnameTextBox.setText(result.getFirstName());
-								lastnameTextBox.setText(result.getLastName());
-								eMailAdressTextBox.setText(result
-										.geteMailAdress());
-								userItemPanel.add(userIdLabel);
-								userItemPanel.add(userIdTextBox);
-								userItemPanel.add(firstnameLabel);
-								userItemPanel.add(firstnameTextBox);
-								userItemPanel.add(lastnameLabel);
-								userItemPanel.add(lastnameTextBox);
-								userItemPanel.add(eMailAdressLabel);
-								userItemPanel.add(eMailAdressTextBox);
-								userItemPanel.add(buttonPanel);
-								RootPanel.get("rightside").clear();
-								RootPanel.get("rightside").add(listOfUsers);
-								RootPanel.get("rightside").add(userItemPanel);
-								deleteUserButton
-										.addClickHandler(new ClickHandler() {
-
-											@Override
-											public void onClick(ClickEvent event) {
-												deleteUser(Integer
-														.parseInt(userIdString));
-
-												
-
-											}
-										});
-								editUserButton.addClickHandler(new ClickHandler() {
-									
-									@Override
-									public void onClick(ClickEvent event) {
-
-										if (firstnameTextBox.getValue().isEmpty() || lastnameTextBox.getValue().isEmpty() || eMailAdressTextBox.getValue().isEmpty()) 
-										{
-											Window.alert("Bitte alle Felder befüllen!");
-										} else {
-											User u = new User();
-											u.setId(Integer.parseInt(userIdString));
-											u.setFirstName(firstnameTextBox.getText());
-											u.setLastName(lastnameTextBox.getText());
-											u.seteMailAdress(eMailAdressTextBox.getText());
-											updateUser(u);
-											
-										}
-									}
-								});
+							public void onClick(ClickEvent event) {
+								deleteUser(tempUserId);
 
 							}
 						});
+						editUserButton.addClickHandler(new ClickHandler() {
+
+							@Override
+							public void onClick(ClickEvent event) {
+
+								if (firstnameTextBox.getValue().isEmpty()
+										|| lastnameTextBox.getValue().isEmpty()
+										|| eMailAdressTextBox.getValue()
+												.isEmpty()) {
+									Window.alert("Bitte alle Felder befüllen!");
+								} else {
+									User u = new User();
+									u.setId(tempUserId);
+									u.setFirstName(firstnameTextBox.getText());
+									u.setLastName(lastnameTextBox.getText());
+									u.seteMailAdress(eMailAdressTextBox
+											.getText());
+									updateUser(u);
+
+								}
+							}
+						});
+
+					}
+				});
 
 			}
 		});

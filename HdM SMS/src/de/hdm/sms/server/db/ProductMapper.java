@@ -74,7 +74,7 @@ public class ProductMapper {
 		return resultList;
 	}
 
-	public Product getOneProductById(int tempId) {
+	public Product getOneProductUserById(int tempId) {
 		Connection con = DatebaseConnection.connection();
 
 		Product p = new Product();

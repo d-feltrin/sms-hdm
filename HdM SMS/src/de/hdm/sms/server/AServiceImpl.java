@@ -84,9 +84,9 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	}
 
 	@Override
-	public User getOneUserIdByName(String selectedUser) {
+	public User getOneUserIdByEmailAdress(String selectedUser) {
 		User u = new User();
-		u = uMapper.getOneComponentIdByEmailAdress(selectedUser);
+		u = uMapper.getOneUserIdByEmailAdress(selectedUser);
 		return u;
 	}
 
@@ -99,13 +99,6 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public void updateUserById(User u) {
 		uMapper.updateUserById(u);
-	}
-
-	@Override
-	public User getUserByEmail(String eMailAdress) {
-		User u = new User();
-		u = uMapper.getUserByEmail(eMailAdress);
-		return u;
 	}
 
 	@Override
@@ -129,7 +122,7 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public Product getOneProductById(int tempId) {
 		Product pa = new Product();
-		pa = pMapper.getOneProductById(tempId);
+		pa = pMapper.getOneProductUserById(tempId);
 		return pa;
 	}
 
@@ -150,5 +143,12 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	public void deleteProduct(Product p) {
 		pMapper.deleteProduct(p);
 		
+	}
+
+	@Override
+	public User getOneUserById(int tempUserId) {
+		User u = new User();
+		u = uMapper.getOneUserById(tempUserId);
+		return u;
 	}
 }

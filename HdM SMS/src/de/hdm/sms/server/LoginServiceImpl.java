@@ -36,7 +36,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			// In der Datenbank nachsehen, ob User schon registiert ist.
 			de.hdm.sms.shared.bo.User 
 			User = (userMapper
-					.getUserByEmail(loginInfo.getEmailAddress()));
+					.getOneUserIdByEmailAdress(loginInfo.getEmailAddress()));
 			if (User != null) {
 				loginInfo.setUser(User);
 			}
@@ -46,7 +46,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 				User.seteMailAdress(loginInfo.getEmailAddress());
 				userMapper.insertUser(User);
 				loginInfo.setUser(userMapper.
-						getUserByEmail(loginInfo.getEmailAddress()));
+						getOneUserIdByEmailAdress(loginInfo.getEmailAddress()));
 			}
 
 		} else {

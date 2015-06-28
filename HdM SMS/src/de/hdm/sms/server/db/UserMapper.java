@@ -70,35 +70,7 @@ public class UserMapper {
 		return resultList;
 	}
 
-	public User getUserByEmail(String eMailAdress) {
-		Connection con = DatebaseConnection.connection();
-
-		User u = new User();
-
-		try {
-
-			Statement state = con.createStatement();
-			ResultSet rs = state
-					.executeQuery("SELECT * FROM User WHERE EmailAdress='"
-							+ eMailAdress + "'");
-
-			while (rs.next()) {
-
-				u.setId(rs.getInt("Id"));
-				u.setFirstName(rs.getString("Firstname"));
-				u.setLastName(("Lastname"));
-				u.seteMailAdress(rs.getString("EmailAdress"));
-
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return u;
-	}
-
-	public User getOneComponentIdByEmailAdress(String selectedUser) {
+	public User getOneUserIdByEmailAdress(String selectedUser) {
 
 		Connection con = DatebaseConnection.connection();
 
@@ -164,4 +136,35 @@ public class UserMapper {
 		}
 	}
 
-}
+	public User getOneUserById(int tempUserId) {
+		
+
+			Connection con = DatebaseConnection.connection();
+
+			User u = new User();
+
+			try {
+				Statement state = con.createStatement();
+				ResultSet rs = state
+						.executeQuery("SELECT * FROM User WHERE Id='"
+								+ tempUserId + "';");
+
+				while (rs.next()) {
+
+					u.setId(rs.getInt("Id"));
+					u.setFirstName(rs.getString("Firstname"));
+					u.setLastName(rs.getString("Lastname"));
+					u.seteMailAdress(rs.getString("EmailAdress"));
+
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+
+			}
+
+			return u;
+
+		}
+	}
+
