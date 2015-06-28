@@ -45,7 +45,7 @@ public class ComponentGroup extends BusinessObject {
 		this.setComponentId(ID);
 	}
 
-	public String getName() {
+	public String getComponentGroupName() {
 		return ComponentGroupName;
 	}
 

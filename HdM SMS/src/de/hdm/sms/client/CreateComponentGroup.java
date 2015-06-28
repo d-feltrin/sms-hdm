@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
+import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 
@@ -53,6 +54,12 @@ public class CreateComponentGroup extends VerticalPanel {
 
 	private final HorizontalPanel PanelSubmit = new HorizontalPanel();
 	private final Button buttonCreateNewComponengroup = new Button("Baugruppe anlegen");
+
+	private LoginInfo loginInfo;
+
+	public void setLoginInfo(LoginInfo loginInfo) {
+		this.loginInfo = loginInfo;
+	}
 
 	public void onLoad() {
 		listboxListOfAddableElements.addItem("----");
@@ -193,7 +200,7 @@ public class CreateComponentGroup extends VerticalPanel {
 
 						@Override
 						public void onSuccess(Void result) {
-							Window.alert("Baugruppe " + newComponentGroup.getName() + " erfolgreich angelegt.");
+							Window.alert("Baugruppe " + newComponentGroup.getComponentGroupName() + " erfolgreich angelegt.");
 							RootPanel.get("rightside").clear();
 
 						}
@@ -227,7 +234,7 @@ public class CreateComponentGroup extends VerticalPanel {
 				for (ComponentGroup componentgroup : ComponentGroups) {
 					allComponentGroups.add(componentgroup);
 					listboxListOfAddableElements.addItem(" - " + componentgroup.getId() + ":"
-							+ componentgroup.getName());
+							+ componentgroup.getComponentGroupName());
 				}
 
 				asyncObj.loadAllComponents(new AsyncCallback<ArrayList<Component>>() {

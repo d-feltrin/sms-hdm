@@ -31,7 +31,7 @@ public class ComponentGroupMapper {
 		Connection con = DatebaseConnection.connection();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate) VALUES (" + "'" + cg.getName()
+			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate) VALUES (" + "'" + cg.getComponentGroupName()
 					+ "','" + cg.getModifier() + "', '" + DateHelperClass.getCurrentTime() + "');";
 
 			state.executeUpdate(sqlquery);
@@ -95,7 +95,7 @@ public class ComponentGroupMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("UPDATE `Componentgroup` SET `Name`= '" + cg.getName() + "' " + "WHERE `Id` = '"
+			state.executeUpdate("UPDATE `Componentgroup` SET `Name`= '" + cg.getComponentGroupName() + "' " + "WHERE `Id` = '"
 					+ cg.getId() + "';");
 
 		} catch (Exception e) {

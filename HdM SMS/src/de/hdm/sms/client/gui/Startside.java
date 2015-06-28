@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
-import de.hdm.sms.client.CreateComponentGroup_depr;
+
 import de.hdm.sms.client.CreateProduct;
 import de.hdm.sms.client.CreateUser;
 import de.hdm.sms.client.DeleteComponent;
@@ -108,17 +108,12 @@ public class Startside extends VerticalPanel {
 			public void execute() {
 
 				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new CreateComponentGroup());
+				CreateComponentGroup ccG = new CreateComponentGroup();
+				ccG.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(ccG);
 			}
 		});
-		componentGroupMenu.addItem("Create_depr", new Command() {
-			@Override
-			public void execute() {
 
-				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new CreateComponentGroup_depr());
-			}
-		});
 		componentGroupMenu.addItem("Edit", new Command() {
 			@Override
 			public void execute() {
@@ -139,7 +134,7 @@ public class Startside extends VerticalPanel {
 
 			}
 		});
-		
+
 		productMenu.addItem("Edit", new Command() {
 
 			@Override
