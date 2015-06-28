@@ -22,16 +22,17 @@ public class ComponentGroup extends BusinessObject {
 	private Timestamp modificationDate;
 
 	public ComponentGroup() {
-		
-	}
-	public ComponentGroup(String _ComponentGroupName) {
-		this.ComponentGroupName = _ComponentGroupName;
-		
+
 		this.componentgroupList = new ArrayList<ComponentGroup>();
 		this.amountListOfComponentGroup = new ArrayList<Integer>();
 
 		this.componentList = new ArrayList<Component>();
 		this.amountListOfComponent = new ArrayList<Integer>();
+		
+	}
+	public ComponentGroup(String _ComponentGroupName) {
+		this();
+		this.ComponentGroupName = _ComponentGroupName;
 	}
 	
 	/**
@@ -40,6 +41,7 @@ public class ComponentGroup extends BusinessObject {
 	 * @param  ID  ID of.....
 	 */
 	public ComponentGroup(int ID){
+		this();
 		this.setComponentId(ID);
 	}
 
@@ -47,7 +49,7 @@ public class ComponentGroup extends BusinessObject {
 		return ComponentGroupName;
 	}
 
-	public void setName(String name) {
+	public void setComponentGroupName(String name) {
 		this.ComponentGroupName = name;
 	}
 
@@ -124,7 +126,7 @@ public class ComponentGroup extends BusinessObject {
 	}
 	
 	public void addComponentGroup(ComponentGroup cg , int amount){
-		this.amountListOfComponent.add(amount);
+		this.amountListOfComponentGroup.add(amount);
 		this.componentgroupList.add(cg);
 		
 	}
