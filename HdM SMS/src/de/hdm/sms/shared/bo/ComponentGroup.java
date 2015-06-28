@@ -1,41 +1,43 @@
 package de.hdm.sms.shared.bo;
 
 
+import java.util.ArrayList;
 import java.util.List;
-
 import java.sql.Timestamp;
 
 public class ComponentGroup extends BusinessObject {
 
 	private static final long serialVersionUID = 1L;
-	private String name;
+	private String ComponentGroupName;
 	private int componentId;
-	private int componentId2;
 	private int modifier;
-	private String tag;
-	private int amount;
-	private List<ComponentGroup> componentgroupList;
-	private List<Integer> amountListOfComponentGroup;
-	private List<Integer> amountListOfComponent;
-	private List<Component> componentList;
+	
+	private ArrayList<ComponentGroup> componentgroupList;
+	private ArrayList<Integer> amountListOfComponentGroup;
+	
+	private ArrayList<Component> componentList;
+	private ArrayList<Integer> amountListOfComponent;
+	
 	private Timestamp creationDate;
 	private Timestamp modificationDate;
 
-	public ComponentGroup() {
+	
+	public ComponentGroup(String _ComponentGroupName) {
+		this.ComponentGroupName = _ComponentGroupName;
+		
+		this.componentgroupList = new ArrayList<ComponentGroup>();
+		this.amountListOfComponentGroup = new ArrayList<Integer>();
 
-	}
-
-	public ComponentGroup(String name) {
-		this.name = name;
-
+		this.componentList = new ArrayList<Component>();
+		this.amountListOfComponent = new ArrayList<Integer>();
 	}
 
 	public String getName() {
-		return name;
+		return ComponentGroupName;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.ComponentGroupName = name;
 	}
 
 	public int getComponentId() {
@@ -46,35 +48,11 @@ public class ComponentGroup extends BusinessObject {
 		this.componentId = componentId;
 	}
 
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public int getComponentId2() {
-		return componentId2;
-	}
-
-	public void setComponentId2(int componentId2) {
-		this.componentId2 = componentId2;
-	}
-
 	public List<ComponentGroup> getComponentgroupList() {
 		return componentgroupList;
 	}
 
-	public void setComponentgroupList(List<ComponentGroup> componengroupList) {
+	public void setComponentgroupList(ArrayList<ComponentGroup> componengroupList) {
 		this.componentgroupList = componengroupList;
 	}
 
@@ -82,7 +60,7 @@ public class ComponentGroup extends BusinessObject {
 		return componentList;
 	}
 
-	public void setComponentList(List<Component> componentList) {
+	public void setComponentList(ArrayList<Component> componentList) {
 		this.componentList = componentList;
 	}
 
@@ -91,7 +69,7 @@ public class ComponentGroup extends BusinessObject {
 	}
 
 	public void setAmountListOfComponentGroup(
-			List<Integer> amountListOfComponentGroup) {
+			ArrayList<Integer> amountListOfComponentGroup) {
 		this.amountListOfComponentGroup = amountListOfComponentGroup;
 	}
 
@@ -99,7 +77,7 @@ public class ComponentGroup extends BusinessObject {
 		return amountListOfComponent;
 	}
 
-	public void setAmountListOfComponent(List<Integer> amountListOfComponent) {
+	public void setAmountListOfComponent(ArrayList<Integer> amountListOfComponent) {
 		this.amountListOfComponent = amountListOfComponent;
 	}
 
@@ -127,6 +105,18 @@ public class ComponentGroup extends BusinessObject {
 		this.modifier = modifier;
 	}
 
+	
+	public void addComponent(Component c , int amount){
+		this.amountListOfComponent.add(amount);
+		this.componentList.add(c);
+		
+	}
+	
+	public void addComponentGroup(ComponentGroup cg , int amount){
+		this.amountListOfComponent.add(amount);
+		this.componentgroupList.add(cg);
+		
+	}
 	
 
 }

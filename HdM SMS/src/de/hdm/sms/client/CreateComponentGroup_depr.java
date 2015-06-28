@@ -39,7 +39,7 @@ public class CreateComponentGroup_depr extends VerticalPanel {
 	private final Button addComponentButton = new Button("Bauteil hinzufügen");
 	private final Button addComponentGroupButton = new Button("Baugruppe hinzufügen");
 	private final Button createComponentGroupButton = new Button("Baugruppe anlegen");
-	private ComponentGroup cg = new ComponentGroup();
+	private ComponentGroup cg;
 
 	public CreateComponentGroup_depr() {
 

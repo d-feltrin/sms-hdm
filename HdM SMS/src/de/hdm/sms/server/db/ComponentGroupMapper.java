@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;
@@ -40,25 +41,32 @@ public class ComponentGroupMapper {
 
 			state.executeUpdate(sqlquery);
 
-			for (Component component : cg.getComponentList()) {
+			List<Component> listOfComponents = cg.getComponentList();
+			List<Integer> listOfComponentsAmount = cg.getAmountListOfComponent();
+				for (int i = 0; i < listOfComponents.size(); i++) {
+					
+				
 				String sqlqueryComponent = "INSERT INTO `db_sms`.`ComponenGroupRelations` (`ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) "
 						+ "VALUES ('"
 						+ cg.getId()
 						+ "', '', '"
-						+ component.getId()
+						+ listOfComponents.get(i).getId()
 						+ "', 'C', '"
-						+ cg.getAmount()
+						+ listOfComponentsAmount.get(i).toString()
 						+ "');";
 
 			}
-			for (ComponentGroup componentgroup : cg.getComponentgroupList()) {
+
+				List<ComponentGroup> listOfComponentGroups = cg.getComponentgroupList();
+				List<Integer> listOfComponentGroupsAmount = cg.getAmountListOfComponentGroup();
+				for (int i = 0; i < listOfComponentGroups.size(); i++) {
 				String sqlqueryComponent = "INSERT INTO `db_sms`.`ComponenGroupRelations` (`ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) "
 						+ "VALUES ('"
 						+ cg.getId()
 						+ "', '"
-						+ componentgroup.getId()
+						+ listOfComponentGroups.get(i).getId()
 						+ "', '', 'G', '"
-						+ cg.getAmount() + "');";
+						+ listOfComponentGroupsAmount.get(i).toString() + "');";
 
 			}
 
@@ -96,9 +104,8 @@ public class ComponentGroupMapper {
 					.executeQuery("SELECT * FROM Componentgroup");
 
 			while (result.next()) {
-				ComponentGroup cg = new ComponentGroup();
+				ComponentGroup cg = new ComponentGroup(result.getString("Name"));
 				cg.setId(result.getInt("Id"));
-				cg.setName(result.getString("Name"));
 
 				resultList.add(cg);
 			}
@@ -112,8 +119,7 @@ public class ComponentGroupMapper {
 			String selectedComponentGroup) {
 
 		Connection con = DatebaseConnection.connection();
-
-		ComponentGroup cg = new ComponentGroup();
+		ComponentGroup cg = new ComponentGroup("");
 
 		try {
 			Statement state = con.createStatement();
@@ -123,8 +129,8 @@ public class ComponentGroupMapper {
 
 			while (rs.next()) {
 
+				cg = new ComponentGroup(rs.getString("Name"));
 				cg.setId(rs.getInt("Id"));
-				cg.setName(rs.getString("Name"));
 
 			}
 
