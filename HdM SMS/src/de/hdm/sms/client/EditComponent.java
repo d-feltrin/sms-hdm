@@ -47,8 +47,7 @@ public class EditComponent extends VerticalPanel {
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private Button editComponentButton = new Button("Bauteil editieren");
-	// private Component c = new Component();
-	private LoginInfo loginInfo = null;
+	private LoginInfo loginInfo;
 	private User u = new User();
 	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
 	private VerticalPanel InfoPanel = new VerticalPanel();
@@ -159,7 +158,6 @@ public class EditComponent extends VerticalPanel {
 						u.setFirstName(result.getFirstName());
 						u.setLastName(result.getLastName());
 						u.seteMailAdress(result.geteMailAdress());
-
 					}
 
 				});
@@ -190,15 +188,14 @@ public class EditComponent extends VerticalPanel {
 								idOfComponentString = String.valueOf(result
 										.getId());
 								idOfComponent.setText(idOfComponentString);
-								idOfComponent.setEnabled(false);
 								nameOfComponent.setText(result.getName());
 								descriptionOfComponent.setText(result
 										.getDescription());
 								materialDescriptionOfComponent.setText(result
 										.getMaterialDescription());
 								componentItemPanel
-										.add(labelOfIdComponentTextBox);
-								componentItemPanel.add(idOfComponent);
+										.add(new Label("Artikelnummer: "
+												+ idOfComponentString));
 								componentItemPanel
 										.add(labelOfNameComponentTextBox);
 								componentItemPanel.add(nameOfComponent);
@@ -222,15 +219,15 @@ public class EditComponent extends VerticalPanel {
 								RootPanel.get("rightside").clear();
 								RootPanel.get("rightside").add(contentPanel);
 								deleteComponentButton
-								.addClickHandler(new ClickHandler() {
+										.addClickHandler(new ClickHandler() {
 
-									@Override
-									public void onClick(ClickEvent event) {
-										deleteComponent(Integer
-												.parseInt(idOfComponentString));
+											@Override
+											public void onClick(ClickEvent event) {
+												deleteComponent(Integer
+														.parseInt(idOfComponentString));
 
-									}
-								});
+											}
+										});
 
 								editComponentButton
 										.addClickHandler(new ClickHandler() {

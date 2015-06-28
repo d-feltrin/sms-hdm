@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
+import de.hdm.sms.shared.bo.Product;
 import de.hdm.sms.shared.bo.User;
 
 public interface AServiceAsync {
@@ -21,12 +22,15 @@ public interface AServiceAsync {
 			AsyncCallback<Void> asyncCallback);
 
 	void updateComponentById(Component c, AsyncCallback<Void> asyncCallback);
-	
-	void insertComponentGroup(ComponentGroup cg, AsyncCallback<Void> asyncCallback);
-	
-	void loadAllComponentGroups(AsyncCallback<ArrayList<ComponentGroup>> asyncCallback);
-	
-	void updateComponentGroupById (ComponentGroup cg, AsyncCallback<Void> asyncCallback);
+
+	void insertComponentGroup(ComponentGroup cg,
+			AsyncCallback<Void> asyncCallback);
+
+	void loadAllComponentGroups(
+			AsyncCallback<ArrayList<ComponentGroup>> asyncCallback);
+
+	void updateComponentGroupById(ComponentGroup cg,
+			AsyncCallback<Void> asyncCallback);
 
 	void insertUser(User u, AsyncCallback<Void> asyncCallback);
 
@@ -44,8 +48,16 @@ public interface AServiceAsync {
 	void getLastModifierOfComponent(Component c,
 			AsyncCallback<User> asyncCallback);
 
-	
+	void insertProduct(Product p, AsyncCallback<Void> callback);
 
-	
+	void loadAllProducts(AsyncCallback<ArrayList<Product>> asyncCallback);
+
+	void getOneProductById(int tempId, AsyncCallback<Product> asyncCallback);
+
+	void getLastModifierOfProduct(int tempid, AsyncCallback<User> asyncCallback);
+
+	void updateProduct(Product p, AsyncCallback<Void> asyncCallback);
+
+	void deleteProduct(Product p, AsyncCallback<Void> asyncCallback);
 
 }

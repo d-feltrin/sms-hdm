@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
+import de.hdm.sms.shared.bo.Product;
 import de.hdm.sms.shared.bo.User;
 
 @RemoteServiceRelativePath("aservice")
@@ -14,9 +15,9 @@ public interface AService extends RemoteService {
 	void insertComponent(Component c);
 
 	void insertComponentGroup(ComponentGroup cg);
-	
+
 	ArrayList<Component> loadAllComponents();
-	
+
 	ArrayList<ComponentGroup> loadAllComponentGroups();
 
 	Component getOneComponentIdByName(String selectedComponent);
@@ -24,7 +25,7 @@ public interface AService extends RemoteService {
 	void deleteComponentById(int deleteComponentId);
 
 	void updateComponentById(Component c);
-	
+
 	void updateComponentGroupById(ComponentGroup cg);
 
 	void insertUser(User u);
@@ -40,5 +41,17 @@ public interface AService extends RemoteService {
 	User getUserByEmail(String eMailAdress);
 
 	User getLastModifierOfComponent(Component c);
+
+	void insertProduct(Product p);
+
+	ArrayList<Product> loadAllProducts();
+
+	Product getOneProductById(int tempId);
+
+	User getLastModifierOfProduct(int tempid);
+
+	void updateProduct(Product p);
+
+	void deleteProduct(Product p);
 
 }

@@ -12,10 +12,12 @@ import java.util.Locale;
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
 import de.hdm.sms.client.CreateComponentGroup_depr;
+import de.hdm.sms.client.CreateProduct;
 import de.hdm.sms.client.CreateUser;
 import de.hdm.sms.client.DeleteComponent;
 import de.hdm.sms.client.EditComponent;
 import de.hdm.sms.client.EditComponentGroup;
+import de.hdm.sms.client.EditProduct;
 import de.hdm.sms.client.EditUser;
 import de.hdm.sms.shared.LoginInfo;
 
@@ -44,15 +46,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class Startside extends VerticalPanel {
 
-	
 	private VerticalPanel menuPanel = new VerticalPanel();
 
-
-
-	
-	private Button closeButton = new Button("Close");
-
-	
 	private LoginInfo loginInfo;
 
 	public void StartSide() {
@@ -75,6 +70,7 @@ public class Startside extends VerticalPanel {
 		MenuBar userMenu = new MenuBar(true);
 		MenuBar componentMenu = new MenuBar(true);
 		MenuBar componentGroupMenu = new MenuBar(true);
+		MenuBar productMenu = new MenuBar(true);
 		userMenu.setAnimationEnabled(false);
 
 		userMenu.addItem("Edit", new Command() {
@@ -131,22 +127,36 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").add(new EditComponentGroup());
 			}
 		});
+
+		productMenu.addItem("Create", new Command() {
+
+			@Override
+			public void execute() {
+				RootPanel.get("rightside").clear();
+				CreateProduct cP = new CreateProduct();
+				cP.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(cP);
+
+			}
+		});
+		
+		productMenu.addItem("Edit", new Command() {
+
+			@Override
+			public void execute() {
+				RootPanel.get("rightside").clear();
+				EditProduct eP = new EditProduct();
+				eP.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(eP);
+
+			}
+		});
 		menu.addItem(new MenuItem("User", userMenu));
 		menu.addItem(new MenuItem("Component", componentMenu));
 		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
+		menu.addItem(new MenuItem("Product", productMenu));
 
 		menuPanel.add(menu);
-
 		RootPanel.get("leftside").add(menuPanel);
-		menuPanel.add(menu);
-
-		closeButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-
-							}
-		});
-
 	}
 }
