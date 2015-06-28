@@ -31,6 +31,15 @@ public class ComponentGroup extends BusinessObject {
 		this.componentList = new ArrayList<Component>();
 		this.amountListOfComponent = new ArrayList<Integer>();
 	}
+	
+	/**
+	 * Should only be used by Product 
+	 *
+	 * @param  ID  ID of.....
+	 */
+	public ComponentGroup(int ID){
+		this.setComponentId(ID);
+	}
 
 	public String getName() {
 		return ComponentGroupName;
