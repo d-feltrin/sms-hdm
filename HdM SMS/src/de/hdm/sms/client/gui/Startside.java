@@ -11,8 +11,8 @@ import java.util.Locale;
 
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
-
 import de.hdm.sms.client.CreateProduct;
+import de.hdm.sms.client.CreateStocklist;
 import de.hdm.sms.client.CreateUser;
 import de.hdm.sms.client.DeleteComponent;
 import de.hdm.sms.client.EditComponent;
@@ -71,7 +71,7 @@ public class Startside extends VerticalPanel {
 		MenuBar componentMenu = new MenuBar(true);
 		MenuBar componentGroupMenu = new MenuBar(true);
 		MenuBar productMenu = new MenuBar(true);
-		userMenu.setAnimationEnabled(false);
+		MenuBar stocklistMenu = new MenuBar(true);
 
 		userMenu.addItem("Edit", new Command() {
 			@Override
@@ -148,10 +148,22 @@ public class Startside extends VerticalPanel {
 
 			}
 		});
+		stocklistMenu.addItem("Create", new Command() {
+
+			@Override
+			public void execute() {
+				RootPanel.get("rightside").clear();
+				CreateStocklist cS = new CreateStocklist();
+				cS.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(cS);
+
+			}
+		});
 		menu.addItem(new MenuItem("User", userMenu));
 		menu.addItem(new MenuItem("Component", componentMenu));
 		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
 		menu.addItem(new MenuItem("Product", productMenu));
+		menu.addItem(new MenuItem("Stocklist", stocklistMenu));
 
 		menuPanel.add(menu);
 		RootPanel.get("leftside").add(menuPanel);
