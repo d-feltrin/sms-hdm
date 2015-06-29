@@ -196,6 +196,7 @@ public class CreateComponentGroup extends VerticalPanel {
 						}
 					}
 
+					
 					asyncObj.insertComponentGroup(newComponentGroup, new AsyncCallback<Void>() {
 
 						@Override

@@ -31,8 +31,9 @@ public class ComponentGroupMapper {
 		Connection con = DatebaseConnection.connection();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate, LastModified) VALUES (" + "'" + cg.getComponentGroupName()
-					+ "','" + cg.getModifier() + "', '" + DateHelperClass.getCurrentTime() + "', '" + DateHelperClass.getCurrentTime() + "');";
+			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate, LastModified) VALUES (" + "'"
+					+ cg.getComponentGroupName() + "','" + cg.getModifier() + "', '" + DateHelperClass.getCurrentTime()
+					+ "', '" + DateHelperClass.getCurrentTime() + "');";
 
 			state.executeUpdate(sqlquery);
 
@@ -58,7 +59,7 @@ public class ComponentGroupMapper {
 						+ listOfComponents.get(i).getId()
 						+ "', 'C', '"
 						+ listOfComponentsAmount.get(i).toString() + "');";
-				if (listOfComponentsAmount.get(i) < 1) // dont add Elements with
+				if (listOfComponentsAmount.get(i) > 0) // dont add Elements with
 														// Amount under 1 (0 or
 														// minus)
 					state.executeUpdate(sqlqueryComponent);
@@ -75,7 +76,7 @@ public class ComponentGroupMapper {
 						+ listOfComponentGroups.get(i).getId()
 						+ "', 'G', '"
 						+ listOfComponentGroupsAmount.get(i).toString() + "');";
-				if (listOfComponentGroupsAmount.get(i) < 1)// dont add Elements
+				if (listOfComponentGroupsAmount.get(i) > 0)// dont add Elements
 															// with Amount under
 															// 1 (0 or minus)
 					state.executeUpdate(sqlqueryComponent);
@@ -95,8 +96,8 @@ public class ComponentGroupMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("UPDATE `Componentgroup` SET `Name`= '" + cg.getComponentGroupName() + "' " + "WHERE `Id` = '"
-					+ cg.getId() + "';");
+			state.executeUpdate("UPDATE `Componentgroup` SET `Name`= '" + cg.getComponentGroupName() + "' "
+					+ "WHERE `Id` = '" + cg.getId() + "';");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,34 +121,123 @@ public class ComponentGroupMapper {
 				cg.setModificationDate(result.getTimestamp("LastModified"));
 				cg.setModifier(result.getInt("Modifier"));
 
-				//Get all ComponentGroupRelations
-				try {
-					Statement statement2 = con.createStatement();
-					ResultSet resultRelations = statement2.executeQuery("SELECT * FROM ComponenGroupRelations WHERE `ComponentGroupID` = '" + cg.getId() + "'");
-					
-					//Add Dummy Objects to ComponentGroup
-					while (resultRelations.next()) {
-						if(resultRelations.getInt("ComponentGroupID2") != 0){
-							cg.addComponentGroup(new ComponentGroup(resultRelations.getInt("ComponentGroupID2")), resultRelations.getInt("Amount"));
-						}
-						else if(resultRelations.getInt("ComponentId") != 0){
-							cg.addComponent(new Component(resultRelations.getInt("ComponentId")), resultRelations.getInt("Amount"));
-						}
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
 				resultList.add(cg);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+
 		return resultList;
+	}
+
+	public ArrayList<ComponentGroup> loadAllComponentGroupsIncludingRelations() {
+		Connection con = DatebaseConnection.connection();
+		ArrayList<ComponentGroup> resultList = new ArrayList<>();
+
+		try {
+			Statement state = con.createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM Componentgroup");
+
+			while (result.next()) {
+				ComponentGroup cg = new ComponentGroup();
+				cg.setId(result.getInt("Id"));
+				cg.setComponentGroupName(result.getString("Name"));
+				cg.setCreationDate(result.getTimestamp("Creationdate"));
+				cg.setModificationDate(result.getTimestamp("LastModified"));
+				cg.setModifier(result.getInt("Modifier"));
+
+				boolean hasRelations = false;
+
+				try {
+					Statement s2 = con.createStatement();
+					ResultSet result2 = s2
+							.executeQuery("SELECT * FROM ComponenGroupRelations WHERE ComponentGroupID = '"
+									+ cg.getId() + "'");
+
+					while (result2.next()) {
+						hasRelations = true;
+						continue;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				if (hasRelations)
+					cg = FillRelations(cg);
+
+				resultList.add(cg);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultList;
+	}
+
+	private ComponentGroup FillRelations(ComponentGroup cgToEdit) {
+		Connection con = DatebaseConnection.connection();
+
+		// get all sub Groups
+		try {
+			Statement state = con.createStatement();
+			ResultSet result = state
+					.executeQuery("SELECT * From ComponenGroupRelations JOIN Componentgroup ON ComponenGroupRelations.ComponentGroupID2 = Componentgroup.Id WHERE ComponenGroupRelations.Tag='G' AND ComponenGroupRelations.ComponentGroupID = '"+cgToEdit.getId()+"'");
+
+			while (result.next()) {
+				ComponentGroup cg = new ComponentGroup();
+				cg.setId(result.getInt("ComponenGroupRelations.ComponentGroupID2"));
+				cg.setComponentGroupName(result.getString("Componentgroup.Name"));
+				cg.setCreationDate(result.getTimestamp("Componentgroup.Creationdate"));
+				cg.setModificationDate(result.getTimestamp("Componentgroup.LastModified"));
+				cg.setModifier(result.getInt("Componentgroup.Modifier"));
+
+				boolean hasRelations = false;
+
+				try {
+					Statement s2 = con.createStatement();
+					ResultSet result2 = s2
+							.executeQuery("SELECT * FROM ComponenGroupRelations WHERE ComponentGroupID = '"
+									+ cg.getId() + "'");
+
+					while (result2.next()) {
+						hasRelations = true;
+						continue;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				if (hasRelations)
+					cg = FillRelations(cg);
+
+				cgToEdit.addComponentGroup(cg, result.getInt("Amount"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// get all sub Components
+		try {
+			Statement state = con.createStatement();
+			ResultSet result = state
+					.executeQuery("SELECT * From ComponenGroupRelations JOIN Component ON ComponenGroupRelations.ComponentId = Component.Id WHERE ComponenGroupRelations.Tag='C' AND ComponenGroupRelations.ComponentGroupID =  '"+cgToEdit.getId()+"'");
+
+			while (result.next()) {
+				Component c = new Component();
+				c.setId(result.getInt("Component.Id"));
+				c.setName(result.getString("Component.Name"));
+				c.setDescription(result.getString("Component.Description"));
+				c.setMaterialDescription(result.getString("Component.Materialdescription"));
+				c.setModifier(result.getInt("Component.Modifier"));
+				c.setCreationdate(result.getTimestamp("Component.Creationdate"));
+				c.setLastModified(result.getTimestamp("Component.LastModified"));
+
+				cgToEdit.addComponent(c, result.getInt("Amount"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cgToEdit;
 	}
 
 	public ComponentGroup getOneComponentGroupIdByName(String selectedComponentGroup) {

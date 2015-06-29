@@ -130,24 +130,5 @@ public class ComponentGroup extends BusinessObject {
 		this.componentgroupList.add(cg);
 		
 	}
-	
-	//When reading out a ComponentGroup from DB it will only add DummyObjects to the Array list.
-	public void ReplaceDummyRelations( ArrayList<ComponentGroup> _allComponentGroups, ArrayList<Component> _allComponents){
-		
-		//replace dummy components
-		for (Component component : componentList) {
-			for (Component _component : _allComponents) {
-				if(component.getId() == _component.getId())
-					component = _component;
-			}
-		}
-		
-		for (ComponentGroup componentgroup : componentgroupList) {
-			for (ComponentGroup _componentgroup : _allComponentGroups) {
-				if(componentgroup.getId() == _componentgroup.getId())
-					componentgroup = _componentgroup;
-			}
-		}
-	}
 
 }

@@ -151,4 +151,10 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 		u = uMapper.getOneUserById(tempUserId);
 		return u;
 	}
+
+	@Override
+	public ArrayList<ComponentGroup> loadAllComponentGroupsIncludingRelations() {
+		ArrayList<ComponentGroup> ComponentGroupList = cgMapper.loadAllComponentGroupsIncludingRelations();
+		return ComponentGroupList;
+	}
 }

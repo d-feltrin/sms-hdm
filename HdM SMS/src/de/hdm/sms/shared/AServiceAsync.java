@@ -60,4 +60,6 @@ public interface AServiceAsync {
 
 	void getOneUserById(int tempUserId, AsyncCallback<User> asyncCallback);
 
+	void loadAllComponentGroupsIncludingRelations(AsyncCallback<ArrayList<ComponentGroup>> asyncCallback);
+
 }

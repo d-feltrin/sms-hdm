@@ -53,4 +53,6 @@ public interface AService extends RemoteService {
 
 	User getOneUserById(int tempUserId);
 
+	ArrayList<ComponentGroup> loadAllComponentGroupsIncludingRelations();
+
 }
