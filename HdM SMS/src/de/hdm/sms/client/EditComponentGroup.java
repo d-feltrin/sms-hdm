@@ -94,7 +94,7 @@ public class EditComponentGroup extends VerticalPanel {
 					Window.alert("Bitte eine Baugruppe auswaehlen");
 
 				String IdOfSelectedItem = getELementTypeIdName(listboxListOfGroupsToEdit
-						.getItemText(listboxListOfGroupsToEdit.getSelectedIndex()))[0];
+						.getItemText(listboxListOfGroupsToEdit.getSelectedIndex()))[1];
 				for (ComponentGroup componentGroup : allComponentGroups) {
 					if (componentGroup.getId() == Integer.valueOf(IdOfSelectedItem)) {
 						LoadElementEdit(componentGroup);
@@ -352,9 +352,17 @@ public class EditComponentGroup extends VerticalPanel {
 		});
 	}
 
+	
 	private String[] getELementTypeIdName(String DropDownText) {
 
-		String[] Element = new String[2];
+		String[] Element = new String[3];
+
+		if (listboxListOfAddableElements.getSelectedIndex() < ComponentListBoxID) {
+			Element[0] = "Baugruppe";
+
+		} else {
+			Element[0] = "Bauteil";
+		}
 
 		// get ID by ListBox text
 		// Splitt " - 569:Bla" into " - 569", "Bla"
@@ -363,9 +371,9 @@ public class EditComponentGroup extends VerticalPanel {
 		// Splitt " - 569" into " - ", "569"
 		String[] SplitStepTwo = SplitStepOne[0].split(" ");
 
-		Element[0] = SplitStepTwo[1];
+		Element[1] = SplitStepTwo[1];
 
-		Element[1] = DropDownText.substring(SplitStepOne[0].length() + 1);
+		Element[2] = DropDownText.substring(SplitStepOne[0].length() + 1);
 		return Element;
 	}
 
