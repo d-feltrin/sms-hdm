@@ -142,6 +142,8 @@ public class EditComponent extends VerticalPanel {
 	}
 
 	public void onLoad() {
+		InfoPanel.setStylePrimaryName("infopanel");
+		componentItemPanel.setStylePrimaryName("contentpanel");
 		asyncObj.getOneUserIdByEmailAdress(loginInfo.getEmailAddress(),
 				new AsyncCallback<User>() {
 

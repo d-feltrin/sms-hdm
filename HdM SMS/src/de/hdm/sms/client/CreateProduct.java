@@ -44,24 +44,25 @@ public class CreateProduct extends VerticalPanel {
 
 	public User getUserIdByEMailAdress(String eMailAdress) {
 
-		asyncObj.getOneUserIdByEmailAdress(eMailAdress, new AsyncCallback<User>() {
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onSuccess(User result) {
-				u.setId(result.getId());
-				u.setFirstName(result.getFirstName());
-				u.setLastName(result.getLastName());
-				u.seteMailAdress(result.geteMailAdress());
+					@Override
+					public void onSuccess(User result) {
+						u.setId(result.getId());
+						u.setFirstName(result.getFirstName());
+						u.setLastName(result.getLastName());
+						u.seteMailAdress(result.geteMailAdress());
 
-			}
+					}
 
-		});
+				});
 		return u;
 
 	}
@@ -83,7 +84,7 @@ public class CreateProduct extends VerticalPanel {
 	}
 
 	private void loadAllComponentGroups() {
-
+		
 		listOfComponentGroups.setSize("180px", "35px");
 		listOfComponentGroups.addItem("---");
 

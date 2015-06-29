@@ -166,6 +166,8 @@ public class EditProduct extends VerticalPanel {
 	}
 
 	public void onLoad() {
+		InfoPanel.setStylePrimaryName("infopanel");
+		contentPanel.setStylePrimaryName("contentpanel");
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		loadAllProducts();
 		listOfProducts.addChangeHandler(new ChangeHandler() {
