@@ -32,6 +32,8 @@ public interface AServiceAsync {
 	void updateComponentGroupById(ComponentGroup cg,
 			AsyncCallback<Void> asyncCallback);
 
+
+	
 	void insertUser(User u, AsyncCallback<Void> asyncCallback);
 
 	void loadAllUsers(AsyncCallback<ArrayList<User>> asyncCallback);
@@ -61,5 +63,11 @@ public interface AServiceAsync {
 	void getOneUserById(int tempUserId, AsyncCallback<User> asyncCallback);
 
 	void loadAllComponentGroupsIncludingRelations(AsyncCallback<ArrayList<ComponentGroup>> asyncCallback);
+
+	void insertCGElement(ComponentGroup cg, int ElementID, char ElementTag, int Amount, AsyncCallback<Void> doNothing);
+
+	void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount, AsyncCallback<Void> doNothing);
+
+	void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag,AsyncCallback<Void> doNothing);
 
 }

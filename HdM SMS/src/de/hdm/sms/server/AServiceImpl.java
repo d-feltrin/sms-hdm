@@ -157,4 +157,22 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 		ArrayList<ComponentGroup> ComponentGroupList = cgMapper.loadAllComponentGroupsIncludingRelations();
 		return ComponentGroupList;
 	}
+
+	@Override
+	public void insertCGElement(ComponentGroup cg, int ElementID, char ElementTag, int Amount ) {
+		cgMapper.insertCGElement(cg, ElementID, ElementTag, Amount);
+		
+	}
+
+	@Override
+	public void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount ) {
+		cgMapper.updateCGElementAmount(cg,ElementID,ElementTag,NewAmount);
+		
+	}
+
+	@Override
+	public void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag ) {
+		cgMapper.deleteCGElement(cg, ElementID, ElementTag);
+
+	}
 }

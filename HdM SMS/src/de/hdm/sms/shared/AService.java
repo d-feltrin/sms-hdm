@@ -55,4 +55,10 @@ public interface AService extends RemoteService {
 
 	ArrayList<ComponentGroup> loadAllComponentGroupsIncludingRelations();
 
+	void insertCGElement(ComponentGroup originalComponentGroupToEdit, int i, char c, int j);
+
+	void updateCGElementAmount(ComponentGroup originalComponentGroupToEdit, int i, char c, int j);
+
+	void deleteCGElement(ComponentGroup originalComponentGroupToEdit, int i, char c);
+
 }
