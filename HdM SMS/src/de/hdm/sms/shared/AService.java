@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.Product;
+import de.hdm.sms.shared.bo.Stocklist;
 import de.hdm.sms.shared.bo.User;
 
 @RemoteServiceRelativePath("aservice")
@@ -61,5 +62,9 @@ public interface AService extends RemoteService {
 	void deleteCGElement(ComponentGroup originalComponentGroupToEdit, int i, char c);
 
 	Component getOneComponentIdById(int selectedComponent);
+
+	void insertStocklist(Stocklist newStocklist);
+
+	ArrayList<Stocklist> loadAllStocklistsIncludingRelations();
 
 }

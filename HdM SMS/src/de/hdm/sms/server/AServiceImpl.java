@@ -178,4 +178,16 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 		cgMapper.deleteCGElement(cg, ElementID, ElementTag);
 
 	}
+
+	@Override
+	public void insertStocklist(Stocklist newStocklist) {
+		sMapper.insertStocklist(newStocklist);
+		
+	}
+
+	@Override
+	public ArrayList<Stocklist> loadAllStocklistsIncludingRelations() {
+		ArrayList<Stocklist> StockList = sMapper.loadAllStocklistsIncludingRelations();
+		return StockList;
+	}
 }

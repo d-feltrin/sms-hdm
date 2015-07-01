@@ -5,10 +5,10 @@ import de.hdm.sms.client.CreateComponentGroup;
 import de.hdm.sms.client.CreateProduct;
 import de.hdm.sms.client.CreateStocklist;
 import de.hdm.sms.client.CreateUser;
-
 import de.hdm.sms.client.EditComponent;
 import de.hdm.sms.client.EditComponentGroup;
 import de.hdm.sms.client.EditProduct;
+import de.hdm.sms.client.EditStockList;
 import de.hdm.sms.client.EditUser;
 import de.hdm.sms.shared.LoginInfo;
 
@@ -139,6 +139,17 @@ public class Startside extends VerticalPanel {
 			public void execute() {
 				RootPanel.get("rightside").clear();
 				CreateStocklist cS = new CreateStocklist();
+				cS.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(cS);
+
+			}
+		});
+		stocklistMenu.addItem("Edit", new Command() {
+
+			@Override
+			public void execute() {
+				RootPanel.get("rightside").clear();
+				EditStockList cS = new EditStockList();
 				cS.setLoginInfo(loginInfo);
 				RootPanel.get("rightside").add(cS);
 

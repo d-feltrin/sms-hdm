@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.Product;
+import de.hdm.sms.shared.bo.Stocklist;
 import de.hdm.sms.shared.bo.User;
 
 public interface AServiceAsync {
@@ -67,7 +68,10 @@ public interface AServiceAsync {
 
 	void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag,AsyncCallback<Void> doNothing);
 
-	void getOneComponentIdById(int tempId,
-			AsyncCallback<Component> callback);
+	void getOneComponentIdById(int tempId,AsyncCallback<Component> callback);
+
+	void insertStocklist(Stocklist newStocklist, AsyncCallback<Void> asyncCallback);
+
+	void loadAllStocklistsIncludingRelations(AsyncCallback<ArrayList<Stocklist>> asyncCallback);
 
 }
