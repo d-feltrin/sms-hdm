@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import de.hdm.sms.server.db.DatebaseConnection;
-import de.hdm.sms.shared.bo.Component;
-import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.Product;
 import de.hdm.sms.shared.bo.User;
 

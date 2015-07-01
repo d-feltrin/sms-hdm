@@ -5,12 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.hdm.sms.client.ClientsideSettings;
 import de.hdm.sms.server.db.DatebaseConnection;
-import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.User;
 
 public class UserMapper {
