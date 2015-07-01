@@ -7,6 +7,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.sms.server.db.ComponentGroupMapper;
 import de.hdm.sms.server.db.ComponentMapper;
 import de.hdm.sms.server.db.ProductMapper;
+import de.hdm.sms.server.db.StocklistMapper;
 import de.hdm.sms.server.db.UserMapper;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.bo.*;
@@ -17,12 +18,14 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	private UserMapper uMapper = null;
 	private ComponentGroupMapper cgMapper = null;
 	private ProductMapper pMapper = null;
+	private StocklistMapper sMapper = null;
 
 	public void init() throws IllegalArgumentException {
 		this.cMapper = ComponentMapper.componentMapper();
 		this.uMapper = UserMapper.userMapper();
 		this.cgMapper = ComponentGroupMapper.componentGroupMapper();
 		this.pMapper = ProductMapper.productmapper();
+		this.sMapper = StocklistMapper.stocklistMapper();
 	}
 
 	public void insertComponent(Component c) {
