@@ -20,7 +20,6 @@ public interface AService extends RemoteService {
 
 	ArrayList<ComponentGroup> loadAllComponentGroups();
 
-	Component getOneComponentIdByName(String selectedComponent);
 
 	void deleteComponentById(int deleteComponentId);
 
@@ -60,5 +59,7 @@ public interface AService extends RemoteService {
 	void updateCGElementAmount(ComponentGroup originalComponentGroupToEdit, int i, char c, int j);
 
 	void deleteCGElement(ComponentGroup originalComponentGroupToEdit, int i, char c);
+
+	Component getOneComponentIdById(int selectedComponent);
 
 }

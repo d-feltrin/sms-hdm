@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.sun.java.swing.plaf.windows.resources.windows;
+
 
 import de.hdm.sms.client.CreateComponentGroup.NumbersOnly;
 import de.hdm.sms.shared.AService;

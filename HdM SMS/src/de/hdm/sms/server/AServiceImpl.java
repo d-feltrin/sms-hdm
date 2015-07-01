@@ -42,9 +42,9 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	}
 
 	@Override
-	public Component getOneComponentIdByName(String selectedComponent) {
+	public Component getOneComponentIdById(int selectedComponent) {
 		Component c = new Component();
-		c = cMapper.getOneComponentIdByName(selectedComponent);
+		c = cMapper.getOneComponentIdById(selectedComponent);
 		return c;
 	}
 

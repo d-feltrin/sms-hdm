@@ -15,9 +15,6 @@ public interface AServiceAsync {
 
 	void loadAllComponents(AsyncCallback<ArrayList<Component>> asyncCallback);
 
-	void getOneComponentIdByName(String selectedComponent,
-			AsyncCallback<Component> asyncCallback);
-
 	void deleteComponentById(int deleteComponentId,
 			AsyncCallback<Void> asyncCallback);
 
@@ -69,5 +66,8 @@ public interface AServiceAsync {
 	void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount, AsyncCallback<Void> doNothing);
 
 	void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag,AsyncCallback<Void> doNothing);
+
+	void getOneComponentIdById(int tempId,
+			AsyncCallback<Component> callback);
 
 }
