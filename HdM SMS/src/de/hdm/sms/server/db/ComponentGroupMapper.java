@@ -91,18 +91,21 @@ public class ComponentGroupMapper {
 	public void updateComponentGroupById(ComponentGroup cg) {
 
 		Connection con = DatebaseConnection.connection();
-
 		try {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("UPDATE `Componentgroup` SET `Name`= '" + cg.getComponentGroupName() + "' "
-					+ "WHERE `Id` = '" + cg.getId() + "';");
+
+			state.execute("UPDATE `db_sms`.`Componentgroup` SET `Name` = '"+cg.getComponentGroupName()+"' WHERE `Componentgroup`.`Id` = "+cg.getId()+" ;");
+			state.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
+
+	
+
 	}
 
 	public ArrayList<ComponentGroup> loadAllComponentGroups() {
@@ -180,7 +183,8 @@ public class ComponentGroupMapper {
 		try {
 			Statement state = con.createStatement();
 			ResultSet result = state
-					.executeQuery("SELECT * From ComponenGroupRelations JOIN Componentgroup ON ComponenGroupRelations.ComponentGroupID2 = Componentgroup.Id WHERE ComponenGroupRelations.Tag='G' AND ComponenGroupRelations.ComponentGroupID = '"+cgToEdit.getId()+"'");
+					.executeQuery("SELECT * From ComponenGroupRelations JOIN Componentgroup ON ComponenGroupRelations.ComponentGroupID2 = Componentgroup.Id WHERE ComponenGroupRelations.Tag='G' AND ComponenGroupRelations.ComponentGroupID = '"
+							+ cgToEdit.getId() + "'");
 
 			while (result.next()) {
 				ComponentGroup cg = new ComponentGroup();
@@ -219,7 +223,8 @@ public class ComponentGroupMapper {
 		try {
 			Statement state = con.createStatement();
 			ResultSet result = state
-					.executeQuery("SELECT * From ComponenGroupRelations JOIN Component ON ComponenGroupRelations.ComponentId = Component.Id WHERE ComponenGroupRelations.Tag='C' AND ComponenGroupRelations.ComponentGroupID =  '"+cgToEdit.getId()+"'");
+					.executeQuery("SELECT * From ComponenGroupRelations JOIN Component ON ComponenGroupRelations.ComponentId = Component.Id WHERE ComponenGroupRelations.Tag='C' AND ComponenGroupRelations.ComponentGroupID =  '"
+							+ cgToEdit.getId() + "'");
 
 			while (result.next()) {
 				Component c = new Component();
@@ -280,6 +285,61 @@ public class ComponentGroupMapper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void insertCGElement(ComponentGroup cg, int ElementID, char ElementTag, int Amount) {
+		Connection con = DatebaseConnection.connection();
+
+		try {
+
+			Statement state = con.createStatement();
+
+			if (ElementTag == 'C')
+				state.executeUpdate("INSERT INTO `db_sms`.`ComponenGroupRelations` (`Id`, `ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) VALUES (NULL, '"+cg.getId()+"', NULL, "+ElementID+", 'C', '"+Amount+"'); ");
+			if (ElementTag == 'G')
+				state.executeUpdate("INSERT INTO `db_sms`.`ComponenGroupRelations` (`Id`, `ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) VALUES (NULL, '"+cg.getId()+"',  "+ElementID+",NULL, 'G', '"+Amount+"'); ");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount) {
+		Connection con = DatebaseConnection.connection();
+
+		try {
+
+			Statement state = con.createStatement();
+
+			if (ElementTag == 'C')
+				state.executeUpdate("UPDATE `db_sms`.`ComponenGroupRelations` SET `Amount` = '"+NewAmount+"' WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentId` = "+ElementID+"; ");
+			if (ElementTag == 'G')
+				state.executeUpdate("UPDATE `db_sms`.`ComponenGroupRelations` SET `Amount` = '"+NewAmount+"' WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentGroupID2` = "+ElementID+"; ");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	public void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag) {
+		Connection con = DatebaseConnection.connection();
+
+		try {
+
+			Statement state = con.createStatement();
+
+			if (ElementTag == 'C')
+				state.executeUpdate("DELETE FROM `db_sms`.`ComponenGroupRelations` WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentId` = "+ElementID+";");
+			if (ElementTag == 'G')
+				state.executeUpdate("DELETE FROM `db_sms`.`ComponenGroupRelations` WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentGroupID2` = "+ElementID+";");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 	}
 
 }
