@@ -1,13 +1,5 @@
 package de.hdm.sms.client;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.logging.Logger;
-
-import de.hdm.sms.client.gui.Startside;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
@@ -38,17 +30,27 @@ public class CreateComponent extends VerticalPanel {
 	private Component c = new Component();
 	private User u = new User();
 	private LoginInfo loginInfo;
-	
-	
+
+	// Der Konstruktor von @CreateComponent
 	public CreateComponent() {
 
 	}
 
+	// Die Loginemailadresse wird von der Klasse @Startside über diesen setter
+	// in @CreateProduct "hereingelassen". Somit enthalt das Objekt @loginInfo
+	// die E-Mail Adresse des Benutzers und ist somit essentiell, um die Methode
+	// getUserIdByEMailAdress auszuführen.
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
 
 	public void onLoad() {
+		// Mithilfe dieses @AsynCallback wird überprüft, ob der aktuell über Google
+		// eingeloggte Benutzer bereits im Stücklistenmanagementsystem angelegt ist.
+		// Falls der Benutzer noch nicht hinterlegt ist, wird die Klasse @CreateUser
+		// geladen.
+		// Falls der Benutzer bereits im System angelegt ist, wird das @User Objekt
+		// befüllt und dem RootPanel die notwendigen Panels zugeordnet. 
 		asyncObj.getOneUserIdByEmailAdress(loginInfo.getEmailAddress(),
 				new AsyncCallback<User>() {
 
@@ -60,24 +62,36 @@ public class CreateComponent extends VerticalPanel {
 
 					@Override
 					public void onSuccess(User result) {
-						u.setId(result.getId());
-						u.setFirstName(result.getFirstName());
-						u.setLastName(result.getLastName());
-						u.seteMailAdress(result.geteMailAdress());
+						if (result.geteMailAdress() != null) {
+							u.setId(result.getId());
+							u.setFirstName(result.getFirstName());
+							u.setLastName(result.getLastName());
+							u.seteMailAdress(result.geteMailAdress());
+							createComponentPanel.add(nameLabel);
+							createComponentPanel.add(nameTextbox);
+							createComponentPanel.add(descriptionLabel);
+							createComponentPanel.add(descriptionTextbox);
+							createComponentPanel.add(materialDescriptionLabel);
+							createComponentPanel
+									.add(materialDescriptionTextbox);
+							createComponentPanel.add(createComponentButton);
+							RootPanel.get("rightside")
+									.add(createComponentPanel);
+						} else {
+							Window.alert("Bitte registrieren Sie sich zuerst!");
+							RootPanel.get("rightside").clear();
+							CreateUser cU = new CreateUser();
+							cU.setLoginInfo(loginInfo);
+							RootPanel.get("rightside").add(cU);
+						}
 
 					}
 
 				});
-
-		createComponentPanel.add(nameLabel);
-		createComponentPanel.add(nameTextbox);
-		createComponentPanel.add(descriptionLabel);
-		createComponentPanel.add(descriptionTextbox);
-		createComponentPanel.add(materialDescriptionLabel);
-		createComponentPanel.add(materialDescriptionTextbox);
-		createComponentPanel.add(createComponentButton);
-		RootPanel.get("rightside").add(createComponentPanel);
-
+		// ClickHandler für den createComponentButton. Nach dem Drücken des
+				// Buttons, wird das Objekt c, eine Instanz der Klasse @Component befüllt.
+				// Über ein @AsyncCallback wird der INSERT-Befehl an die Datenbank
+				// gesendet.
 		createComponentButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -93,7 +107,6 @@ public class CreateComponent extends VerticalPanel {
 					c.setMaterialDescription(materialDescriptionTextbox
 							.getValue());
 					c.setModifier(u.getId());
-					
 
 					asyncObj.insertComponent(c, new AsyncCallback<Void>() {
 
@@ -102,7 +115,6 @@ public class CreateComponent extends VerticalPanel {
 							Window.alert("Bauteil " + c.getName()
 									+ " erfolgreich angelegt.");
 							RootPanel.get("rightside").clear();
-							
 
 						}
 

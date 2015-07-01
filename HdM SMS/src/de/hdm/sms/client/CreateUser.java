@@ -13,68 +13,109 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
+import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.User;
 
 public class CreateUser extends VerticalPanel {
 	private VerticalPanel createUserPanel = new VerticalPanel();
 	private Label firstnameLabelOfUser = new Label("Vorname");
 	private Label lastnameLabelOfUser = new Label("Nachname");
-	private Label eMailAdressLabelOfUser = new Label("E-Mail Adresse");
+
 	private TextBox firstnameTextBoxOfUser = new TextBox();
 	private TextBox lastnameTextBoxOfUser = new TextBox();
-	private TextBox eMailAdressTextBoxOfUser = new TextBox();
+
 	private Button userCreateButton = new Button("Benutzer anlegen");
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private User u = new User();
+	private LoginInfo loginInfo;
+
+	public void setLoginInfo(LoginInfo loginInfo) {
+		this.loginInfo = loginInfo;
+	}
 
 	public CreateUser() {
 
 	}
 
 	public void onLoad() {
+		createUserPanel.add(new Label(
+				"Benutzer wird mit folgender E-Mail Adresse angelegt: "
+						+ loginInfo.getEmailAddress()));
 		createUserPanel.add(firstnameLabelOfUser);
 		createUserPanel.add(firstnameTextBoxOfUser);
 		createUserPanel.add(lastnameLabelOfUser);
 		createUserPanel.add(lastnameTextBoxOfUser);
-		createUserPanel.add(eMailAdressLabelOfUser);
-		createUserPanel.add(eMailAdressTextBoxOfUser);
+
 		createUserPanel.add(userCreateButton);
-		
+
 		RootPanel.get("rightside").add(createUserPanel);
 
 		userCreateButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (firstnameTextBoxOfUser.getValue().isEmpty()
-						|| lastnameTextBoxOfUser.getValue().isEmpty()
-						|| eMailAdressTextBoxOfUser.getValue().isEmpty()) {
-					Window.alert("Bitte alle Felder befüllen!");
-				} else {
+				asyncObj.getOneUserIdByEmailAdress(loginInfo.getEmailAddress(),
+						new AsyncCallback<User>() {
 
-					u.setFirstName(firstnameTextBoxOfUser.getValue());
-					u.setLastName(lastnameTextBoxOfUser.getValue());
-					u.seteMailAdress(eMailAdressTextBoxOfUser.getValue());
-					asyncObj.insertUser(u, new AsyncCallback<Void>() {
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
 
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
+							}
 
-						}
+							@Override
+							public void onSuccess(User result) {
 
-						@Override
-						public void onSuccess(Void result) {
-							Window.alert("Benutzer " + u.getFirstName() + " "
-									+ u.getLastName() + " erfolgreich angelegt. Bitte loggen Sie sich mit Ihren Benutzerdaten ein.");
-							RootPanel.get("rightside").clear();
-							
-							
+								if (result.geteMailAdress() == null) {
+									if (firstnameTextBoxOfUser.getValue()
+											.isEmpty()
+											|| lastnameTextBoxOfUser.getValue()
+													.isEmpty()) {
+										Window.alert("Bitte alle Felder befüllen!");
+									} else {
 
-						}
-					});
+										u.setFirstName(firstnameTextBoxOfUser
+												.getValue());
+										u.setLastName(lastnameTextBoxOfUser
+												.getValue());
+										u.seteMailAdress(loginInfo
+												.getEmailAddress());
+										asyncObj.insertUser(u,
+												new AsyncCallback<Void>() {
 
-				}
+													@Override
+													public void onFailure(
+															Throwable caught) {
+														// TODO Auto-generated
+														// method stub
+
+													}
+
+													@Override
+													public void onSuccess(
+															Void result) {
+														Window.alert("Benutzer "
+																+ u.getFirstName()
+																+ " "
+																+ u.getLastName()
+																+ " erfolgreich angelegt.");
+														RootPanel.get(
+																"rightside")
+																.clear();
+
+													}
+												});
+
+									}
+
+								} else {
+									Window.alert("Sie sind bereits registriert.");
+									RootPanel.get("rightside").clear();
+
+								}
+
+							}
+						});
 
 			}
 		});

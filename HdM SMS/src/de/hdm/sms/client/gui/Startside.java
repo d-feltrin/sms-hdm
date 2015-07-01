@@ -1,48 +1,22 @@
 package de.hdm.sms.client.gui;
 
-import java.sql.Timestamp;
-import java.text.Format;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
 import de.hdm.sms.client.CreateComponent;
 import de.hdm.sms.client.CreateComponentGroup;
 import de.hdm.sms.client.CreateProduct;
 import de.hdm.sms.client.CreateStocklist;
 import de.hdm.sms.client.CreateUser;
-import de.hdm.sms.client.DeleteComponent;
+
 import de.hdm.sms.client.EditComponent;
 import de.hdm.sms.client.EditComponentGroup;
 import de.hdm.sms.client.EditProduct;
 import de.hdm.sms.client.EditUser;
 import de.hdm.sms.shared.LoginInfo;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class Startside extends VerticalPanel {
 
@@ -72,7 +46,17 @@ public class Startside extends VerticalPanel {
 		MenuBar componentGroupMenu = new MenuBar(true);
 		MenuBar productMenu = new MenuBar(true);
 		MenuBar stocklistMenu = new MenuBar(true);
+		
+		userMenu.addItem("Create", new Command() {
+			@Override
+			public void execute() {
 
+				RootPanel.get("rightside").clear();
+				CreateUser cR = new CreateUser();
+				cR.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(cR);
+			}
+		});
 		userMenu.addItem("Edit", new Command() {
 			@Override
 			public void execute() {
@@ -98,7 +82,6 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").clear();
 				EditComponent ec = new EditComponent();
 				ec.setLoginInfo(loginInfo);
-
 				RootPanel.get("rightside").add(ec);
 			}
 		});

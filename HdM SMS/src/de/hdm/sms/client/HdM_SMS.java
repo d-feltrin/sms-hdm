@@ -42,7 +42,7 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 
 	private Anchor signInLink = new Anchor("Anmelden");
 	private Anchor signOutLink = new Anchor("Abmelden");	
-	private Anchor registerLink = new Anchor("Registrieren");
+	
 
 	public HdM_SMS() {
 
@@ -72,7 +72,7 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);		
-		loginPanel.add(registerLink);
+		
 		RootPanel.get("leftside").add(loginPanel);
 		return loginPanel;
 	}
@@ -81,15 +81,6 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 	// ########################################################################################################
 
 	public void onModuleLoad() {
-		registerLink.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new CreateUser());
-				
-			}
-		});
 		
 
 		aboutLabel.addStyleName("impressum");

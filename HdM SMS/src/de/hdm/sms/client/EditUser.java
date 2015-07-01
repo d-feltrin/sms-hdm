@@ -120,6 +120,7 @@ public class EditUser extends VerticalPanel {
 
 			}
 		});
+		RootPanel.get("rightside").add(new Label("Benutzer auswaehlen"));
 		RootPanel.get("rightside").add(listOfUsers);
 	}
 

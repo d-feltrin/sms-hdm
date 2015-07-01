@@ -78,7 +78,7 @@ public class ComponentMapper {
 		return resultList;
 	}
 
-	public Component getOneComponentIdByName(String selectedComponent) {
+	public Component getOneComponentIdById(int selectedComponent) {
 
 		Connection con = DatebaseConnection.connection();
 
@@ -87,7 +87,7 @@ public class ComponentMapper {
 		try {
 			Statement state = con.createStatement();
 			ResultSet rs = state
-					.executeQuery("SELECT * FROM Component WHERE name='"
+					.executeQuery("SELECT * FROM Component WHERE Id='"
 							+ selectedComponent + "';");
 
 			while (rs.next()) {

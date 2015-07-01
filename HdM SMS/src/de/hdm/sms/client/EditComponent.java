@@ -50,6 +50,7 @@ public class EditComponent extends VerticalPanel {
 	private User u = new User();
 	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 	private VerticalPanel InfoPanel = new VerticalPanel();
+	private int tempId;
 
 	public EditComponent() {
 
@@ -132,39 +133,66 @@ public class EditComponent extends VerticalPanel {
 			public void onSuccess(ArrayList<Component> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					listOfComponents.addItem(result.get(i).getName());
+					listOfComponents.addItem(" - " + result.get(i).getId() + ":"
+							+ result.get(i).getName());
+
+				}
+				RootPanel.get("rightside").add(new Label("Bauteil auswaehlen"));
+				RootPanel.get("rightside").add(listOfComponents);
+			}
+		});
+		
+	}
+	private String getIDbyDropDownText(String selectedComponent) {
+
+		// get ID by ListBox text
+		// Splitt " - 569:Bla" into " - 569", "Bla"
+		String[] SplitStepOne = selectedComponent.split(":");
+
+		// Splitt " - 569" into " - ", "569"
+		String[] SplitStepTwo = SplitStepOne[0].split(" ");
+
+		return SplitStepTwo[1];
+	}
+public User getUserIdByEMailAdress(String eMailAdress) {
+	asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+			new AsyncCallback<User>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
 
 				}
 
-			}
-		});
-		RootPanel.get("rightside").add(listOfComponents);
-	}
-
+				@Override
+				public void onSuccess(User result) {
+					if(result.geteMailAdress() != null) {
+					u.setId(result.getId());
+					u.setFirstName(result.getFirstName());
+					u.setLastName(result.getLastName());
+					u.seteMailAdress(result.geteMailAdress());
+					loadAllComponents();
+					
+				} else {
+					Window.alert("Bitte registrieren Sie sich zuerst!");
+					RootPanel.get("rightside").clear();
+					CreateUser cU = new CreateUser();
+					cU.setLoginInfo(loginInfo);
+					RootPanel.get("rightside").add(cU);
+					}
+				}
+			});
+	return u;
+	
+}
 	public void onLoad() {
+		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		InfoPanel.setStylePrimaryName("infopanel");
 		componentItemPanel.setStylePrimaryName("contentpanel");
-		asyncObj.getOneUserIdByEmailAdress(loginInfo.getEmailAddress(),
-				new AsyncCallback<User>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onSuccess(User result) {
-						u.setId(result.getId());
-						u.setFirstName(result.getFirstName());
-						u.setLastName(result.getLastName());
-						u.seteMailAdress(result.geteMailAdress());
-					}
-
-				});
+		
 
 		
-		loadAllComponents();
+		
 		listOfComponents.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -172,8 +200,9 @@ public class EditComponent extends VerticalPanel {
 				RootPanel.get("rightside").clear();
 				selectedComponent = listOfComponents
 						.getItemText(listOfComponents.getSelectedIndex());
+				tempId = Integer.parseInt(getIDbyDropDownText(selectedComponent));
 
-				asyncObj.getOneComponentIdByName(selectedComponent,
+				asyncObj.getOneComponentIdById(tempId,
 						new AsyncCallback<Component>() {
 
 							@Override

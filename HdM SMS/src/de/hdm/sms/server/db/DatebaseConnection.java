@@ -22,9 +22,9 @@ public class DatebaseConnection {
 						"jdbc:mysql://85.214.149.12:3306/db_sms", "smshdm",
 						"hdmitpj");
 
-				// con =
-				// DriverManager.getConnection("jdbc:google:rdbms://hdm1337:hdmsql/hotelverwaltung",
-				// "root", ""); // Create connection with user-credentials
+//				 con =
+//				 DriverManager.getConnection("jdbc:google:rdbms://stuecklistenmanagementsystem:hdmitpjsms/db_sms",
+//				 "root", ""); // Create connection with user-credentials
 			}
 
 			catch (SQLException e1) {
