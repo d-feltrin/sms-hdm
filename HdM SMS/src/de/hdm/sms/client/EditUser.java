@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
+import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.User;
 
 public class EditUser extends VerticalPanel {
@@ -38,11 +39,68 @@ public class EditUser extends VerticalPanel {
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private Button deleteUserButton = new Button("Benutzer löschen");
 	private Button editUserButton = new Button("Benutzer editieren");
+	private LoginInfo loginInfo;
+	private User u = new User();
 
+	// Konstruktor @EditUser
 	public EditUser() {
 
 	}
 
+	// Mithilfe dieser Methode wird überprüft, ob der aktuell über Google
+	// eingeloggte Benutzer bereits im Stücklistenmanagementsystem angelegt ist.
+	// Falls der Benutzer noch nicht hinterlegt ist, wird die Klasse @CreateUser
+	// geladen.
+	// Falls der Benutzer bereits im System angelegt ist, wird das @User Objekt
+	// befüllt. Des Weiteren
+	// wird die Methode loadAllProducts gestartet.
+	public User getUserIdByEMailAdress(String eMailAdress) {
+
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(User result) {
+						if (result.geteMailAdress() != null) {
+
+							u.setId(result.getId());
+							u.setFirstName(result.getFirstName());
+							u.setLastName(result.getLastName());
+							u.seteMailAdress(result.geteMailAdress());
+							loadAllUser();
+						} else {
+							Window.alert("Bitte registrieren Sie sich zuerst!");
+							RootPanel.get("rightside").clear();
+							CreateUser cU = new CreateUser();
+							cU.setLoginInfo(loginInfo);
+							RootPanel.get("rightside").add(cU);
+						}
+
+					}
+
+				});
+		return u;
+
+	}
+
+	// Die Loginemailadresse wird von der Klasse @Startside über diesen setter
+	// in @CreateProduct "hereingelassen". Somit enthalt das Objekt @loginInfo
+	// die E-Mail Adresse des Benutzers und ist somit essentiell, um die Methode
+	// getUserIdByEMailAdress auszuführen.
+	public void setLoginInfo(LoginInfo loginInfo) {
+		this.loginInfo = loginInfo;
+	}
+
+	// Diese Methode wird dazu verwendet, um die ID aus der ListBox zu lesen. Es
+	// wird zuerst vor dem Doppelpunkt gesplittet. Danach wird das Leerzeichen,
+	// sowie die Zeichen vor dem Leerzeichen abgeschnitten. Somit erhält man die
+	// "reine" ID ohne weitere Zeichen.
 	private String getIDbyDropDownText(String selectedUser) {
 
 		// get ID by ListBox text
@@ -123,8 +181,7 @@ public class EditUser extends VerticalPanel {
 	}
 
 	public void onLoad() {
-		loadAllUser();
-
+		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		listOfUsers.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -134,7 +191,6 @@ public class EditUser extends VerticalPanel {
 						.getSelectedIndex());
 				tempUserId = Integer
 						.parseInt(getIDbyDropDownText(selectedUser));
-			
 
 				asyncObj.getOneUserById(tempUserId, new AsyncCallback<User>() {
 
@@ -146,11 +202,11 @@ public class EditUser extends VerticalPanel {
 
 					@Override
 					public void onSuccess(User result) {
-						
+
 						firstnameTextBox.setText(result.getFirstName());
 						lastnameTextBox.setText(result.getLastName());
 						eMailAdressTextBox.setText(result.geteMailAdress());
-						
+
 						userItemPanel.add(firstnameLabel);
 						userItemPanel.add(firstnameTextBox);
 						userItemPanel.add(lastnameLabel);
@@ -174,22 +230,50 @@ public class EditUser extends VerticalPanel {
 
 							@Override
 							public void onClick(ClickEvent event) {
+								asyncObj.getOneUserIdByEmailAdress(
+										eMailAdressTextBox.getValue(),
+										new AsyncCallback<User>() {
 
-								if (firstnameTextBox.getValue().isEmpty()
-										|| lastnameTextBox.getValue().isEmpty()
-										|| eMailAdressTextBox.getValue()
-												.isEmpty()) {
-									Window.alert("Bitte alle Felder befüllen!");
-								} else {
-									User u = new User();
-									u.setId(tempUserId);
-									u.setFirstName(firstnameTextBox.getText());
-									u.setLastName(lastnameTextBox.getText());
-									u.seteMailAdress(eMailAdressTextBox
-											.getText());
-									updateUser(u);
+											@Override
+											public void onFailure(
+													Throwable caught) {
+												// TODO Auto-generated method
+												// stub
 
-								}
+											}
+
+											@Override
+											public void onSuccess(User result) {
+												if (result.geteMailAdress() == null) {
+													if (firstnameTextBox
+															.getValue()
+															.isEmpty()
+															|| lastnameTextBox
+																	.getValue()
+																	.isEmpty()
+															|| eMailAdressTextBox
+																	.getValue()
+																	.isEmpty()) {
+														Window.alert("Bitte alle Felder befüllen!");
+													} else {
+														User u = new User();
+														u.setId(tempUserId);
+														u.setFirstName(firstnameTextBox
+																.getText());
+														u.setLastName(lastnameTextBox
+																.getText());
+														u.seteMailAdress(eMailAdressTextBox
+																.getText());
+														updateUser(u);
+
+													}
+												} else {
+													Window.alert("E-Mail Adresse schon in der Datenbank hinterlegt.");
+												}
+
+											}
+										});
+
 							}
 						});
 

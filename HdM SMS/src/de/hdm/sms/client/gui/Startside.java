@@ -46,7 +46,7 @@ public class Startside extends VerticalPanel {
 		MenuBar componentGroupMenu = new MenuBar(true);
 		MenuBar productMenu = new MenuBar(true);
 		MenuBar stocklistMenu = new MenuBar(true);
-		
+
 		userMenu.addItem("Create", new Command() {
 			@Override
 			public void execute() {
@@ -62,7 +62,9 @@ public class Startside extends VerticalPanel {
 			public void execute() {
 
 				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new EditUser());
+				EditUser eU = new EditUser();
+				eU.setLoginInfo(loginInfo);
+				RootPanel.get("rightside").add(eU);
 			}
 		});
 		componentMenu.addItem("Create", new Command() {
