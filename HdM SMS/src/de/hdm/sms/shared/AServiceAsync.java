@@ -74,4 +74,6 @@ public interface AServiceAsync {
 
 	void loadAllStocklistsIncludingRelations(AsyncCallback<ArrayList<Stocklist>> asyncCallback);
 
+	void deleteComponentGroupById(int id, AsyncCallback<Void> asyncCallback);
+
 }

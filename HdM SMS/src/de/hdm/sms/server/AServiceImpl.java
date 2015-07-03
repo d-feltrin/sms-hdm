@@ -190,4 +190,10 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 		ArrayList<Stocklist> StockList = sMapper.loadAllStocklistsIncludingRelations();
 		return StockList;
 	}
+
+	@Override
+	public void deleteComponentGroupById(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 }
