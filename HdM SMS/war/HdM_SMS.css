@@ -1,7 +1,6 @@
 html {
 	height: 100%;
-	background:
-		url('http://fs2.directupload.net/images/150601/fqw9lbw5.png');
+	background: url('img/bg_img.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
@@ -16,8 +15,7 @@ table {
 }
 
 #background {
-	background:
-		url('http://fs1.directupload.net/images/150601/2b5darot.png');
+	background: url('img/bg_img_front.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
@@ -216,11 +214,20 @@ html>body .gwt-MenuBarPopup {
 .infopanel {
 	margin-left: 70px;
 	vertical-align: top;
-	height:100px;
+	height: 100px;
 }
 /*Content-Panel CSS Style*/
 .contentpanel {
 	margin-left: 0px;
 	vertical-align: top;
 	float: left;
+}
+
+.componentgroupnameTextBox {
+	margin-left: 30px;
+	padding: 5px 4px;
+	border: 1px solid #ccc;
+	border-top: 1px solid #999;
+	font-size: small;
+	font-family: Arial Unicode MS, Arial, sans-serif;
 }

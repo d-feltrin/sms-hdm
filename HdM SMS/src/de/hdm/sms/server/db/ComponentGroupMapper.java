@@ -31,15 +31,22 @@ public class ComponentGroupMapper {
 		Connection con = DatebaseConnection.connection();
 		try {
 			Statement state = con.createStatement();
-			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate, LastModified) VALUES (" + "'"
-					+ cg.getComponentGroupName() + "','" + cg.getModifier() + "', '" + DateHelperClass.getCurrentTime()
-					+ "', '" + DateHelperClass.getCurrentTime() + "');";
+			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate, LastModified) VALUES ("
+					+ "'"
+					+ cg.getComponentGroupName()
+					+ "','"
+					+ cg.getModifier()
+					+ "', '"
+					+ DateHelperClass.getCurrentTime()
+					+ "', '"
+					+ DateHelperClass.getCurrentTime() + "');";
 
 			state.executeUpdate(sqlquery);
 
 			// Get ID from last line
 			try {
-				ResultSet result = state.executeQuery("SELECT `Id` FROM `Componentgroup` ORDER BY `Id` DESC LIMIT 1;");
+				ResultSet result = state
+						.executeQuery("SELECT `Id` FROM `Componentgroup` ORDER BY `Id` DESC LIMIT 1;");
 
 				while (result.next()) {
 					cg.setId(result.getInt("Id"));
@@ -49,7 +56,8 @@ public class ComponentGroupMapper {
 			}
 
 			List<Component> listOfComponents = cg.getComponentList();
-			List<Integer> listOfComponentsAmount = cg.getAmountListOfComponent();
+			List<Integer> listOfComponentsAmount = cg
+					.getAmountListOfComponent();
 			for (int i = 0; i < listOfComponents.size(); i++) {
 
 				String sqlqueryComponent = "INSERT INTO `db_sms`.`ComponenGroupRelations` (`ComponentGroupID`, `ComponentId`, `Tag`, `Amount`) "
@@ -66,8 +74,10 @@ public class ComponentGroupMapper {
 
 			}
 
-			List<ComponentGroup> listOfComponentGroups = cg.getComponentgroupList();
-			List<Integer> listOfComponentGroupsAmount = cg.getAmountListOfComponentGroup();
+			List<ComponentGroup> listOfComponentGroups = cg
+					.getComponentgroupList();
+			List<Integer> listOfComponentGroupsAmount = cg
+					.getAmountListOfComponentGroup();
 			for (int i = 0; i < listOfComponentGroups.size(); i++) {
 				String sqlqueryComponent = "INSERT INTO `db_sms`.`ComponenGroupRelations` (`ComponentGroupID`, `ComponentGroupID2`,  `Tag`, `Amount`) "
 						+ "VALUES ('"
@@ -95,16 +105,17 @@ public class ComponentGroupMapper {
 
 			Statement state = con.createStatement();
 
-
-			state.execute("UPDATE `db_sms`.`Componentgroup` SET `Name` = '"+cg.getComponentGroupName()+"' WHERE `Componentgroup`.`Id` = "+cg.getId()+" ;");
+			state.execute("UPDATE `db_sms`.`Componentgroup` SET `Name` = '"
+					+ cg.getComponentGroupName() + "', `Modifier`='"
+					+ cg.getModifier() + "',LastModified='"
+					+ DateHelperClass.getCurrentTime()
+					+ "' WHERE `Componentgroup`.`Id` = " + cg.getId() + " ;");
 			state.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-
-	
 
 	}
 
@@ -114,7 +125,8 @@ public class ComponentGroupMapper {
 
 		try {
 			Statement state = con.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM Componentgroup");
+			ResultSet result = state
+					.executeQuery("SELECT * FROM Componentgroup");
 
 			while (result.next()) {
 				ComponentGroup cg = new ComponentGroup();
@@ -139,7 +151,8 @@ public class ComponentGroupMapper {
 
 		try {
 			Statement state = con.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM Componentgroup");
+			ResultSet result = state
+					.executeQuery("SELECT * FROM Componentgroup");
 
 			while (result.next()) {
 				ComponentGroup cg = new ComponentGroup();
@@ -159,7 +172,7 @@ public class ComponentGroupMapper {
 
 					while (result2.next()) {
 						hasRelations = true;
-						continue;
+						break;
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -188,10 +201,14 @@ public class ComponentGroupMapper {
 
 			while (result.next()) {
 				ComponentGroup cg = new ComponentGroup();
-				cg.setId(result.getInt("ComponenGroupRelations.ComponentGroupID2"));
-				cg.setComponentGroupName(result.getString("Componentgroup.Name"));
-				cg.setCreationDate(result.getTimestamp("Componentgroup.Creationdate"));
-				cg.setModificationDate(result.getTimestamp("Componentgroup.LastModified"));
+				cg.setId(result
+						.getInt("ComponenGroupRelations.ComponentGroupID2"));
+				cg.setComponentGroupName(result
+						.getString("Componentgroup.Name"));
+				cg.setCreationDate(result
+						.getTimestamp("Componentgroup.Creationdate"));
+				cg.setModificationDate(result
+						.getTimestamp("Componentgroup.LastModified"));
 				cg.setModifier(result.getInt("Componentgroup.Modifier"));
 
 				boolean hasRelations = false;
@@ -231,7 +248,8 @@ public class ComponentGroupMapper {
 				c.setId(result.getInt("Component.Id"));
 				c.setName(result.getString("Component.Name"));
 				c.setDescription(result.getString("Component.Description"));
-				c.setMaterialDescription(result.getString("Component.Materialdescription"));
+				c.setMaterialDescription(result
+						.getString("Component.Materialdescription"));
 				c.setModifier(result.getInt("Component.Modifier"));
 				c.setCreationdate(result.getTimestamp("Component.Creationdate"));
 				c.setLastModified(result.getTimestamp("Component.LastModified"));
@@ -245,15 +263,17 @@ public class ComponentGroupMapper {
 		return cgToEdit;
 	}
 
-	public ComponentGroup getOneComponentGroupIdByName(String selectedComponentGroup) {
+	public ComponentGroup getOneComponentGroupIdByName(
+			String selectedComponentGroup) {
 
 		Connection con = DatebaseConnection.connection();
 		ComponentGroup cg = new ComponentGroup("");
 
 		try {
 			Statement state = con.createStatement();
-			ResultSet rs = state.executeQuery("SELECT * FROM Componentgroup WHERE name='" + selectedComponentGroup
-					+ "';");
+			ResultSet rs = state
+					.executeQuery("SELECT * FROM Componentgroup WHERE name='"
+							+ selectedComponentGroup + "';");
 
 			while (rs.next()) {
 
@@ -279,7 +299,8 @@ public class ComponentGroupMapper {
 
 			Statement state = con.createStatement();
 
-			state.executeUpdate("DELETE FROM Componentgroup WHERE Id='" + deleteComponentGroupId + "';");
+			state.executeUpdate("DELETE FROM Componentgroup WHERE Id='"
+					+ deleteComponentGroupId + "';");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -287,17 +308,45 @@ public class ComponentGroupMapper {
 
 	}
 
-	public void insertCGElement(ComponentGroup cg, int ElementID, char ElementTag, int Amount) {
+	public void insertCGElement(ComponentGroup cg, int ElementID,
+			char ElementTag, int Amount) {
 		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement statex = con.createStatement();
+
+			statex.execute("UPDATE `db_sms`.`Componentgroup` SET `Name` = '"
+					+ cg.getComponentGroupName() + "', `Modifier`='"
+					+ cg.getModifier() + "',LastModified='"
+					+ DateHelperClass.getCurrentTime()
+					+ "' WHERE `Componentgroup`.`Id` = " + cg.getId() + " ;");
+			statex.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 
 		try {
 
 			Statement state = con.createStatement();
 
 			if (ElementTag == 'C')
-				state.executeUpdate("INSERT INTO `db_sms`.`ComponenGroupRelations` (`Id`, `ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) VALUES (NULL, '"+cg.getId()+"', NULL, "+ElementID+", 'C', '"+Amount+"'); ");
+				state.executeUpdate("INSERT INTO `db_sms`.`ComponenGroupRelations` (`Id`, `ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) VALUES (NULL, '"
+						+ cg.getId()
+						+ "', NULL, "
+						+ ElementID
+						+ ", 'C', '"
+						+ Amount + "'); ");
+
 			if (ElementTag == 'G')
-				state.executeUpdate("INSERT INTO `db_sms`.`ComponenGroupRelations` (`Id`, `ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) VALUES (NULL, '"+cg.getId()+"',  "+ElementID+",NULL, 'G', '"+Amount+"'); ");
+
+				state.executeUpdate("INSERT INTO `db_sms`.`ComponenGroupRelations` (`Id`, `ComponentGroupID`, `ComponentGroupID2`, `ComponentId`, `Tag`, `Amount`) VALUES (NULL, '"
+						+ cg.getId()
+						+ "',  "
+						+ ElementID
+						+ ",NULL, 'G', '"
+						+ Amount + "'); ");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -306,17 +355,45 @@ public class ComponentGroupMapper {
 
 	}
 
-	public void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount) {
+	public void updateCGElementAmount(ComponentGroup cg, int ElementID,
+			char ElementTag, int NewAmount) {
 		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement statex = con.createStatement();
+
+			statex.execute("UPDATE `db_sms`.`Componentgroup` SET `Name` = '"
+					+ cg.getComponentGroupName() + "', `Modifier`='"
+					+ cg.getModifier() + "',LastModified='"
+					+ DateHelperClass.getCurrentTime()
+					+ "' WHERE `Componentgroup`.`Id` = " + cg.getId() + " ;");
+			statex.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 
 		try {
 
 			Statement state = con.createStatement();
 
 			if (ElementTag == 'C')
-				state.executeUpdate("UPDATE `db_sms`.`ComponenGroupRelations` SET `Amount` = '"+NewAmount+"' WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentId` = "+ElementID+"; ");
+
+				state.executeUpdate("UPDATE `db_sms`.`ComponenGroupRelations` SET `Amount` = '"
+						+ NewAmount
+						+ "' WHERE `ComponenGroupRelations`.`ComponentGroupID` = "
+						+ cg.getId()
+						+ " AND `ComponenGroupRelations`.`ComponentId` = "
+						+ ElementID + "; ");
 			if (ElementTag == 'G')
-				state.executeUpdate("UPDATE `db_sms`.`ComponenGroupRelations` SET `Amount` = '"+NewAmount+"' WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentGroupID2` = "+ElementID+"; ");
+
+				state.executeUpdate("UPDATE `db_sms`.`ComponenGroupRelations` SET `Amount` = '"
+						+ NewAmount
+						+ "' WHERE `ComponenGroupRelations`.`ComponentGroupID` = "
+						+ cg.getId()
+						+ " AND `ComponenGroupRelations`.`ComponentGroupID2` = "
+						+ ElementID + "; ");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -324,7 +401,8 @@ public class ComponentGroupMapper {
 		}
 	}
 
-	public void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag) {
+	public void deleteCGElement(ComponentGroup cg, int ElementID,
+			char ElementTag) {
 		Connection con = DatebaseConnection.connection();
 
 		try {
@@ -332,9 +410,15 @@ public class ComponentGroupMapper {
 			Statement state = con.createStatement();
 
 			if (ElementTag == 'C')
-				state.executeUpdate("DELETE FROM `db_sms`.`ComponenGroupRelations` WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentId` = "+ElementID+";");
+				state.executeUpdate("DELETE FROM `db_sms`.`ComponenGroupRelations` WHERE `ComponenGroupRelations`.`ComponentGroupID` = "
+						+ cg.getId()
+						+ " AND `ComponenGroupRelations`.`ComponentId` = "
+						+ ElementID + ";");
 			if (ElementTag == 'G')
-				state.executeUpdate("DELETE FROM `db_sms`.`ComponenGroupRelations` WHERE `ComponenGroupRelations`.`ComponentGroupID` = "+cg.getId()+" AND `ComponenGroupRelations`.`ComponentGroupID2` = "+ElementID+";");
+				state.executeUpdate("DELETE FROM `db_sms`.`ComponenGroupRelations` WHERE `ComponenGroupRelations`.`ComponentGroupID` = "
+						+ cg.getId()
+						+ " AND `ComponenGroupRelations`.`ComponentGroupID2` = "
+						+ ElementID + ";");
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -15,8 +15,9 @@
   <servlet-mapping>
     <servlet-name>AServiceImpl</servlet-name>
     <url-pattern>/hdm_sms/aservice</url-pattern>
- </servlet-mapping>
-   
+    <url-pattern>/hdm_smsreport/aservice</url-pattern>
+     </servlet-mapping>     
+      
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>HdM_SMS.html</welcome-file>

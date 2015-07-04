@@ -69,7 +69,7 @@ public class CreateProduct extends VerticalPanel {
 							u.setFirstName(result.getFirstName());
 							u.setLastName(result.getLastName());
 							u.seteMailAdress(result.geteMailAdress());
-							RootPanel.get("rightside").add(contentPanel);
+							
 							loadAllComponentGroups();
 						} else {
 							Window.alert("Bitte registrieren Sie sich zuerst!");
@@ -141,6 +141,11 @@ public class CreateProduct extends VerticalPanel {
 		});
 		contentPanel.add(componentGroupLabel);
 		contentPanel.add(listOfComponentGroups);
+		contentPanel.add(nameLabel);
+		contentPanel.add(productName);
+		contentPanel.add(createProductButton);
+		RootPanel.get("rightside").clear();
+		RootPanel.get("rightside").add(contentPanel);
 
 	}
 
@@ -150,9 +155,7 @@ public class CreateProduct extends VerticalPanel {
 	public void onLoad() {
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 
-		contentPanel.add(nameLabel);
-		contentPanel.add(productName);
-		contentPanel.add(createProductButton);
+		
 
 		// ChangeHandler für die ListBox
 		listOfComponentGroups.addChangeHandler(new ChangeHandler() {

@@ -134,6 +134,7 @@ public class EditComponent extends VerticalPanel {
 							+ result.get(i).getName());
 
 				}
+				RootPanel.get("rightside").clear();
 				RootPanel.get("rightside").add(new Label("Bauteil auswaehlen"));
 				RootPanel.get("rightside").add(listOfComponents);
 			}

@@ -202,6 +202,7 @@ public class EditProduct extends VerticalPanel {
 				}
 			}
 		});
+		RootPanel.get("rightside").clear();
 		RootPanel.get("rightside").add(new Label("Produkt auswaehlen"));
 		RootPanel.get("rightside").add(listOfProducts);
 	}

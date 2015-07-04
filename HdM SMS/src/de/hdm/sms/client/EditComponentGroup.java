@@ -43,7 +43,7 @@ public class EditComponentGroup extends VerticalPanel {
 
 	// EDIT (SECONDPAGE)
 	// Panel: Info ComponentName
-	private final HorizontalPanel PanelCGInfo_Name = new HorizontalPanel();
+
 	private final TextBox textboxCGInfo_Name = new TextBox();
 
 	// Panel: List
@@ -63,7 +63,7 @@ public class EditComponentGroup extends VerticalPanel {
 	private final Button buttonDeleteComponentGroup = new Button("Loeschen");
 	private final Button buttonAbortComponentGroup = new Button("Abbrechen");
 
-	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
+	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 
 	private ComponentGroup OriginalComponentGroupToEdit = new ComponentGroup();
 
@@ -77,11 +77,53 @@ public class EditComponentGroup extends VerticalPanel {
 		this.loginInfo = loginInfo;
 	}
 
-	public void onLoad() {
+	public User getUserIdByEMailAdress(String eMailAdress) {
 
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(User result) {
+						if (result.geteMailAdress() != null) {
+
+							u.setId(result.getId());
+							u.setFirstName(result.getFirstName());
+							u.setLastName(result.getLastName());
+							u.seteMailAdress(result.geteMailAdress());
+							loadComponentsANDComponentGroup();
+							RootPanel.get("rightside").clear();
+							RootPanel.get("rightside").add(
+									PanelSelectGroupToEdit);
+
+						} else {
+							Window.alert("Bitte registrieren Sie sich zuerst!");
+							RootPanel.get("rightside").clear();
+							CreateUser cU = new CreateUser();
+							cU.setLoginInfo(loginInfo);
+							RootPanel.get("rightside").add(cU);
+
+						}
+
+					}
+
+				});
+		return u;
+
+	}
+
+	public void onLoad() {
+		
 		// Load
-		loadComponentsANDComponentGroup();
+
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
+		OriginalComponentGroupToEdit.setModifier(u.getId());
+		
 		loadAllUser();
 
 		// Panel: Select ComponentgroupToEdit
@@ -117,8 +159,6 @@ public class EditComponentGroup extends VerticalPanel {
 			}
 		});
 
-		RootPanel.get("rightside").add(PanelSelectGroupToEdit);
-
 	}
 
 	private void LoadElementEdit(ComponentGroup ComponentGroupToEdit) {
@@ -126,29 +166,37 @@ public class EditComponentGroup extends VerticalPanel {
 
 		OriginalComponentGroupToEdit = ComponentGroupToEdit; // save for compare
 
-		HorizontalPanel PanelCGInfo_ID = new HorizontalPanel();
-		PanelCGInfo_ID.add(new Label("ID"));
+		VerticalPanel PanelCGInfo_ID = new VerticalPanel();
+		PanelCGInfo_ID.add(new Label("Baugruppennummer:"));
 		PanelCGInfo_ID.add(new Label(String.valueOf(ComponentGroupToEdit
 				.getId())));
-		PanelCGInfo_ID.add(new Label(" "));
+
 		RootPanel.get("rightside").add(PanelCGInfo_ID);
 
+		VerticalPanel PanelCGInfo_Name = new VerticalPanel();
 		PanelCGInfo_Name.add(new Label("Name:"));
 		textboxCGInfo_Name
 				.setText(ComponentGroupToEdit.getComponentGroupName());
 		PanelCGInfo_Name.add(textboxCGInfo_Name);
-		PanelCGInfo_Name.add(new Label(" "));
+
 		RootPanel.get("rightside").add(PanelCGInfo_Name);
 
-		HorizontalPanel PanelCGInfo_CreeationDate = new HorizontalPanel();
-		PanelCGInfo_CreeationDate.add(new Label("Creationdate:"));
+		VerticalPanel PanelCGInfo_CreeationDate = new VerticalPanel();
+		PanelCGInfo_CreeationDate.add(new Label("Erstellungsdatum:"));
 		PanelCGInfo_CreeationDate.add(new Label(dF.format(ComponentGroupToEdit
 				.getCreationDate())));
-		PanelCGInfo_CreeationDate.add(new Label(" "));
+
 		RootPanel.get("rightside").add(PanelCGInfo_CreeationDate);
 
-		HorizontalPanel PanelCGInfo_LastEditor = new HorizontalPanel();
-		PanelCGInfo_LastEditor.add(new Label("Modifier:"));
+		VerticalPanel PanelCGInfo_LastModifier = new VerticalPanel();
+		PanelCGInfo_LastModifier.add(new Label("Bearbeitungsdatum"));
+		PanelCGInfo_LastModifier.add(new Label(dF.format(ComponentGroupToEdit
+				.getModificationDate())));
+
+		RootPanel.get("rightside").add(PanelCGInfo_LastModifier);
+
+		VerticalPanel PanelCGInfo_LastEditor = new VerticalPanel();
+		PanelCGInfo_LastEditor.add(new Label("Letzter Bearbeiter:"));
 		String lastModifier = "Unknown";
 		for (User user : allUsers) {
 			if (user.getId() == ComponentGroupToEdit.getModifier()) {
@@ -330,6 +378,8 @@ public class EditComponentGroup extends VerticalPanel {
 				} else {
 					newComponentGroup.setId(OriginalComponentGroupToEdit
 							.getId());
+					newComponentGroup.setModifier(u.getId());
+					Window.alert(""+u.getId());
 					newComponentGroup.setComponentGroupName(textboxCGInfo_Name
 							.getText());
 					// go through each row
@@ -386,10 +436,17 @@ public class EditComponentGroup extends VerticalPanel {
 					};
 
 					if (OriginalComponentGroupToEdit.getComponentGroupName() != newComponentGroup
-							.getComponentGroupName())
+							.getComponentGroupName()) {
+						newComponentGroup.setModifier(u.getId());
+						OriginalComponentGroupToEdit.setModifier(u.getId());
 						asyncObj.updateComponentGroupById(newComponentGroup,
 								doNothingAsyncCallback);
-
+					} else {
+						newComponentGroup.setModifier(u.getId());
+						OriginalComponentGroupToEdit.setModifier(u.getId());
+						asyncObj.updateComponentGroupById(newComponentGroup,
+								doNothingAsyncCallback);
+					}
 					// Update existing Amounts of ComponentGroups
 					for (int i = 0; i < OriginalComponentGroupToEdit
 							.getAmountListOfComponentGroup().size(); i++) {
@@ -470,6 +527,7 @@ public class EditComponentGroup extends VerticalPanel {
 						for (int i = OriginalComponentGroupToEdit
 								.getComponentgroupList().size(); i < newComponentGroup
 								.getComponentgroupList().size(); i++) {
+							OriginalComponentGroupToEdit.setModifier(u.getId());
 							asyncObj.insertCGElement(
 									OriginalComponentGroupToEdit,
 									newComponentGroup.getComponentgroupList()
@@ -518,7 +576,7 @@ public class EditComponentGroup extends VerticalPanel {
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Baugruppe gelöscht");
+								Window.alert("Baugruppe gelï¿½scht");
 								RootPanel.get("rightside").clear();
 
 							}
@@ -533,31 +591,6 @@ public class EditComponentGroup extends VerticalPanel {
 
 	}
 
-	public User getUserIdByEMailAdress(String eMailAdress) {
-
-		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
-				new AsyncCallback<User>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onSuccess(User result) {
-						u.setId(result.getId());
-						u.setFirstName(result.getFirstName());
-						u.setLastName(result.getLastName());
-						u.seteMailAdress(result.geteMailAdress());
-
-					}
-
-				});
-		return u;
-
-	}
-
 	private void loadComponentsANDComponentGroup() {
 		asyncObj.loadAllComponentGroupsIncludingRelations(new AsyncCallback<ArrayList<ComponentGroup>>() {
 
@@ -569,9 +602,10 @@ public class EditComponentGroup extends VerticalPanel {
 
 			@Override
 			public void onSuccess(ArrayList<ComponentGroup> ComponentGroups) {
-
+				listboxListOfAddableElements.setSize("180px", "35px");
 				listboxListOfAddableElements.addItem("----");
 				listboxListOfAddableElements.addItem("Baugruppe");
+				listboxListOfGroupsToEdit.setSize("180px", "35px");
 				listboxListOfGroupsToEdit.addItem("Baugruppe");
 
 				for (ComponentGroup componentgroup : ComponentGroups) {

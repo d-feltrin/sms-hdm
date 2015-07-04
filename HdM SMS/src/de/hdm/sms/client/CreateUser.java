@@ -47,7 +47,8 @@ public class CreateUser extends VerticalPanel {
 		createUserPanel.add(lastnameTextBoxOfUser);
 
 		createUserPanel.add(userCreateButton);
-
+		RootPanel.get("rightside").clear();
+		
 		RootPanel.get("rightside").add(createUserPanel);
 
 		userCreateButton.addClickHandler(new ClickHandler() {

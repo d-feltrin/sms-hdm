@@ -75,6 +75,8 @@ public class CreateComponent extends VerticalPanel {
 							createComponentPanel
 									.add(materialDescriptionTextbox);
 							createComponentPanel.add(createComponentButton);
+							RootPanel.get("rightside").clear();
+							
 							RootPanel.get("rightside")
 									.add(createComponentPanel);
 						} else {
