@@ -139,6 +139,7 @@ public class CreateStocklist extends VerticalPanel {
 									PropertiesOfElementToAdd[i]);
 						}
 						TextBox Amount = new TextBox();
+						Amount.addKeyPressHandler(new NumbersOnly());
 						Amount.setText(textboxAmountOfElementToAdd.getText());
 
 						flextableComponentgroupElements.setWidget(rowNumToInsertNewRow, 3, Amount);
@@ -300,8 +301,9 @@ public class CreateStocklist extends VerticalPanel {
 		public void onKeyPress(KeyPressEvent event) {
 
 			if (!Character.isDigit(event.getCharCode()) && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
-					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE) {
-				textboxAmountOfElementToAdd.cancelKey();
+					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE) 
+				{((TextBox)event.getSource()).cancelKey();
+			//	textboxAmountOfElementToAdd.cancelKey();
 			}
 		}
 	}

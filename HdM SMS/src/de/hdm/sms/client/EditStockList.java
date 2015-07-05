@@ -42,6 +42,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.TreeViewModel;
 
+import de.hdm.sms.client.CreateStocklist.NumbersOnly;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
@@ -69,10 +70,6 @@ public class EditStockList extends VerticalPanel {
 	// Panel: Info ComponentName
 	private final VerticalPanel PanelCGInfo_Name = new VerticalPanel();
 	private final TextBox textboxCGInfo_Name = new TextBox();
-
-	// Panel: List
-	private final HorizontalPanel PanelTableOfElements = new HorizontalPanel();
-	private final FlexTable flextableComponentgroupElements = new FlexTable();
 
 	// Panel: Edit Element
 	private final HorizontalPanel PanelEditElementOfStocklist = new HorizontalPanel();
@@ -261,6 +258,9 @@ public class EditStockList extends VerticalPanel {
 					level++;
 
 				} while (parent != null);
+				
+				
+				
 				if (level == 2) {
 					labelEditNameOfElementToEdit.setText(Element[0] + " - "
 							+ Element[2]);
@@ -280,11 +280,9 @@ public class EditStockList extends VerticalPanel {
 		RootPanel.get("rightside").add(tree);
 
 		// Panel: Edit Element
-
-		// TEST
-
 		labelEditNameOfElementToEdit.setText("");
 
+		textBoxAmountOfElementToEdit.addKeyPressHandler(new NumbersOnly());
 		textBoxAmountOfElementToEdit.setReadOnly(true);
 		buttonEditElementOfStocklist.setEnabled(false);
 
@@ -633,7 +631,7 @@ public class EditStockList extends VerticalPanel {
 			if (!Character.isDigit(event.getCharCode())
 					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
 					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE) {
-				textboxAmountOfElementToAdd.cancelKey();
+				((TextBox)event.getSource()).cancelKey();
 			}
 		}
 	}
