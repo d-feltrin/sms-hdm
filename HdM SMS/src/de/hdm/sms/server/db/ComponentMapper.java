@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.PreparedStatement.ParseInfo;
 
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;

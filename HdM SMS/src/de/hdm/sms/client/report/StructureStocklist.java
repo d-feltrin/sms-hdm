@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,15 +14,12 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
-import de.hdm.sms.shared.LoginInfo;
-import de.hdm.sms.shared.ReportService;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.Stocklist;
@@ -128,18 +123,7 @@ public class StructureStocklist extends VerticalPanel {
 		});
 	}
 
-	// Get the Id by splitting the Listbox value
-	private String getIDbyDropDownText(String selectedStocklist) {
-
-		// get ID by ListBox text
-		// Splitt " - 569:Bla" into " - 569", "Bla"
-		String[] SplitStepOne = selectedStocklist.split(":");
-
-		// Splitt " - 569" into " - ", "569"
-		String[] SplitStepTwo = SplitStepOne[0].split(" ");
-
-		return SplitStepTwo[1];
-	}
+	
 
 	private void LoadStocklistToEdit(Stocklist stocklist_) {
 		RootPanel.get("rightside").clear();

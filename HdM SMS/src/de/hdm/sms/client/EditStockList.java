@@ -1,11 +1,7 @@
 package de.hdm.sms.client;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.jjs.InternalCompilerException.NodeInfo;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -14,11 +10,9 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
@@ -26,23 +20,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeItem;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeItem;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.TreeViewModel;
 
-import de.hdm.sms.client.CreateStocklist.NumbersOnly;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
@@ -640,17 +619,7 @@ public class EditStockList extends VerticalPanel {
 		// Create new Stocklist
 		Stocklist newStocklist = new Stocklist();
 
-		AsyncCallback doNothingAsyncCallback = new AsyncCallback<Void>() {
-
-			@Override
-			public void onSuccess(Void result) {
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-			}
-		};
-
+		
 		if (textboxCGInfo_Name.getText().isEmpty()) {
 			Window.alert("Bitte geben Sie einen Namen fuer die neue Baugruppe ein");
 		} else {
@@ -680,7 +649,16 @@ public class EditStockList extends VerticalPanel {
 				}
 			}
 
-			asyncObj.updateStockList(newStocklist, doNothingAsyncCallback);
+			asyncObj.updateStockList(newStocklist, new AsyncCallback<Void>() {
+
+				@Override
+				public void onSuccess(Void result) {
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
+				}
+			});
 		}
 
 		// Update existing Amounts of ComponentGroups
@@ -706,7 +684,16 @@ public class EditStockList extends VerticalPanel {
 									newStocklist, originalComponentGroup,
 									newStocklist
 											.getAmountListOfComponentGroup()
-											.get(i), doNothingAsyncCallback);
+											.get(i), new AsyncCallback<Void>() {
+
+												@Override
+												public void onSuccess(Void result) {
+												}
+
+												@Override
+												public void onFailure(Throwable caught) {
+												}
+											});
 							break;
 						}
 
@@ -715,7 +702,16 @@ public class EditStockList extends VerticalPanel {
 									newStocklist, originalComponentGroup,
 									newStocklist
 											.getAmountListOfComponentGroup()
-											.get(i), doNothingAsyncCallback);
+											.get(i), new AsyncCallback<Void>() {
+
+												@Override
+												public void onSuccess(Void result) {
+												}
+
+												@Override
+												public void onFailure(Throwable caught) {
+												}
+											});
 						}
 
 					}
@@ -743,13 +739,31 @@ public class EditStockList extends VerticalPanel {
 							asyncObj.updateAmountOfStocklistComponentElement(
 									newStocklist, originalComponent,
 									newStocklist.getAmountListOfComponent()
-											.get(i), doNothingAsyncCallback);
+											.get(i), new AsyncCallback<Void>() {
+
+												@Override
+												public void onSuccess(Void result) {
+												}
+
+												@Override
+												public void onFailure(Throwable caught) {
+												}
+											});
 							break;
 						} else {
 							asyncObj.deleteStocklistComponentElement(
 									newStocklist, originalComponent,
 									newStocklist.getAmountListOfComponent()
-											.get(i), doNothingAsyncCallback);
+											.get(i), new AsyncCallback<Void>() {
+
+												@Override
+												public void onSuccess(Void result) {
+												}
+
+												@Override
+												public void onFailure(Throwable caught) {
+												}
+											});
 						}
 					}
 				}
@@ -775,7 +789,16 @@ public class EditStockList extends VerticalPanel {
 				asyncObj.insertComponentGroupToSocklist(newStocklist,
 						newStockListComponentGroupToInsert, newStocklist
 								.getAmountListOfComponentGroup().get(j),
-						doNothingAsyncCallback);
+								new AsyncCallback<Void>() {
+
+									@Override
+									public void onSuccess(Void result) {
+									}
+
+									@Override
+									public void onFailure(Throwable caught) {
+									}
+								});
 			}
 		}
 
@@ -798,7 +821,16 @@ public class EditStockList extends VerticalPanel {
 				asyncObj.insertComponentToStocklist(newStocklist,
 						newStockListComponentToInsert, newStocklist
 								.getAmountListOfComponent().get(j),
-						doNothingAsyncCallback);
+								new AsyncCallback<Void>() {
+
+									@Override
+									public void onSuccess(Void result) {
+									}
+
+									@Override
+									public void onFailure(Throwable caught) {
+									}
+								});
 			}
 		}
 	}

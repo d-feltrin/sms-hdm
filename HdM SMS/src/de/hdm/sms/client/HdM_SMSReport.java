@@ -22,9 +22,6 @@ public class HdM_SMSReport extends VerticalPanel implements EntryPoint {
 		menu.setAutoOpen(true);
 		menu.setWidth("150px");
 		menu.setAnimationEnabled(true);
-
-		// Create the report menu
-		MenuBar reportMenu = new MenuBar(true);
 		
 		// Create the Command for Stocklist
 		menu.addItem("Strukturstückliste", new Command() {

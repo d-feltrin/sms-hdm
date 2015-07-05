@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.sms.client.CreateComponentGroup.NumbersOnly;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
@@ -427,28 +426,36 @@ public class EditComponentGroup extends VerticalPanel {
 						}
 					}
 
-					AsyncCallback doNothingAsyncCallback = new AsyncCallback<Void>() {
-
-						@Override
-						public void onSuccess(Void result) {
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-						}
-					};
 
 					if (OriginalComponentGroupToEdit.getComponentGroupName() != newComponentGroup
 							.getComponentGroupName()) {
 						newComponentGroup.setModifier(u.getId());
 						OriginalComponentGroupToEdit.setModifier(u.getId());
 						asyncObj.updateComponentGroupById(newComponentGroup,
-								doNothingAsyncCallback);
+								new AsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+							}
+						});
 					} else {
 						newComponentGroup.setModifier(u.getId());
 						OriginalComponentGroupToEdit.setModifier(u.getId());
 						asyncObj.updateComponentGroupById(newComponentGroup,
-								doNothingAsyncCallback);
+								new AsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+							}
+						});
 					}
 					// Update existing Amounts of ComponentGroups
 					for (int i = 0; i < OriginalComponentGroupToEdit
@@ -473,14 +480,32 @@ public class EditComponentGroup extends VerticalPanel {
 										'G',
 										newComponentGroup
 												.getAmountListOfComponentGroup()
-												.get(i), doNothingAsyncCallback);
+												.get(i), new AsyncCallback<Void>() {
+
+													@Override
+													public void onSuccess(Void result) {
+													}
+
+													@Override
+													public void onFailure(Throwable caught) {
+													}
+												});
 							} else {
 								asyncObj.deleteCGElement(
 										OriginalComponentGroupToEdit,
 										OriginalComponentGroupToEdit
 												.getComponentgroupList().get(i)
 												.getId(), 'G',
-										doNothingAsyncCallback);
+												new AsyncCallback<Void>() {
+
+													@Override
+													public void onSuccess(Void result) {
+													}
+
+													@Override
+													public void onFailure(Throwable caught) {
+													}
+												});
 							}
 
 						}
@@ -509,14 +534,32 @@ public class EditComponentGroup extends VerticalPanel {
 												.getId(), 'C',
 										newComponentGroup
 												.getAmountListOfComponent()
-												.get(i), doNothingAsyncCallback);
+												.get(i), new AsyncCallback<Void>() {
+
+													@Override
+													public void onSuccess(Void result) {
+													}
+
+													@Override
+													public void onFailure(Throwable caught) {
+													}
+												});
 							} else {
 								asyncObj.deleteCGElement(
 										OriginalComponentGroupToEdit,
 										OriginalComponentGroupToEdit
 												.getComponentList().get(i)
 												.getId(), 'C',
-										doNothingAsyncCallback);
+												new AsyncCallback<Void>() {
+
+													@Override
+													public void onSuccess(Void result) {
+													}
+
+													@Override
+													public void onFailure(Throwable caught) {
+													}
+												});
 							}
 
 						}
@@ -546,7 +589,16 @@ public class EditComponentGroup extends VerticalPanel {
 										'G',
 										newComponentGroup
 												.getAmountListOfComponentGroup()
-												.get(i), doNothingAsyncCallback);
+												.get(i), new AsyncCallback<Void>() {
+
+													@Override
+													public void onSuccess(Void result) {
+													}
+
+													@Override
+													public void onFailure(Throwable caught) {
+													}
+												});
 							}
 						}
 					}
@@ -562,7 +614,16 @@ public class EditComponentGroup extends VerticalPanel {
 									newComponentGroup.getComponentList().get(i)
 											.getId(), 'C', newComponentGroup
 											.getAmountListOfComponent().get(i),
-									doNothingAsyncCallback);
+											new AsyncCallback<Void>() {
+
+												@Override
+												public void onSuccess(Void result) {
+												}
+
+												@Override
+												public void onFailure(Throwable caught) {
+												}
+											});
 
 						}
 					}

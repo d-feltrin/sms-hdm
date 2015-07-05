@@ -19,14 +19,12 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.sms.client.CreateComponentGroup.NumbersOnly;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.Stocklist;
-import de.hdm.sms.shared.bo.User;
 
 public class CreateStocklist extends VerticalPanel {
 	private final AServiceAsync asyncObj = GWT.create(AService.class);

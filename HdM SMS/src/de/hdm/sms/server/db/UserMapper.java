@@ -5,15 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Logger;
-
-import de.hdm.sms.client.ClientsideSettings;
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.User;
 
 public class UserMapper {
 	private static UserMapper userMapper = null;
-	private Logger logger = ClientsideSettings.getLogger();
 	public Connection con = DatebaseConnection.connection();
 
 	protected UserMapper() {

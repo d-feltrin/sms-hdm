@@ -1,8 +1,6 @@
 package de.hdm.sms.client.report;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -10,12 +8,10 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.sms.shared.AService;
@@ -23,8 +19,6 @@ import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.Product;
-import de.hdm.sms.shared.bo.Stocklist;
-import de.hdm.sms.shared.bo.User;
 
 public class MaterialResource extends VerticalPanel {
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
@@ -32,10 +26,10 @@ public class MaterialResource extends VerticalPanel {
 	private ArrayList<Product> allProducts = new ArrayList<Product>();
 
 	private ArrayList<Component> allComponents = new ArrayList<Component>();
-	private ArrayList<Integer> amountListOfComponent = new ArrayList<Integer>();
+	//private ArrayList<Integer> amountListOfComponent = new ArrayList<Integer>();
 
 	private ArrayList<ComponentGroup> allComponentGroups = new ArrayList<ComponentGroup>();
-	private ArrayList<Integer> amountListOfComponentGroup = new ArrayList<Integer>();
+//	private ArrayList<Integer> amountListOfComponentGroup = new ArrayList<Integer>();
 
 	private ArrayList<Component> allComponentsOfProduct = new ArrayList<Component>();
 	private ArrayList<Integer> amountComponentsOfProduct = new ArrayList<Integer>();
