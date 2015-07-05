@@ -15,6 +15,7 @@ import de.hdm.sms.shared.LoginInfo;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 
@@ -47,7 +48,7 @@ public class Startside extends VerticalPanel {
 		MenuBar stocklistMenu = new MenuBar(true);
 
 		// Create the Commands
-		userMenu.addItem("Erstellen", new Command() {
+		userMenu.addItem("Anlegen", new Command() {
 			@Override
 			public void execute() {
 
@@ -69,7 +70,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		componentMenu.addItem("Erstellen", new Command() {
+		componentMenu.addItem("Anlegen", new Command() {
 			@Override
 			public void execute() {
 
@@ -91,7 +92,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		componentGroupMenu.addItem("Erstellen", new Command() {
+		componentGroupMenu.addItem("Anlegen", new Command() {
 			@Override
 			public void execute() {
 
@@ -113,7 +114,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		productMenu.addItem("Erstellen", new Command() {
+		productMenu.addItem("Anlegen", new Command() {
 
 			@Override
 			public void execute() {
@@ -136,7 +137,7 @@ public class Startside extends VerticalPanel {
 
 			}
 		});
-		stocklistMenu.addItem("Erstellen", new Command() {
+		stocklistMenu.addItem("Anlegen", new Command() {
 
 			@Override
 			public void execute() {
@@ -166,6 +167,16 @@ public class Startside extends VerticalPanel {
 		menu.addItem(new MenuItem("Baugruppe", componentGroupMenu));
 		menu.addItem(new MenuItem("Enderzeugnis", productMenu));
 		menu.addItem(new MenuItem("Stückliste", stocklistMenu));
+		menu.addItem("Report", new Command() {
+
+			@Override
+			public void execute() {
+				Window.open(
+						"http://1-dot-stuecklistenmanagementsystem.appspot.com/HdM_SMSReport.html",
+						"_blank", "");
+
+			}
+		});
 
 		// Panel: menuPanel add the menu
 		menuPanel.add(menu);

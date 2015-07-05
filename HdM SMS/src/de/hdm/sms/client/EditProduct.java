@@ -221,6 +221,8 @@ public class EditProduct extends VerticalPanel {
 										.getModificationDate())));
 								InfoPanel.add(new Label("Letzter Bearbeiter"));
 								getLastModifier(p.getModifier());
+								mainPanel.add(new Label("Produktnummer"));
+								mainPanel.add(new Label(""+p.getId()));
 								mainPanel.add(new Label(
 										"Zugeordnete Baugruppe: "
 												+ result.getComponentGroupName()));
