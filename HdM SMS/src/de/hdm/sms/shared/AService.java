@@ -87,5 +87,7 @@ public interface AService extends RemoteService {
 
 	String checkRelationsOfComponent(int tempId);
 
+	String CheckRelationsOfComponentGroup(int tempId);
+
 
 }

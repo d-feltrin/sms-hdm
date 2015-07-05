@@ -54,7 +54,8 @@ public class EditComponentGroup extends VerticalPanel {
 	private final HorizontalPanel PanelAddElementtOComponentgroup = new HorizontalPanel();
 	private final ListBox listboxListOfAddableElements = new ListBox();
 	private final TextBox textboxAmountOfElementToAdd = new TextBox();
-	private final Button buttonAddElementToComponentgroup = new Button("Bauteil/-gruppe hinzufügen");
+	private final Button buttonAddElementToComponentgroup = new Button(
+			"Bauteil/-gruppe hinzufügen");
 
 	// Panel Funcitons
 	private final HorizontalPanel PanelFunctions = new HorizontalPanel();
@@ -78,38 +79,40 @@ public class EditComponentGroup extends VerticalPanel {
 
 	public User getUserIdByEMailAdress(String eMailAdress) {
 
-		asyncObj.getOneUserIdByEmailAdress(eMailAdress, new AsyncCallback<User>() {
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onSuccess(User result) {
-				if (result.geteMailAdress() != null) {
+					@Override
+					public void onSuccess(User result) {
+						if (result.geteMailAdress() != null) {
 
-					u.setId(result.getId());
-					u.setFirstName(result.getFirstName());
-					u.setLastName(result.getLastName());
-					u.seteMailAdress(result.geteMailAdress());
-					loadComponentsANDComponentGroup();
-					RootPanel.get("rightside").clear();
-					RootPanel.get("rightside").add(PanelSelectGroupToEdit);
+							u.setId(result.getId());
+							u.setFirstName(result.getFirstName());
+							u.setLastName(result.getLastName());
+							u.seteMailAdress(result.geteMailAdress());
+							loadComponentsANDComponentGroup();
+							RootPanel.get("rightside").clear();
+							RootPanel.get("rightside").add(
+									PanelSelectGroupToEdit);
 
-				} else {
-					Window.alert("Bitte registrieren Sie sich zuerst!");
-					RootPanel.get("rightside").clear();
-					CreateUser cU = new CreateUser();
-					cU.setLoginInfo(loginInfo);
-					RootPanel.get("rightside").add(cU);
+						} else {
+							Window.alert("Bitte registrieren Sie sich zuerst!");
+							RootPanel.get("rightside").clear();
+							CreateUser cU = new CreateUser();
+							cU.setLoginInfo(loginInfo);
+							RootPanel.get("rightside").add(cU);
 
-				}
+						}
 
-			}
+					}
 
-		});
+				});
 		return u;
 
 	}
@@ -124,7 +127,8 @@ public class EditComponentGroup extends VerticalPanel {
 		loadAllUser();
 
 		// Panel: Select ComponentgroupToEdit
-		PanelSelectGroupToEdit.add(new Label("Wahlen Sie die Baugruppe aus, die Sie editieren moechten:"));
+		PanelSelectGroupToEdit.add(new Label(
+				"Wahlen Sie die Baugruppe aus, die Sie editieren moechten:"));
 		PanelSelectGroupToEdit.add(listboxListOfGroupsToEdit);
 		PanelSelectGroupToEdit.add(buttonEditGroup);
 
@@ -132,14 +136,19 @@ public class EditComponentGroup extends VerticalPanel {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (listboxListOfGroupsToEdit.getItemText(listboxListOfGroupsToEdit.getSelectedIndex()).equals("Baugruppe"))
+				if (listboxListOfGroupsToEdit.getItemText(
+						listboxListOfGroupsToEdit.getSelectedIndex()).equals(
+						"Baugruppe"))
 					Window.alert("Bitte eine Baugruppe auswaehlen");
 				else {
 					// get selected Item
-					String IdOfSelectedItem = getELementTypeIdName(listboxListOfGroupsToEdit.getItemText(listboxListOfGroupsToEdit.getSelectedIndex()))[1];
+					String IdOfSelectedItem = getELementTypeIdName(listboxListOfGroupsToEdit
+							.getItemText(listboxListOfGroupsToEdit
+									.getSelectedIndex()))[1];
 					for (ComponentGroup componentGroup : allComponentGroups) {
 
-						if (componentGroup.getId() == Integer.valueOf(IdOfSelectedItem)) {
+						if (componentGroup.getId() == Integer
+								.valueOf(IdOfSelectedItem)) {
 							LoadElementEdit(componentGroup); // load selected
 																// item
 							break;
@@ -159,26 +168,30 @@ public class EditComponentGroup extends VerticalPanel {
 
 		VerticalPanel PanelCGInfo_ID = new VerticalPanel();
 		PanelCGInfo_ID.add(new Label("Baugruppennummer:"));
-		PanelCGInfo_ID.add(new Label(String.valueOf(ComponentGroupToEdit.getId())));
+		PanelCGInfo_ID.add(new Label(String.valueOf(ComponentGroupToEdit
+				.getId())));
 
 		RootPanel.get("rightside").add(PanelCGInfo_ID);
 
 		VerticalPanel PanelCGInfo_Name = new VerticalPanel();
 		PanelCGInfo_Name.add(new Label("Name:"));
-		textboxCGInfo_Name.setText(ComponentGroupToEdit.getComponentGroupName());
+		textboxCGInfo_Name
+				.setText(ComponentGroupToEdit.getComponentGroupName());
 		PanelCGInfo_Name.add(textboxCGInfo_Name);
 
 		RootPanel.get("rightside").add(PanelCGInfo_Name);
 
 		VerticalPanel PanelCGInfo_CreeationDate = new VerticalPanel();
 		PanelCGInfo_CreeationDate.add(new Label("Erstellungsdatum:"));
-		PanelCGInfo_CreeationDate.add(new Label(dF.format(ComponentGroupToEdit.getCreationDate())));
+		PanelCGInfo_CreeationDate.add(new Label(dF.format(ComponentGroupToEdit
+				.getCreationDate())));
 
 		RootPanel.get("rightside").add(PanelCGInfo_CreeationDate);
 
 		VerticalPanel PanelCGInfo_LastModifier = new VerticalPanel();
 		PanelCGInfo_LastModifier.add(new Label("Bearbeitungsdatum"));
-		PanelCGInfo_LastModifier.add(new Label(dF.format(ComponentGroupToEdit.getModificationDate())));
+		PanelCGInfo_LastModifier.add(new Label(dF.format(ComponentGroupToEdit
+				.getModificationDate())));
 
 		RootPanel.get("rightside").add(PanelCGInfo_LastModifier);
 
@@ -207,20 +220,29 @@ public class EditComponentGroup extends VerticalPanel {
 			int rowNumToInsert = flextableComponentgroupElements.getRowCount();
 
 			// Type
-			flextableComponentgroupElements.setText(rowNumToInsert, 0, "Baugruppe");
+			flextableComponentgroupElements.setText(rowNumToInsert, 0,
+					"Baugruppe");
 
 			// ID
-			flextableComponentgroupElements.setText(rowNumToInsert, 1, String.valueOf(ComponentGroupToEdit.getComponentgroupList().get(i).getId()));
+			flextableComponentgroupElements.setText(
+					rowNumToInsert,
+					1,
+					String.valueOf(ComponentGroupToEdit.getComponentgroupList()
+							.get(i).getId()));
 
 			// Name
-			flextableComponentgroupElements.setText(rowNumToInsert, 2, ComponentGroupToEdit.getComponentgroupList().get(i).getComponentGroupName());
+			flextableComponentgroupElements.setText(rowNumToInsert, 2,
+					ComponentGroupToEdit.getComponentgroupList().get(i)
+							.getComponentGroupName());
 
 			// Amount
 			TextBox Amount = new TextBox();
 			Amount.addKeyPressHandler(new NumbersOnly());
-			Amount.setText(String.valueOf(ComponentGroupToEdit.getAmountListOfComponentGroup().get(i)));
+			Amount.setText(String.valueOf(ComponentGroupToEdit
+					.getAmountListOfComponentGroup().get(i)));
 
-			flextableComponentgroupElements.setWidget(rowNumToInsert, 3, Amount);
+			flextableComponentgroupElements
+					.setWidget(rowNumToInsert, 3, Amount);
 		}
 
 		for (int i = 0; i < ComponentGroupToEdit.getComponentList().size(); i++) {
@@ -228,20 +250,28 @@ public class EditComponentGroup extends VerticalPanel {
 			int rowNumToInsert = flextableComponentgroupElements.getRowCount();
 
 			// Type
-			flextableComponentgroupElements.setText(rowNumToInsert, 0, "Bauteil");
+			flextableComponentgroupElements.setText(rowNumToInsert, 0,
+					"Bauteil");
 
 			// ID
-			flextableComponentgroupElements.setText(rowNumToInsert, 1, String.valueOf(ComponentGroupToEdit.getComponentList().get(i).getId()));
+			flextableComponentgroupElements.setText(
+					rowNumToInsert,
+					1,
+					String.valueOf(ComponentGroupToEdit.getComponentList()
+							.get(i).getId()));
 
 			// Name
-			flextableComponentgroupElements.setText(rowNumToInsert, 2, ComponentGroupToEdit.getComponentList().get(i).getName());
+			flextableComponentgroupElements.setText(rowNumToInsert, 2,
+					ComponentGroupToEdit.getComponentList().get(i).getName());
 
 			// Amount
 			TextBox Amount = new TextBox();
 			Amount.addKeyPressHandler(new NumbersOnly());
-			Amount.setText(String.valueOf(ComponentGroupToEdit.getAmountListOfComponent().get(i)));
+			Amount.setText(String.valueOf(ComponentGroupToEdit
+					.getAmountListOfComponent().get(i)));
 
-			flextableComponentgroupElements.setWidget(rowNumToInsert, 3, Amount);
+			flextableComponentgroupElements
+					.setWidget(rowNumToInsert, 3, Amount);
 		}
 
 		PanelTableOfElements.add(flextableComponentgroupElements);
@@ -252,32 +282,44 @@ public class EditComponentGroup extends VerticalPanel {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				int selectedID = listboxListOfAddableElements.getSelectedIndex();
-				if (listboxListOfAddableElements.getItemText(selectedID).equals("----")
-						|| listboxListOfAddableElements.getItemText(selectedID).equals("Bauteil")
-						|| listboxListOfAddableElements.getItemText(selectedID).equals("Baugruppe")) {
+				int selectedID = listboxListOfAddableElements
+						.getSelectedIndex();
+				if (listboxListOfAddableElements.getItemText(selectedID)
+						.equals("----")
+						|| listboxListOfAddableElements.getItemText(selectedID)
+								.equals("Bauteil")
+						|| listboxListOfAddableElements.getItemText(selectedID)
+								.equals("Baugruppe")) {
 
 					Window.alert("Bitte waehlen Sie ein gueltiges Bauteil bzw. Bauelement aus!");
 
 				} else if (textboxAmountOfElementToAdd.getText().equals("")) {
 					Window.alert("Bitte die Anzahl des hinzuzufuegenden Bauteils/Baugruppe eintragen!");
-				} else if (Integer.parseInt(textboxAmountOfElementToAdd.getText()) < 1) {
+				} else if (Integer.parseInt(textboxAmountOfElementToAdd
+						.getText()) < 1) {
 					Window.alert("Anzahl des hinzuzufuegenden Bauteils/Baugruppe darf nicht unter 1 sein!");
 				} else {
 					// Evertthing okay, start to add
-					int rowNumToInsertNewRow = flextableComponentgroupElements.getRowCount();
+					int rowNumToInsertNewRow = flextableComponentgroupElements
+							.getRowCount();
 
 					// Get Type, ID and Name by Dropdowntext
-					String[] PropertiesOfElementToAdd = getELementTypeIdName(listboxListOfAddableElements.getItemText(selectedID));
+					String[] PropertiesOfElementToAdd = getELementTypeIdName(listboxListOfAddableElements
+							.getItemText(selectedID));
 
 					// Search in List if Element is already added
 					boolean alreadyInList = false;
 					int alreadyInListRowNumber = -1;
 
-					for (int i = 1; i < flextableComponentgroupElements.getRowCount(); i++) {
-						if (flextableComponentgroupElements.getFlexCellFormatter().getElement(i, 1).getInnerHTML()
+					for (int i = 1; i < flextableComponentgroupElements
+							.getRowCount(); i++) {
+						if (flextableComponentgroupElements
+								.getFlexCellFormatter().getElement(i, 1)
+								.getInnerHTML()
 								.equals(PropertiesOfElementToAdd[1])
-								&& flextableComponentgroupElements.getFlexCellFormatter().getElement(i, 2).getInnerHTML()
+								&& flextableComponentgroupElements
+										.getFlexCellFormatter()
+										.getElement(i, 2).getInnerHTML()
 										.equals(PropertiesOfElementToAdd[2])) {
 							alreadyInList = true;
 							alreadyInListRowNumber = i;
@@ -286,25 +328,33 @@ public class EditComponentGroup extends VerticalPanel {
 
 					if (alreadyInList) {
 						// Add Amount to Row
-						String textboxAmountOfExistingRow = ((TextBox) flextableComponentgroupElements.getWidget(alreadyInListRowNumber, 3)
+						String textboxAmountOfExistingRow = ((TextBox) flextableComponentgroupElements
+								.getWidget(alreadyInListRowNumber, 3)
 								.asWidget()).getText();
-						int oldAmount = Integer.parseInt(textboxAmountOfExistingRow);
-						int AmountToAdd = Integer.parseInt(textboxAmountOfElementToAdd.getText());
+						int oldAmount = Integer
+								.parseInt(textboxAmountOfExistingRow);
+						int AmountToAdd = Integer
+								.parseInt(textboxAmountOfElementToAdd.getText());
 
 						int sumAmount = oldAmount + AmountToAdd;
 
-						((TextBox) flextableComponentgroupElements.getWidget(alreadyInListRowNumber, 3).asWidget()).setText(String.valueOf(sumAmount));
+						((TextBox) flextableComponentgroupElements.getWidget(
+								alreadyInListRowNumber, 3).asWidget())
+								.setText(String.valueOf(sumAmount));
 
 					} else {
 						// Add Element to list
 						for (int i = 0; i < PropertiesOfElementToAdd.length; i++) {
-							flextableComponentgroupElements.setText(rowNumToInsertNewRow, i, PropertiesOfElementToAdd[i]);
+							flextableComponentgroupElements.setText(
+									rowNumToInsertNewRow, i,
+									PropertiesOfElementToAdd[i]);
 						}
 						TextBox Amount = new TextBox();
 						Amount.addKeyPressHandler(new NumbersOnly());
 						Amount.setText(textboxAmountOfElementToAdd.getText());
 
-						flextableComponentgroupElements.setWidget(rowNumToInsertNewRow, 3, Amount);
+						flextableComponentgroupElements.setWidget(
+								rowNumToInsertNewRow, 3, Amount);
 					}
 
 				}
@@ -329,33 +379,50 @@ public class EditComponentGroup extends VerticalPanel {
 				if (textboxCGInfo_Name.getText().isEmpty()) {
 					Window.alert("Bitte geben Sie einen Namen fuer die neue Baugruppe ein");
 				} else {
-					newComponentGroup.setId(OriginalComponentGroupToEdit.getId());
+					newComponentGroup.setId(OriginalComponentGroupToEdit
+							.getId());
 					newComponentGroup.setModifier(u.getId());
 					Window.alert("Baugruppe editiert.");
-					newComponentGroup.setComponentGroupName(textboxCGInfo_Name.getText());
+					newComponentGroup.setComponentGroupName(textboxCGInfo_Name
+							.getText());
 					// go through each row
-					for (int i = 0; i < flextableComponentgroupElements.getRowCount(); i++) {
+					for (int i = 0; i < flextableComponentgroupElements
+							.getRowCount(); i++) {
 						// get type
-						String type = flextableComponentgroupElements.getFlexCellFormatter().getElement(i, 0).getInnerHTML();
+						String type = flextableComponentgroupElements
+								.getFlexCellFormatter().getElement(i, 0)
+								.getInnerHTML();
 						// if is componentgroup
 						if (type.equalsIgnoreCase("Baugruppe")) {
-							int IDOFComponentgroupToAdd = Integer.parseInt(flextableComponentgroupElements.getFlexCellFormatter().getElement(i, 1)
-									.getInnerHTML());
-							int AmountOfRow = Integer.parseInt(((TextBox) flextableComponentgroupElements.getWidget(i, 3).asWidget()).getText());
+							int IDOFComponentgroupToAdd = Integer
+									.parseInt(flextableComponentgroupElements
+											.getFlexCellFormatter()
+											.getElement(i, 1).getInnerHTML());
+							int AmountOfRow = Integer
+									.parseInt(((TextBox) flextableComponentgroupElements
+											.getWidget(i, 3).asWidget())
+											.getText());
 
 							for (ComponentGroup cg : allComponentGroups) {
 								if (cg.getId() == IDOFComponentgroupToAdd)
-									newComponentGroup.addComponentGroup(cg, AmountOfRow);
+									newComponentGroup.addComponentGroup(cg,
+											AmountOfRow);
 							}
 
 						} else if (type.equals("Bauteil")) {
-							int IDOFComponentToAdd = Integer.parseInt(flextableComponentgroupElements.getFlexCellFormatter().getElement(i, 1)
-									.getInnerHTML());
-							int AmountOfRow = Integer.parseInt(((TextBox) flextableComponentgroupElements.getWidget(i, 3).asWidget()).getText());
+							int IDOFComponentToAdd = Integer
+									.parseInt(flextableComponentgroupElements
+											.getFlexCellFormatter()
+											.getElement(i, 1).getInnerHTML());
+							int AmountOfRow = Integer
+									.parseInt(((TextBox) flextableComponentgroupElements
+											.getWidget(i, 3).asWidget())
+											.getText());
 
 							for (Component c : allComponents) {
 								if (c.getId() == IDOFComponentToAdd)
-									newComponentGroup.addComponent(c, AmountOfRow);
+									newComponentGroup.addComponent(c,
+											AmountOfRow);
 							}
 						}
 					}
@@ -371,32 +438,49 @@ public class EditComponentGroup extends VerticalPanel {
 						}
 					};
 
-					if (OriginalComponentGroupToEdit.getComponentGroupName() != newComponentGroup.getComponentGroupName()) {
+					if (OriginalComponentGroupToEdit.getComponentGroupName() != newComponentGroup
+							.getComponentGroupName()) {
 						newComponentGroup.setModifier(u.getId());
 						OriginalComponentGroupToEdit.setModifier(u.getId());
-						asyncObj.updateComponentGroupById(newComponentGroup, doNothingAsyncCallback);
+						asyncObj.updateComponentGroupById(newComponentGroup,
+								doNothingAsyncCallback);
 					} else {
 						newComponentGroup.setModifier(u.getId());
 						OriginalComponentGroupToEdit.setModifier(u.getId());
-						asyncObj.updateComponentGroupById(newComponentGroup, doNothingAsyncCallback);
+						asyncObj.updateComponentGroupById(newComponentGroup,
+								doNothingAsyncCallback);
 					}
 					// Update existing Amounts of ComponentGroups
-					for (int i = 0; i < OriginalComponentGroupToEdit.getAmountListOfComponentGroup().size(); i++) {
-						if (OriginalComponentGroupToEdit.getAmountListOfComponentGroup().get(i) != newComponentGroup.getAmountListOfComponentGroup()
-								.get(i)) {
-							if (newComponentGroup.getAmountListOfComponentGroup().get(i) > 0) // Update
-																								// only
-																								// if
-																								// Amount
-																								// is
-																								// over
-																								// 1
+					for (int i = 0; i < OriginalComponentGroupToEdit
+							.getAmountListOfComponentGroup().size(); i++) {
+						if (OriginalComponentGroupToEdit
+								.getAmountListOfComponentGroup().get(i) != newComponentGroup
+								.getAmountListOfComponentGroup().get(i)) {
+							if (newComponentGroup
+									.getAmountListOfComponentGroup().get(i) > 0) // Update
+																					// only
+																					// if
+																					// Amount
+																					// is
+																					// over
+																					// 1
 							{
-								asyncObj.updateCGElementAmount(OriginalComponentGroupToEdit, OriginalComponentGroupToEdit.getComponentgroupList()
-										.get(i).getId(), 'G', newComponentGroup.getAmountListOfComponentGroup().get(i), doNothingAsyncCallback);
+								asyncObj.updateCGElementAmount(
+										OriginalComponentGroupToEdit,
+										OriginalComponentGroupToEdit
+												.getComponentgroupList().get(i)
+												.getId(),
+										'G',
+										newComponentGroup
+												.getAmountListOfComponentGroup()
+												.get(i), doNothingAsyncCallback);
 							} else {
-								asyncObj.deleteCGElement(OriginalComponentGroupToEdit, OriginalComponentGroupToEdit.getComponentgroupList().get(i)
-										.getId(), 'G', doNothingAsyncCallback);
+								asyncObj.deleteCGElement(
+										OriginalComponentGroupToEdit,
+										OriginalComponentGroupToEdit
+												.getComponentgroupList().get(i)
+												.getId(), 'G',
+										doNothingAsyncCallback);
 							}
 
 						}
@@ -404,9 +488,13 @@ public class EditComponentGroup extends VerticalPanel {
 					}
 
 					// Update existing Amounts of Components
-					for (int i = 0; i < OriginalComponentGroupToEdit.getAmountListOfComponent().size(); i++) {
-						if (OriginalComponentGroupToEdit.getAmountListOfComponent().get(i) != newComponentGroup.getAmountListOfComponent().get(i)) {
-							if (newComponentGroup.getAmountListOfComponent().get(i) > 0) // Update
+					for (int i = 0; i < OriginalComponentGroupToEdit
+							.getAmountListOfComponent().size(); i++) {
+						if (OriginalComponentGroupToEdit
+								.getAmountListOfComponent().get(i) != newComponentGroup
+								.getAmountListOfComponent().get(i)) {
+							if (newComponentGroup.getAmountListOfComponent()
+									.get(i) > 0) // Update
 							// only
 							// if
 							// Amount
@@ -414,11 +502,21 @@ public class EditComponentGroup extends VerticalPanel {
 							// over
 							// 1
 							{
-								asyncObj.updateCGElementAmount(OriginalComponentGroupToEdit, OriginalComponentGroupToEdit.getComponentList().get(i)
-										.getId(), 'C', newComponentGroup.getAmountListOfComponent().get(i), doNothingAsyncCallback);
+								asyncObj.updateCGElementAmount(
+										OriginalComponentGroupToEdit,
+										OriginalComponentGroupToEdit
+												.getComponentList().get(i)
+												.getId(), 'C',
+										newComponentGroup
+												.getAmountListOfComponent()
+												.get(i), doNothingAsyncCallback);
 							} else {
-								asyncObj.deleteCGElement(OriginalComponentGroupToEdit,
-										OriginalComponentGroupToEdit.getComponentList().get(i).getId(), 'C', doNothingAsyncCallback);
+								asyncObj.deleteCGElement(
+										OriginalComponentGroupToEdit,
+										OriginalComponentGroupToEdit
+												.getComponentList().get(i)
+												.getId(), 'C',
+										doNothingAsyncCallback);
 							}
 
 						}
@@ -426,25 +524,45 @@ public class EditComponentGroup extends VerticalPanel {
 					}
 
 					// Insert new ComponentGroups
-					if (OriginalComponentGroupToEdit.getComponentgroupList().size() < newComponentGroup.getComponentgroupList().size()) {
+					if (OriginalComponentGroupToEdit.getComponentgroupList()
+							.size() < newComponentGroup.getComponentgroupList()
+							.size()) {
 						// if original size is
 						// smaller
-						for (int i = OriginalComponentGroupToEdit.getComponentgroupList().size(); i < newComponentGroup.getComponentgroupList()
-								.size(); i++) {
-							if (OriginalComponentGroupToEdit.getId() != newComponentGroup.getComponentgroupList().get(i).getId()) {
-								//Only Insert new Component Group if ID is not Equal to ID of OriginalComponentGroup
-								OriginalComponentGroupToEdit.setModifier(u.getId());
-								asyncObj.insertCGElement(OriginalComponentGroupToEdit, newComponentGroup.getComponentgroupList().get(i).getId(), 'G',
-										newComponentGroup.getAmountListOfComponentGroup().get(i), doNothingAsyncCallback);
+						for (int i = OriginalComponentGroupToEdit
+								.getComponentgroupList().size(); i < newComponentGroup
+								.getComponentgroupList().size(); i++) {
+							if (OriginalComponentGroupToEdit.getId() != newComponentGroup
+									.getComponentgroupList().get(i).getId()) {
+								// Only Insert new Component Group if ID is not
+								// Equal to ID of OriginalComponentGroup
+								OriginalComponentGroupToEdit.setModifier(u
+										.getId());
+								asyncObj.insertCGElement(
+										OriginalComponentGroupToEdit,
+										newComponentGroup
+												.getComponentgroupList().get(i)
+												.getId(),
+										'G',
+										newComponentGroup
+												.getAmountListOfComponentGroup()
+												.get(i), doNothingAsyncCallback);
 							}
 						}
 					}
 					// Insert new Components
-					if (OriginalComponentGroupToEdit.getComponentList().size() < newComponentGroup.getComponentList().size()) {
+					if (OriginalComponentGroupToEdit.getComponentList().size() < newComponentGroup
+							.getComponentList().size()) {
 						// if original size is smaller
-						for (int i = OriginalComponentGroupToEdit.getComponentList().size(); i < newComponentGroup.getComponentList().size(); i++) {
-							asyncObj.insertCGElement(OriginalComponentGroupToEdit, newComponentGroup.getComponentList().get(i).getId(), 'C',
-									newComponentGroup.getAmountListOfComponent().get(i), doNothingAsyncCallback);
+						for (int i = OriginalComponentGroupToEdit
+								.getComponentList().size(); i < newComponentGroup
+								.getComponentList().size(); i++) {
+							asyncObj.insertCGElement(
+									OriginalComponentGroupToEdit,
+									newComponentGroup.getComponentList().get(i)
+											.getId(), 'C', newComponentGroup
+											.getAmountListOfComponent().get(i),
+									doNothingAsyncCallback);
 
 						}
 					}
@@ -455,25 +573,52 @@ public class EditComponentGroup extends VerticalPanel {
 		});
 
 		buttonDeleteComponentGroup.addClickHandler(new ClickHandler() {
+			int tempId = OriginalComponentGroupToEdit.getId();
 
 			@Override
 			public void onClick(ClickEvent event) {
-				asyncObj.deleteComponentGroupById(OriginalComponentGroupToEdit, new AsyncCallback<Void>() {
+				asyncObj.CheckRelationsOfComponentGroup(tempId,
+						new AsyncCallback<String>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
 
-					}
+							}
 
-					@Override
-					public void onSuccess(Void result) {
+							@Override
+							public void onSuccess(String result) {
+								if (result != null) {
+									Window.alert("Baugruppe hat noch Beziehungen in "
+											+ result
+											+ " und kann nicht gelöscht werden");
+								} else {
+									asyncObj.deleteComponentGroupById(
+											OriginalComponentGroupToEdit,
+											new AsyncCallback<Void>() {
 
-						Window.alert("Baugruppe gelöscht");
-						RootPanel.get("rightside").clear();
+												@Override
+												public void onFailure(
+														Throwable caught) {
+													// TODO Auto-generated
+													// method stub
 
-					}
-				});
+												}
+
+												@Override
+												public void onSuccess(
+														Void result) {
+
+													Window.alert("Baugruppe gelöscht");
+													RootPanel.get("rightside")
+															.clear();
+
+												}
+											});
+								}
+
+							}
+						});
 
 			}
 		});
@@ -503,8 +648,12 @@ public class EditComponentGroup extends VerticalPanel {
 
 				for (ComponentGroup componentgroup : ComponentGroups) {
 					allComponentGroups.add(componentgroup);
-					listboxListOfGroupsToEdit.addItem(" - " + componentgroup.getId() + ":" + componentgroup.getComponentGroupName());
-					listboxListOfAddableElements.addItem(" - " + componentgroup.getId() + ":" + componentgroup.getComponentGroupName());
+					listboxListOfGroupsToEdit.addItem(" - "
+							+ componentgroup.getId() + ":"
+							+ componentgroup.getComponentGroupName());
+					listboxListOfAddableElements.addItem(" - "
+							+ componentgroup.getId() + ":"
+							+ componentgroup.getComponentGroupName());
 
 				}
 
@@ -519,13 +668,16 @@ public class EditComponentGroup extends VerticalPanel {
 					@Override
 					public void onSuccess(ArrayList<Component> Components) {
 
-						ComponentListBoxID = listboxListOfAddableElements.getItemCount();
+						ComponentListBoxID = listboxListOfAddableElements
+								.getItemCount();
 						// Window.alert(String.valueOf((listOfAddableParts.getItemCount())));
 						listboxListOfAddableElements.addItem("Bauteil");
 						for (Component component : Components) {
 
 							allComponents.add(component);
-							listboxListOfAddableElements.addItem(" - " + component.getId() + ":" + component.getName());
+							listboxListOfAddableElements.addItem(" - "
+									+ component.getId() + ":"
+									+ component.getName());
 						}
 					}
 				});
@@ -583,10 +735,12 @@ public class EditComponentGroup extends VerticalPanel {
 		@Override
 		public void onKeyPress(KeyPressEvent event) {
 
-			if (!Character.isDigit(event.getCharCode()) && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
-					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE) 
-				((TextBox)event.getSource()).cancelKey();{
-			//	textboxAmountOfElementToAdd.cancelKey();
+			if (!Character.isDigit(event.getCharCode())
+					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
+					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE)
+				((TextBox) event.getSource()).cancelKey();
+			{
+				// textboxAmountOfElementToAdd.cancelKey();
 			}
 		}
 	}

@@ -2,9 +2,11 @@ package de.hdm.sms.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 import de.hdm.sms.client.report.MaterialResource;
 import de.hdm.sms.client.report.StructureStocklist;
 
@@ -25,7 +27,7 @@ public class HdM_SMSReport extends VerticalPanel implements EntryPoint {
 		MenuBar reportMenu = new MenuBar(true);
 		
 		// Create the Command for Stocklist
-		reportMenu.addItem("Stocklist", new Command() {
+		menu.addItem("Strukturstückliste", new Command() {
 			@Override
 			public void execute() {
 
@@ -36,7 +38,7 @@ public class HdM_SMSReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 		// Create the Command for MaterialResourcePlanning
-		reportMenu.addItem("MaterialResources", new Command() {
+		menu.addItem("Materialbedarfsplanung", new Command() {
 			@Override
 			public void execute() {
 
@@ -46,8 +48,19 @@ public class HdM_SMSReport extends VerticalPanel implements EntryPoint {
 				RootPanel.get("rightside").add(mS);
 			}
 		});
+		menu.addItem("Editor", new Command() {
+
+			@Override
+			public void execute() {
+				Window.open(
+						"http://1-dot-stuecklistenmanagementsystem.appspot.com/HdM_SMS.html",
+						"_blank", "");
+
+			}
+		});
 		//Add the Reportmenu to the Panel
-		menu.addItem("Report", reportMenu);
+		
+		
 		RootPanel.get("leftside").add(menu);
 
 	}

@@ -99,5 +99,8 @@ public interface AServiceAsync {
 	void checkRelationsOfComponent(int tempId,
 			AsyncCallback<String> asyncCallback);
 
+	void CheckRelationsOfComponentGroup(int tempId,
+			AsyncCallback<String> asyncCallback);
+
 
 }

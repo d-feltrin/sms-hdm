@@ -426,4 +426,45 @@ public class ComponentGroupMapper {
 		}
 	}
 
+	public String checkRelationsOfComponentGroup(int tempId) {
+		String relation = null;
+
+		try {
+
+			Statement state = con.createStatement();
+			ResultSet rs = state
+					.executeQuery("SELECT * From ComponenGroupRelations INNER JOIN Componentgroup ON Componentgroup.Id = ComponenGroupRelations.ComponentGroupID WHERE ComponenGroupRelations.ComponentGroupID2 =  '"
+							+ tempId + "';");
+
+			while (rs.next()) {
+				relation = "Componentgroup "
+						+ rs.getString("Componentgroup.Name");
+				break;
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+
+			Statement state2 = con.createStatement();
+			if (relation == null) {
+				ResultSet rs2 = state2
+						.executeQuery("SELECT * FROM StocklistComponentgroup INNER JOIN Componentgroup ON StocklistComponentgroup.StocklistComponentgroupid INNER JOIN Stocklist ON StocklistComponentgroup.Stocklistid = Stocklist.Id WHERE StocklistComponentgroup.StocklistComponentgroupid = "+26+"';");
+
+				while (rs2.next()) {
+					relation = "Stückliste " + rs2.getString("Stocklist.Name");
+					break;
+
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return relation;
+	}
 }
