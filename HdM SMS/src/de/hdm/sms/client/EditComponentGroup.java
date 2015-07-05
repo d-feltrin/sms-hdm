@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.sms.client.CreateComponentGroup.NumbersOnly;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
@@ -216,6 +217,7 @@ public class EditComponentGroup extends VerticalPanel {
 
 			// Amount
 			TextBox Amount = new TextBox();
+			Amount.addKeyPressHandler(new NumbersOnly());
 			Amount.setText(String.valueOf(ComponentGroupToEdit.getAmountListOfComponentGroup().get(i)));
 
 			flextableComponentgroupElements.setWidget(rowNumToInsert, 3, Amount);
@@ -236,6 +238,7 @@ public class EditComponentGroup extends VerticalPanel {
 
 			// Amount
 			TextBox Amount = new TextBox();
+			Amount.addKeyPressHandler(new NumbersOnly());
 			Amount.setText(String.valueOf(ComponentGroupToEdit.getAmountListOfComponent().get(i)));
 
 			flextableComponentgroupElements.setWidget(rowNumToInsert, 3, Amount);
@@ -298,6 +301,7 @@ public class EditComponentGroup extends VerticalPanel {
 							flextableComponentgroupElements.setText(rowNumToInsertNewRow, i, PropertiesOfElementToAdd[i]);
 						}
 						TextBox Amount = new TextBox();
+						Amount.addKeyPressHandler(new NumbersOnly());
 						Amount.setText(textboxAmountOfElementToAdd.getText());
 
 						flextableComponentgroupElements.setWidget(rowNumToInsertNewRow, 3, Amount);
@@ -580,8 +584,9 @@ public class EditComponentGroup extends VerticalPanel {
 		public void onKeyPress(KeyPressEvent event) {
 
 			if (!Character.isDigit(event.getCharCode()) && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
-					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE) {
-				textboxAmountOfElementToAdd.cancelKey();
+					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE) 
+				((TextBox)event.getSource()).cancelKey();{
+			//	textboxAmountOfElementToAdd.cancelKey();
 			}
 		}
 	}
