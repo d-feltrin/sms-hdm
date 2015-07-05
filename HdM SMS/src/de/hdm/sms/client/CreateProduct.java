@@ -27,7 +27,7 @@ public class CreateProduct extends VerticalPanel {
 
 	private Label nameLabel = new Label("Produktname");
 	private Label componentGroupLabel = new Label(
-			"Enderzeugnis zur Zuordnung ausw�hlen");
+			"Enderzeugnis zur Zuordnung auswählen");
 	private ListBox listOfComponentGroups = new ListBox();
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private User u = new User();

@@ -67,7 +67,7 @@ public interface AService extends RemoteService {
 
 	ArrayList<Stocklist> loadAllStocklistsIncludingRelations();
 
-	void deleteComponentGroupById(int id);
+	void deleteComponentGroupById(ComponentGroup originalComponentGroupToEdit);
 
 	void updateStockList(Stocklist newStocklist);
 

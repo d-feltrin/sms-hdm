@@ -50,7 +50,7 @@ public class CreateComponentGroup extends VerticalPanel {
 	private final ListBox listboxListOfAddableElements = new ListBox();
 	private final TextBox textboxAmountOfElementToAdd = new TextBox();
 	private final Button buttonAddElementToComponentgroup = new Button(
-			"Bauteil/-gruppe hinzufuegen");
+			"Bauteil/-gruppe hinzufügen");
 
 	private final HorizontalPanel PanelSubmit = new HorizontalPanel();
 	private final Button buttonCreateNewComponengroup = new Button(
@@ -108,7 +108,7 @@ public class CreateComponentGroup extends VerticalPanel {
 		loadComponentsANDComponentGroup();
 
 		// Panel: Name
-		PanelAddComponentGroupName.add(new Label("Baugruppenname"));
+		PanelAddComponentGroupName.add(new Label("Baugruppenname:"));
 		PanelAddComponentGroupName.add(textboxNewComponentgroupName);
 		textboxNewComponentgroupName
 				.setStylePrimaryName("componentgroupnameTextBox");
@@ -138,10 +138,10 @@ public class CreateComponentGroup extends VerticalPanel {
 										listboxListOfAddableElements
 												.getSelectedIndex()).equals(
 										"Baugruppe")) {
-					Window.alert("Bitte waehlen Sie ein gueltiges Bauteil bzw. Bauelement aus!");
+					Window.alert("Bitte waehlen Sie ein gültiges Bauteil bzw. Bauelement aus!");
 
 				} else if (textboxAmountOfElementToAdd.getText().equals("")) {
-					Window.alert("Bitte die Anzahl des hinzuzufuegenden Bauteils/Baugruppe eintragen!");
+					Window.alert("Bitte die Anzahl des hinzuzufügenden Bauteils/Baugruppe eintragen!");
 				} else if (Integer.parseInt(textboxAmountOfElementToAdd
 						.getText()) < 1
 						|| Integer.parseInt(textboxAmountOfElementToAdd

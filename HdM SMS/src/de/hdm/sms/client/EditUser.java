@@ -156,12 +156,12 @@ public class EditUser extends VerticalPanel {
 			@Override
 			public void onSuccess(ArrayList<User> result) {
 				for (int i = 0; i < result.size(); i++) {
-
-					listOfUsers.addItem(" - " + result.get(i).getId() + ":"
-							+ result.get(i).getFirstName() + " "
-							+ result.get(i).getLastName() + " ("
-							+ result.get(i).geteMailAdress() + ")");
-
+					if (result.get(i).getId() != -1) {
+						listOfUsers.addItem(" - " + result.get(i).getId() + ":"
+								+ result.get(i).getFirstName() + " "
+								+ result.get(i).getLastName() + " ("
+								+ result.get(i).geteMailAdress() + ")");
+					}
 				}
 
 			}
@@ -255,7 +255,7 @@ public class EditUser extends VerticalPanel {
 																	.isEmpty()) {
 														Window.alert("Bitte alle Felder befüllen!");
 													} else {
-														//Fill User Object u
+														// Fill User Object u
 														User u = new User();
 														u.setId(tempUserId);
 														u.setFirstName(firstnameTextBox

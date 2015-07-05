@@ -40,7 +40,7 @@ public class EditProduct extends VerticalPanel {
 	private User u = new User();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private Button editButton = new Button("Produkt editieren");
-	private Button deleteButton = new Button("Produkt loeschen");
+	private Button deleteButton = new Button("Produkt löschen");
 
 	public EditProduct() {
 
@@ -179,7 +179,7 @@ public class EditProduct extends VerticalPanel {
 		});
 		// Clear the RootPanel and add the ListBox to the RootPanel
 		RootPanel.get("rightside").clear();
-		RootPanel.get("rightside").add(new Label("Produkt auswaehlen"));
+		RootPanel.get("rightside").add(new Label("Produkt auswählen"));
 		RootPanel.get("rightside").add(listOfProducts);
 	}
 

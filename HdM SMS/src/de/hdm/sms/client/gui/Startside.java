@@ -47,7 +47,7 @@ public class Startside extends VerticalPanel {
 		MenuBar stocklistMenu = new MenuBar(true);
 
 		// Create the Commands
-		userMenu.addItem("Create", new Command() {
+		userMenu.addItem("Erstellen", new Command() {
 			@Override
 			public void execute() {
 
@@ -58,7 +58,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		userMenu.addItem("Edit", new Command() {
+		userMenu.addItem("Bearbeiten", new Command() {
 			@Override
 			public void execute() {
 
@@ -69,7 +69,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		componentMenu.addItem("Create", new Command() {
+		componentMenu.addItem("Erstellen", new Command() {
 			@Override
 			public void execute() {
 
@@ -80,7 +80,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		componentMenu.addItem("Edit", new Command() {
+		componentMenu.addItem("Bearbeiten", new Command() {
 			@Override
 			public void execute() {
 
@@ -91,7 +91,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		componentGroupMenu.addItem("Create", new Command() {
+		componentGroupMenu.addItem("Erstellen", new Command() {
 			@Override
 			public void execute() {
 
@@ -102,7 +102,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		componentGroupMenu.addItem("Edit", new Command() {
+		componentGroupMenu.addItem("Bearbeiten", new Command() {
 			@Override
 			public void execute() {
 
@@ -113,7 +113,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		productMenu.addItem("Create", new Command() {
+		productMenu.addItem("Erstellen", new Command() {
 
 			@Override
 			public void execute() {
@@ -125,7 +125,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		productMenu.addItem("Edit", new Command() {
+		productMenu.addItem("Bearbeiten", new Command() {
 
 			@Override
 			public void execute() {
@@ -136,7 +136,7 @@ public class Startside extends VerticalPanel {
 
 			}
 		});
-		stocklistMenu.addItem("Create", new Command() {
+		stocklistMenu.addItem("Erstellen", new Command() {
 
 			@Override
 			public void execute() {
@@ -148,7 +148,7 @@ public class Startside extends VerticalPanel {
 			}
 		});
 
-		stocklistMenu.addItem("Edit", new Command() {
+		stocklistMenu.addItem("Bearbeiten", new Command() {
 
 			@Override
 			public void execute() {
@@ -161,11 +161,11 @@ public class Startside extends VerticalPanel {
 		});
 
 		// add the mainmenuBar
-		menu.addItem(new MenuItem("User", userMenu));
-		menu.addItem(new MenuItem("Component", componentMenu));
-		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
-		menu.addItem(new MenuItem("Product", productMenu));
-		menu.addItem(new MenuItem("Stocklist", stocklistMenu));
+		menu.addItem(new MenuItem("Benutzer", userMenu));
+		menu.addItem(new MenuItem("Bauteil", componentMenu));
+		menu.addItem(new MenuItem("Baugruppe", componentGroupMenu));
+		menu.addItem(new MenuItem("Enderzeugnis", productMenu));
+		menu.addItem(new MenuItem("Stückliste", stocklistMenu));
 
 		// Panel: menuPanel add the menu
 		menuPanel.add(menu);

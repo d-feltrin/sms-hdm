@@ -39,7 +39,7 @@ public class EditComponent extends VerticalPanel {
 	private TextBox idOfComponent = new TextBox();
 	private String idOfComponentString;
 	private VerticalPanel componentItemPanel = new VerticalPanel();
-	private Button deleteComponentButton = new Button("Bauteil l�schen");
+	private Button deleteComponentButton = new Button("Bauteil löschen");
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private Button editComponentButton = new Button("Bauteil editieren");
@@ -141,7 +141,7 @@ public class EditComponent extends VerticalPanel {
 				}
 				// Panel: clear and add the Listbox of Components
 				RootPanel.get("rightside").clear();
-				RootPanel.get("rightside").add(new Label("Bauteil auswaehlen"));
+				RootPanel.get("rightside").add(new Label("Bauteil ausählen"));
 				RootPanel.get("rightside").add(listOfComponents);
 			}
 		});

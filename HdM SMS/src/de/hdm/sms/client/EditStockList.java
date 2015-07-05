@@ -67,7 +67,7 @@ public class EditStockList extends VerticalPanel {
 
 	// EDIT (SECONDPAGE)
 	// Panel: Info ComponentName
-	private final HorizontalPanel PanelCGInfo_Name = new HorizontalPanel();
+	private final VerticalPanel PanelCGInfo_Name = new VerticalPanel();
 	private final TextBox textboxCGInfo_Name = new TextBox();
 
 	// Panel: List
@@ -78,14 +78,16 @@ public class EditStockList extends VerticalPanel {
 	private final HorizontalPanel PanelEditElementOfStocklist = new HorizontalPanel();
 	private final Label labelEditNameOfElementToEdit = new Label();
 	private final TextBox textBoxAmountOfElementToEdit = new TextBox();
-	private final Button buttonEditElementOfStocklist = new Button("Bauteil/-gruppe editieren");
+	private final Button buttonEditElementOfStocklist = new Button(
+			"Bauteil/-gruppe editieren");
 	private String ElementTitleOfElementToEdit = "";
 
 	// Panel: Add Element
 	private final HorizontalPanel PanelAddElementtOComponentgroup = new HorizontalPanel();
 	private final ListBox listboxListOfAddableElements = new ListBox();
 	private final TextBox textboxAmountOfElementToAdd = new TextBox();
-	private final Button buttonAddElementToComponentgroup = new Button("Bauteil/-gruppe hinzufuegen");
+	private final Button buttonAddElementToComponentgroup = new Button(
+			"Bauteil/-gruppe hinzufuegen");
 
 	// Panel Funcitons
 	private final HorizontalPanel PanelFunctions = new HorizontalPanel();
@@ -93,7 +95,7 @@ public class EditStockList extends VerticalPanel {
 	private final Button buttonDeleteComponentGroup = new Button("Loeschen");
 	private final Button buttonAbortComponentGroup = new Button("Abbrechen");
 
-	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
+	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 
 	private Stocklist OriginalStocklistToEdit = new Stocklist();
 
@@ -120,7 +122,8 @@ public class EditStockList extends VerticalPanel {
 		loadAllUser();
 
 		// Panel: Select StocklistToEdit
-		PanelSelectStocklistToEdit.add(new Label("Wahlen Sie die Stueckliste aus, die Sie editieren moechten:"));
+		PanelSelectStocklistToEdit.add(new Label(
+				"Wahlen Sie die Stueckliste aus, die Sie editieren moechten:"));
 		PanelSelectStocklistToEdit.add(listboxListOfStocklistsToEdit);
 		PanelSelectStocklistToEdit.add(buttonEditStocklist);
 
@@ -128,16 +131,19 @@ public class EditStockList extends VerticalPanel {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (listboxListOfStocklistsToEdit.getItemText(listboxListOfStocklistsToEdit.getSelectedIndex()).equals(
-						"Stueckliste"))
+				if (listboxListOfStocklistsToEdit.getItemText(
+						listboxListOfStocklistsToEdit.getSelectedIndex())
+						.equals("Stueckliste"))
 					Window.alert("Bitte eine Stueckliste auswaehlen");
 				else {
 					// get selected Item
 					String IdOfSelectedItem = getELementTypeIdName(listboxListOfStocklistsToEdit
-							.getItemText(listboxListOfStocklistsToEdit.getSelectedIndex()))[1];
+							.getItemText(listboxListOfStocklistsToEdit
+									.getSelectedIndex()))[1];
 					for (Stocklist stocklist : allStocklists) {
 
-						if (stocklist.getId() == Integer.valueOf(IdOfSelectedItem)) {
+						if (stocklist.getId() == Integer
+								.valueOf(IdOfSelectedItem)) {
 							LoadStocklistToEdit(stocklist); // load selected
 															// item
 							break;
@@ -157,26 +163,34 @@ public class EditStockList extends VerticalPanel {
 
 		OriginalStocklistToEdit = stocklist_; // save for compare
 
-		HorizontalPanel PanelCGInfo_ID = new HorizontalPanel();
-		PanelCGInfo_ID.add(new Label("ID"));
-		PanelCGInfo_ID.add(new Label(String.valueOf(OriginalStocklistToEdit.getId())));
-		PanelCGInfo_ID.add(new Label(" "));
+		VerticalPanel PanelCGInfo_ID = new VerticalPanel();
+		PanelCGInfo_ID.add(new Label("Stücklistennummer"));
+		PanelCGInfo_ID.add(new Label(String.valueOf(OriginalStocklistToEdit
+				.getId())));
+
 		RootPanel.get("rightside").add(PanelCGInfo_ID);
 
 		PanelCGInfo_Name.add(new Label("Name:"));
 		textboxCGInfo_Name.setText(OriginalStocklistToEdit.getName());
 		PanelCGInfo_Name.add(textboxCGInfo_Name);
-		PanelCGInfo_Name.add(new Label(" "));
+
 		RootPanel.get("rightside").add(PanelCGInfo_Name);
 
-		HorizontalPanel PanelCGInfo_CreeationDate = new HorizontalPanel();
-		PanelCGInfo_CreeationDate.add(new Label("Creationdate:"));
-		PanelCGInfo_CreeationDate.add(new Label(dF.format(OriginalStocklistToEdit.getCreationDate())));
-		PanelCGInfo_CreeationDate.add(new Label(" "));
-		RootPanel.get("rightside").add(PanelCGInfo_CreeationDate);
+		VerticalPanel PanelCGInfo_CreeationDate = new VerticalPanel();
+		PanelCGInfo_CreeationDate.add(new Label("Erstellungsdatum:"));
+		PanelCGInfo_CreeationDate.add(new Label(dF
+				.format(OriginalStocklistToEdit.getCreationDate())));
 
-		HorizontalPanel PanelCGInfo_LastEditor = new HorizontalPanel();
-		PanelCGInfo_LastEditor.add(new Label("Modifier:"));
+		RootPanel.get("rightside").add(PanelCGInfo_CreeationDate);
+		VerticalPanel PanelCGInfo_LastModifier = new VerticalPanel();
+		PanelCGInfo_LastModifier.add(new Label("Bearbeitungsdatum:"));
+		PanelCGInfo_LastModifier.add(new Label(dF
+				.format(OriginalStocklistToEdit.getLastModified())));
+
+		RootPanel.get("rightside").add(PanelCGInfo_LastModifier);
+
+		VerticalPanel PanelCGInfo_LastEditor = new VerticalPanel();
+		PanelCGInfo_LastEditor.add(new Label("Letzter Bearbeiter:"));
 		String lastModifier = "Unknown";
 		for (User user : allUsers) {
 			if (user.getId() == OriginalStocklistToEdit.getModifier()) {
@@ -197,26 +211,37 @@ public class EditStockList extends VerticalPanel {
 			TreeItem componentItem = new TreeItem();
 
 			String componentItemText = "BT - ";
-			componentItemText += OriginalStocklistToEdit.getAmountListOfComponent().get(j).toString();
+			componentItemText += OriginalStocklistToEdit
+					.getAmountListOfComponent().get(j).toString();
 			componentItemText += "x - ";
-			componentItemText += OriginalStocklistToEdit.getComponentList().get(j).getName();
+			componentItemText += OriginalStocklistToEdit.getComponentList()
+					.get(j).getName();
 			componentItem.setText(componentItemText);
-			componentItem.setTitle("BT" + OriginalStocklistToEdit.getComponentList().get(j).getId());
+			componentItem
+					.setTitle("BT"
+							+ OriginalStocklistToEdit.getComponentList().get(j)
+									.getId());
 			rootTreeItem.addItem(componentItem);
 		}
 
 		// Add all ComponentGroups
-		for (int j = 0; j < OriginalStocklistToEdit.getComponentGroupList().size(); j++) {
+		for (int j = 0; j < OriginalStocklistToEdit.getComponentGroupList()
+				.size(); j++) {
 
 			TreeItem componenGroupitem = new TreeItem();
 
 			String componentGroupItemText = "BG - ";
-			componentGroupItemText += OriginalStocklistToEdit.getAmountListOfComponentGroup().get(j).toString();
+			componentGroupItemText += OriginalStocklistToEdit
+					.getAmountListOfComponentGroup().get(j).toString();
 			componentGroupItemText += "x - ";
-			componentGroupItemText += OriginalStocklistToEdit.getComponentGroupList().get(j).getComponentGroupName();
+			componentGroupItemText += OriginalStocklistToEdit
+					.getComponentGroupList().get(j).getComponentGroupName();
 			componenGroupitem.setText(componentGroupItemText);
-			componenGroupitem.setTitle("BG" + OriginalStocklistToEdit.getComponentGroupList().get(j).getId());
-			componenGroupitem = fillTreeItem(componenGroupitem, OriginalStocklistToEdit.getComponentGroupList().get(j));
+			componenGroupitem.setTitle("BG"
+					+ OriginalStocklistToEdit.getComponentGroupList().get(j)
+							.getId());
+			componenGroupitem = fillTreeItem(componenGroupitem,
+					OriginalStocklistToEdit.getComponentGroupList().get(j));
 			rootTreeItem.addItem(componenGroupitem);
 		}
 
@@ -226,7 +251,8 @@ public class EditStockList extends VerticalPanel {
 			@Override
 			public void onSelection(SelectionEvent<TreeItem> event) {
 				TreeItem item = event.getSelectedItem();
-				String[] Element = getTypeAmountAndNameByTreeElement(item.getText());
+				String[] Element = getTypeAmountAndNameByTreeElement(item
+						.getText());
 
 				TreeItem parent = item;
 				int level = 0;
@@ -236,7 +262,8 @@ public class EditStockList extends VerticalPanel {
 
 				} while (parent != null);
 				if (level == 2) {
-					labelEditNameOfElementToEdit.setText(Element[0] + " - " + Element[2]);
+					labelEditNameOfElementToEdit.setText(Element[0] + " - "
+							+ Element[2]);
 					textBoxAmountOfElementToEdit.setText(Element[1]);
 					textBoxAmountOfElementToEdit.setReadOnly(false);
 					buttonEditElementOfStocklist.setEnabled(true);
@@ -261,7 +288,8 @@ public class EditStockList extends VerticalPanel {
 		textBoxAmountOfElementToEdit.setReadOnly(true);
 		buttonEditElementOfStocklist.setEnabled(false);
 
-		PanelEditElementOfStocklist.add(new Label("Bauteil/gruppe Editieren:       "));
+		PanelEditElementOfStocklist.add(new Label(
+				"Bauteil/gruppe Editieren:       "));
 		PanelEditElementOfStocklist.add(labelEditNameOfElementToEdit);
 		PanelEditElementOfStocklist.add(textBoxAmountOfElementToEdit);
 
@@ -284,7 +312,8 @@ public class EditStockList extends VerticalPanel {
 			}
 		});
 
-		PanelAddElementtOComponentgroup.add(new Label("Bauteil/gruppe hinzufuegen:       "));
+		PanelAddElementtOComponentgroup.add(new Label(
+				"Bauteil/gruppe hinzufuegen:       "));
 		PanelAddElementtOComponentgroup.add(listboxListOfAddableElements);
 		PanelAddElementtOComponentgroup.add(new Label("Anzahl:"));
 		textboxAmountOfElementToAdd.addKeyPressHandler(new NumbersOnly());
@@ -320,7 +349,8 @@ public class EditStockList extends VerticalPanel {
 			item += cg.getComponentgroupList().get(i).getComponentGroupName();
 			componenGroupItem.setText(item);
 
-			componenGroupItem = fillTreeItem(componenGroupItem, cg.getComponentgroupList().get(i));
+			componenGroupItem = fillTreeItem(componenGroupItem, cg
+					.getComponentgroupList().get(i));
 
 			treeItem.addItem(componenGroupItem);
 		}
@@ -340,24 +370,25 @@ public class EditStockList extends VerticalPanel {
 
 	public User getUserIdByEMailAdress(String eMailAdress) {
 
-		asyncObj.getOneUserIdByEmailAdress(eMailAdress, new AsyncCallback<User>() {
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onSuccess(User result) {
-				u.setId(result.getId());
-				u.setFirstName(result.getFirstName());
-				u.setLastName(result.getLastName());
-				u.seteMailAdress(result.geteMailAdress());
+					@Override
+					public void onSuccess(User result) {
+						u.setId(result.getId());
+						u.setFirstName(result.getFirstName());
+						u.setLastName(result.getLastName());
+						u.seteMailAdress(result.geteMailAdress());
 
-			}
+					}
 
-		});
+				});
 		return u;
 
 	}
@@ -376,7 +407,8 @@ public class EditStockList extends VerticalPanel {
 			public void onSuccess(ArrayList<Stocklist> StockLists) {
 				listboxListOfStocklistsToEdit.addItem("Stueckliste");
 				for (Stocklist stocklist : StockLists) {
-					listboxListOfStocklistsToEdit.addItem(" - " + stocklist.getId() + ":" + stocklist.getName());
+					listboxListOfStocklistsToEdit.addItem(" - "
+							+ stocklist.getId() + ":" + stocklist.getName());
 					allStocklists.add(stocklist);
 				}
 			}
@@ -401,7 +433,8 @@ public class EditStockList extends VerticalPanel {
 				for (ComponentGroup componentgroup : ComponentGroups) {
 					allComponentGroups.add(componentgroup);
 
-					listboxListOfAddableElements.addItem(" - " + componentgroup.getId() + ":"
+					listboxListOfAddableElements.addItem(" - "
+							+ componentgroup.getId() + ":"
 							+ componentgroup.getComponentGroupName());
 
 				}
@@ -417,13 +450,16 @@ public class EditStockList extends VerticalPanel {
 					@Override
 					public void onSuccess(ArrayList<Component> Components) {
 
-						idOfComponentstartInListbox = listboxListOfAddableElements.getItemCount();
+						idOfComponentstartInListbox = listboxListOfAddableElements
+								.getItemCount();
 						// Window.alert(String.valueOf((listOfAddableParts.getItemCount())));
 						listboxListOfAddableElements.addItem("Bauteil");
 						for (Component component : Components) {
 
 							allComponents.add(component);
-							listboxListOfAddableElements.addItem(" - " + component.getId() + ":" + component.getName());
+							listboxListOfAddableElements.addItem(" - "
+									+ component.getId() + ":"
+									+ component.getName());
 						}
 					}
 				});
@@ -458,7 +494,8 @@ public class EditStockList extends VerticalPanel {
 		Element[0] = treeElement.split("-")[0].substring(0, 2); // get type
 		Element[1] = treeElement.split("-")[1].split("x")[0].substring(1); // get
 																			// amount
-		Element[2] = treeElement.substring(treeElement.split("-")[0].length() + treeElement.split("-")[1].length() + 3);
+		Element[2] = treeElement.substring(treeElement.split("-")[0].length()
+				+ treeElement.split("-")[1].length() + 3);
 		return Element;
 	}
 
@@ -471,7 +508,8 @@ public class EditStockList extends VerticalPanel {
 				TreeItemToEdit = rootTreeItem.getChild(i);
 				if (TreeItemToEdit.getTitle() == ElementTitleOfElementToEdit) {
 					String[] Element = new String[3];
-					Element = getTypeAmountAndNameByTreeElement(TreeItemToEdit.getText());
+					Element = getTypeAmountAndNameByTreeElement(TreeItemToEdit
+							.getText());
 
 					String ElementText = "";
 					ElementText += Element[0];
@@ -489,8 +527,10 @@ public class EditStockList extends VerticalPanel {
 	private void clickHandlerAddElementToTree() {
 		int selectedID = listboxListOfAddableElements.getSelectedIndex();
 		if (listboxListOfAddableElements.getItemText(selectedID).equals("----")
-				|| listboxListOfAddableElements.getItemText(selectedID).equals("Bauteil")
-				|| listboxListOfAddableElements.getItemText(selectedID).equals("Baugruppe")) {
+				|| listboxListOfAddableElements.getItemText(selectedID).equals(
+						"Bauteil")
+				|| listboxListOfAddableElements.getItemText(selectedID).equals(
+						"Baugruppe")) {
 
 			Window.alert("Bitte waehlen Sie ein gueltiges Bauteil bzw. Bauelement aus!");
 
@@ -511,7 +551,8 @@ public class EditStockList extends VerticalPanel {
 			TreeItem TreeItem = null;
 			for (int i = 0; i < rootTreeItem.getChildCount(); i++) {
 				TreeItem = rootTreeItem.getChild(i);
-				String NameOfTreeElement = getTypeAmountAndNameByTreeElement(TreeItem.getText())[2];
+				String NameOfTreeElement = getTypeAmountAndNameByTreeElement(TreeItem
+						.getText())[2];
 				String NameOfElementToAdd = PropertiesOfElementToAdd[2];
 				if (NameOfTreeElement == NameOfElementToAdd) {
 					// Item already exist
@@ -532,7 +573,8 @@ public class EditStockList extends VerticalPanel {
 
 				int oldAmount = 0;
 				oldAmount = Integer.valueOf(Element[1]);
-				int newAmount = Integer.valueOf(textboxAmountOfElementToAdd.getText());
+				int newAmount = Integer.valueOf(textboxAmountOfElementToAdd
+						.getText());
 				ElementText += (oldAmount + newAmount);
 				ElementText += "x - ";
 				ElementText += Element[2];
@@ -550,7 +592,8 @@ public class EditStockList extends VerticalPanel {
 				ElementText += PropertiesOfElementToAdd[2];
 
 				TreeItemToAdd.setText(ElementText);
-				TreeItemToAdd.setTitle(PropertiesOfElementToAdd[0] + PropertiesOfElementToAdd[1]);
+				TreeItemToAdd.setTitle(PropertiesOfElementToAdd[0]
+						+ PropertiesOfElementToAdd[1]);
 
 				rootTreeItem.addItem(TreeItemToAdd);
 			}
@@ -587,7 +630,8 @@ public class EditStockList extends VerticalPanel {
 		@Override
 		public void onKeyPress(KeyPressEvent event) {
 
-			if (!Character.isDigit(event.getCharCode()) && event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
+			if (!Character.isDigit(event.getCharCode())
+					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_TAB
 					&& event.getNativeEvent().getKeyCode() != KeyCodes.KEY_BACKSPACE) {
 				textboxAmountOfElementToAdd.cancelKey();
 			}
@@ -618,18 +662,23 @@ public class EditStockList extends VerticalPanel {
 
 			for (int i = 0; i < rootTreeItem.getChildCount(); i++) {
 				TreeItem treeItem = rootTreeItem.getChild(i);
-				String[] PropertiesOfComponentGroup = getTypeAmountAndNameByTreeElement(treeItem.getText());
+				String[] PropertiesOfComponentGroup = getTypeAmountAndNameByTreeElement(treeItem
+						.getText());
 				if (PropertiesOfComponentGroup[0] == "BG") {
 
 					ComponentGroup cg = new ComponentGroup();
-					cg.setId(Integer.valueOf(treeItem.getTitle().substring(2, 4)));
+					cg.setId(Integer.valueOf(treeItem.getTitle()
+							.substring(2, 4)));
 					cg.setComponentGroupName(PropertiesOfComponentGroup[2]);
-					newStocklist.addComponentGroup(cg, Integer.valueOf(PropertiesOfComponentGroup[1]));
+					newStocklist.addComponentGroup(cg,
+							Integer.valueOf(PropertiesOfComponentGroup[1]));
 				} else { // Component
 					Component c = new Component();
-					c.setId(Integer.valueOf(treeItem.getTitle().substring(2, 4)));
+					c.setId(Integer
+							.valueOf(treeItem.getTitle().substring(2, 4)));
 					c.setName(PropertiesOfComponentGroup[2]);
-					newStocklist.addComponent(c, Integer.valueOf(PropertiesOfComponentGroup[1]));
+					newStocklist.addComponent(c,
+							Integer.valueOf(PropertiesOfComponentGroup[1]));
 				}
 			}
 
@@ -637,27 +686,38 @@ public class EditStockList extends VerticalPanel {
 		}
 
 		// Update existing Amounts of ComponentGroups
-		for (int i = 0; i < OriginalStocklistToEdit.getComponentGroupList().size(); i++) {
-			ComponentGroup originalComponentGroup = OriginalStocklistToEdit.getComponentGroupList().get(i);
+		for (int i = 0; i < OriginalStocklistToEdit.getComponentGroupList()
+				.size(); i++) {
+			ComponentGroup originalComponentGroup = OriginalStocklistToEdit
+					.getComponentGroupList().get(i);
 
 			for (int j = 0; j < newStocklist.getComponentGroupList().size(); j++) {
-				ComponentGroup newStockListComponentGroup = newStocklist.getComponentGroupList().get(j);
+				ComponentGroup newStockListComponentGroup = newStocklist
+						.getComponentGroupList().get(j);
 
-				if (originalComponentGroup.getId() == newStockListComponentGroup.getId()) {
+				if (originalComponentGroup.getId() == newStockListComponentGroup
+						.getId()) {
 
-					if (OriginalStocklistToEdit.getAmountListOfComponentGroup().get(i) != newStocklist
+					if (OriginalStocklistToEdit.getAmountListOfComponentGroup()
+							.get(i) != newStocklist
 							.getAmountListOfComponentGroup().get(j)) {
 						if (newStocklist.getAmountListOfComponentGroup().get(j) != 0) { // delete
 																						// stocklistcomponentgroupelement
 																						// here
-							asyncObj.updateAmountOfStocklistComponentGrouElement(newStocklist, originalComponentGroup,
-									newStocklist.getAmountListOfComponentGroup().get(i), doNothingAsyncCallback);
+							asyncObj.updateAmountOfStocklistComponentGrouElement(
+									newStocklist, originalComponentGroup,
+									newStocklist
+											.getAmountListOfComponentGroup()
+											.get(i), doNothingAsyncCallback);
 							break;
 						}
 
 						else {
-							asyncObj.deleteStockListComponentGroupElement(newStocklist, originalComponentGroup,
-									newStocklist.getAmountListOfComponentGroup().get(i), doNothingAsyncCallback);
+							asyncObj.deleteStockListComponentGroupElement(
+									newStocklist, originalComponentGroup,
+									newStocklist
+											.getAmountListOfComponentGroup()
+											.get(i), doNothingAsyncCallback);
 						}
 
 					}
@@ -667,24 +727,31 @@ public class EditStockList extends VerticalPanel {
 
 		// Update existing Amounts of ComponentGroups
 		for (int i = 0; i < OriginalStocklistToEdit.getComponentList().size(); i++) {
-			Component originalComponent = OriginalStocklistToEdit.getComponentList().get(i);
+			Component originalComponent = OriginalStocklistToEdit
+					.getComponentList().get(i);
 
 			for (int j = 0; j < newStocklist.getComponentList().size(); j++) {
-				Component newStockListComponent = newStocklist.getComponentList().get(j);
+				Component newStockListComponent = newStocklist
+						.getComponentList().get(j);
 
 				if (originalComponent.getId() == newStockListComponent.getId()) {
 
-					if (OriginalStocklistToEdit.getAmountListOfComponent().get(i) != newStocklist
-							.getAmountListOfComponent().get(j)) {
+					if (OriginalStocklistToEdit.getAmountListOfComponent().get(
+							i) != newStocklist.getAmountListOfComponent()
+							.get(j)) {
 						if (newStocklist.getAmountListOfComponent().get(j) != 0) { // delete
 																					// stocklistcomponentgroupelement
 																					// here
-							asyncObj.updateAmountOfStocklistComponentElement(newStocklist, originalComponent,
-									newStocklist.getAmountListOfComponent().get(i), doNothingAsyncCallback);
+							asyncObj.updateAmountOfStocklistComponentElement(
+									newStocklist, originalComponent,
+									newStocklist.getAmountListOfComponent()
+											.get(i), doNothingAsyncCallback);
 							break;
 						} else {
-							asyncObj.deleteStocklistComponentElement(newStocklist, originalComponent,
-									newStocklist.getAmountListOfComponent().get(i), doNothingAsyncCallback);
+							asyncObj.deleteStocklistComponentElement(
+									newStocklist, originalComponent,
+									newStocklist.getAmountListOfComponent()
+											.get(i), doNothingAsyncCallback);
 						}
 					}
 				}
@@ -694,34 +761,46 @@ public class EditStockList extends VerticalPanel {
 		// Insert new ComponentGroups
 		for (int j = 0; j < newStocklist.getComponentGroupList().size(); j++) {
 			boolean isNew = true;
-			ComponentGroup newStockListComponentGroupToInsert = newStocklist.getComponentGroupList().get(j);
-			for (int i = 0; i < OriginalStocklistToEdit.getComponentGroupList().size(); i++) {
-				ComponentGroup originalComponentGroup = OriginalStocklistToEdit.getComponentGroupList().get(i);
+			ComponentGroup newStockListComponentGroupToInsert = newStocklist
+					.getComponentGroupList().get(j);
+			for (int i = 0; i < OriginalStocklistToEdit.getComponentGroupList()
+					.size(); i++) {
+				ComponentGroup originalComponentGroup = OriginalStocklistToEdit
+						.getComponentGroupList().get(i);
 
-				if (newStockListComponentGroupToInsert.getId() == originalComponentGroup.getId()) {
+				if (newStockListComponentGroupToInsert.getId() == originalComponentGroup
+						.getId()) {
 					isNew = false;
 				}
 			}
 			if (isNew) {
-				asyncObj.insertComponentGroupToSocklist(newStocklist, newStockListComponentGroupToInsert, newStocklist
-						.getAmountListOfComponentGroup().get(j), doNothingAsyncCallback);
+				asyncObj.insertComponentGroupToSocklist(newStocklist,
+						newStockListComponentGroupToInsert, newStocklist
+								.getAmountListOfComponentGroup().get(j),
+						doNothingAsyncCallback);
 			}
 		}
 
 		// Insert new ComponentGroups
 		for (int j = 0; j < newStocklist.getComponentList().size(); j++) {
 			boolean isNew = true;
-			Component newStockListComponentToInsert = newStocklist.getComponentList().get(j);
-			for (int i = 0; i < OriginalStocklistToEdit.getComponentList().size(); i++) {
-				Component originalComponent = OriginalStocklistToEdit.getComponentList().get(i);
+			Component newStockListComponentToInsert = newStocklist
+					.getComponentList().get(j);
+			for (int i = 0; i < OriginalStocklistToEdit.getComponentList()
+					.size(); i++) {
+				Component originalComponent = OriginalStocklistToEdit
+						.getComponentList().get(i);
 
-				if (newStockListComponentToInsert.getId() == originalComponent.getId()) {
+				if (newStockListComponentToInsert.getId() == originalComponent
+						.getId()) {
 					isNew = false;
 				}
 			}
 			if (isNew) {
-				asyncObj.insertComponentToStocklist(newStocklist, newStockListComponentToInsert, newStocklist
-						.getAmountListOfComponent().get(j), doNothingAsyncCallback);
+				asyncObj.insertComponentToStocklist(newStocklist,
+						newStockListComponentToInsert, newStocklist
+								.getAmountListOfComponent().get(j),
+						doNothingAsyncCallback);
 			}
 		}
 	}

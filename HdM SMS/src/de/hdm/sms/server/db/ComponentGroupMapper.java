@@ -291,7 +291,7 @@ public class ComponentGroupMapper {
 
 	}
 
-	public void deleteComponentGroupById(int deleteComponentGroupId) {
+	public void deleteComponentGroupById(ComponentGroup cg) {
 
 		Connection con = DatebaseConnection.connection();
 
@@ -300,7 +300,7 @@ public class ComponentGroupMapper {
 			Statement state = con.createStatement();
 
 			state.executeUpdate("DELETE FROM Componentgroup WHERE Id='"
-					+ deleteComponentGroupId + "';");
+					+ cg.getId() + "';");
 
 		} catch (Exception e) {
 			e.printStackTrace();

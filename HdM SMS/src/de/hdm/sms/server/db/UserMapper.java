@@ -106,6 +106,46 @@ public class UserMapper {
 
 			Statement state = con.createStatement();
 
+			state.executeUpdate("UPDATE Component SET Modifier = '" + -1
+					+ "' WHERE Modifier = '" + deleteUserId + "';");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+
+			Statement state = con.createStatement();
+
+			state.executeUpdate("UPDATE Componentgroup SET Modifier = '" + -1
+					+ "' WHERE Modifier = '" + deleteUserId + "';");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+
+			Statement state = con.createStatement();
+
+			state.executeUpdate("UPDATE Product SET Modifier = '" + -1
+					+ "' WHERE Modifier = '" + deleteUserId + "';");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+
+			Statement state = con.createStatement();
+
+			state.executeUpdate("UPDATE Stocklist SET Modifier = '" + -1
+					+ "' WHERE Modifier = '" + deleteUserId + "';");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+
+			Statement state = con.createStatement();
+
 			state.executeUpdate("DELETE FROM User WHERE Id='" + deleteUserId
 					+ "';");
 
@@ -132,37 +172,35 @@ public class UserMapper {
 			e.printStackTrace();
 
 		}
+
 	}
 
 	public User getOneUserById(int tempUserId) {
-		
 
-			Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection();
 
-			User u = new User();
+		User u = new User();
 
-			try {
-				Statement state = con.createStatement();
-				ResultSet rs = state
-						.executeQuery("SELECT * FROM User WHERE Id='"
-								+ tempUserId + "';");
+		try {
+			Statement state = con.createStatement();
+			ResultSet rs = state.executeQuery("SELECT * FROM User WHERE Id='"
+					+ tempUserId + "';");
 
-				while (rs.next()) {
+			while (rs.next()) {
 
-					u.setId(rs.getInt("Id"));
-					u.setFirstName(rs.getString("Firstname"));
-					u.setLastName(rs.getString("Lastname"));
-					u.seteMailAdress(rs.getString("EmailAdress"));
-
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
+				u.setId(rs.getInt("Id"));
+				u.setFirstName(rs.getString("Firstname"));
+				u.setLastName(rs.getString("Lastname"));
+				u.seteMailAdress(rs.getString("EmailAdress"));
 
 			}
 
-			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
 
 		}
-	}
 
+		return u;
+
+	}
+}

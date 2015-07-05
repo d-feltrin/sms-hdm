@@ -74,7 +74,7 @@ public interface AServiceAsync {
 
 	void loadAllStocklistsIncludingRelations(AsyncCallback<ArrayList<Stocklist>> asyncCallback);
 
-	void deleteComponentGroupById(int id, AsyncCallback<Void> asyncCallback);
+	void deleteComponentGroupById(ComponentGroup originalComponentGroupToEdit, AsyncCallback<Void> asyncCallback);
 
 	void updateStockList(Stocklist newStocklist, AsyncCallback doNothingAsyncCallback);
 

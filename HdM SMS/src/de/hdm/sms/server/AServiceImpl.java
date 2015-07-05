@@ -191,8 +191,8 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	}
 
 	@Override
-	public void deleteComponentGroupById(int id) {
-		// TODO Auto-generated method stub
+	public void deleteComponentGroupById(ComponentGroup cg) {
+		cgMapper.deleteComponentGroupById(cg);
 
 	}
 

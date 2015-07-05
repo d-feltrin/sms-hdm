@@ -55,12 +55,12 @@ public class EditComponentGroup extends VerticalPanel {
 	private final ListBox listboxListOfAddableElements = new ListBox();
 	private final TextBox textboxAmountOfElementToAdd = new TextBox();
 	private final Button buttonAddElementToComponentgroup = new Button(
-			"Bauteil/-gruppe hinzufuegen");
+			"Bauteil/-gruppe hinzufügen");
 
 	// Panel Funcitons
 	private final HorizontalPanel PanelFunctions = new HorizontalPanel();
-	private final Button buttonUpdateComponentGroup = new Button("Uebernehmen");
-	private final Button buttonDeleteComponentGroup = new Button("Loeschen");
+	private final Button buttonUpdateComponentGroup = new Button("Übernehmen");
+	private final Button buttonDeleteComponentGroup = new Button("Löschen");
 	private final Button buttonAbortComponentGroup = new Button("Abbrechen");
 
 	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
@@ -118,12 +118,12 @@ public class EditComponentGroup extends VerticalPanel {
 	}
 
 	public void onLoad() {
-		
+
 		// Load
 
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		OriginalComponentGroupToEdit.setModifier(u.getId());
-		
+
 		loadAllUser();
 
 		// Panel: Select ComponentgroupToEdit
@@ -379,7 +379,7 @@ public class EditComponentGroup extends VerticalPanel {
 					newComponentGroup.setId(OriginalComponentGroupToEdit
 							.getId());
 					newComponentGroup.setModifier(u.getId());
-					Window.alert(""+u.getId());
+					Window.alert("Baugruppe editiert.");
 					newComponentGroup.setComponentGroupName(textboxCGInfo_Name
 							.getText());
 					// go through each row
@@ -564,8 +564,7 @@ public class EditComponentGroup extends VerticalPanel {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				asyncObj.deleteComponentGroupById(
-						OriginalComponentGroupToEdit.getId(),
+				asyncObj.deleteComponentGroupById(OriginalComponentGroupToEdit,
 						new AsyncCallback<Void>() {
 
 							@Override
@@ -576,7 +575,8 @@ public class EditComponentGroup extends VerticalPanel {
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Baugruppe gel�scht");
+
+								Window.alert("Baugruppe gelöscht");
 								RootPanel.get("rightside").clear();
 
 							}
