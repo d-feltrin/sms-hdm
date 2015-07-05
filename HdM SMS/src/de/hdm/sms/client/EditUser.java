@@ -26,11 +26,10 @@ public class EditUser extends VerticalPanel {
 	private final ListBox listOfUsers = new ListBox();
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private String selectedUser;
-	
+
 	private Label firstnameLabel = new Label("Vorname");
 	private Label lastnameLabel = new Label("Nachname");
 
-	
 	private TextBox firstnameTextBox = new TextBox();
 	private TextBox lastnameTextBox = new TextBox();
 
@@ -43,18 +42,11 @@ public class EditUser extends VerticalPanel {
 	private User u = new User();
 	private User uS = new User();
 
-	// Konstruktor @EditUser
 	public EditUser() {
 
 	}
 
-	// Mithilfe dieser Methode wird �berpr�ft, ob der aktuell �ber Google
-	// eingeloggte Benutzer bereits im St�cklistenmanagementsystem angelegt ist.
-	// Falls der Benutzer noch nicht hinterlegt ist, wird die Klasse @CreateUser
-	// geladen.
-	// Falls der Benutzer bereits im System angelegt ist, wird das @User Objekt
-	// bef�llt. Des Weiteren
-	// wird die Methode loadAllProducts gestartet.
+	// CHeck if User is registered in the system
 	public User getUserIdByEMailAdress(String eMailAdress) {
 
 		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
@@ -69,7 +61,7 @@ public class EditUser extends VerticalPanel {
 					@Override
 					public void onSuccess(User result) {
 						if (result.geteMailAdress() != null) {
-
+							//
 							u.setId(result.getId());
 							u.setFirstName(result.getFirstName());
 							u.setLastName(result.getLastName());
@@ -90,18 +82,12 @@ public class EditUser extends VerticalPanel {
 
 	}
 
-	// Die Loginemailadresse wird von der Klasse @Startside �ber diesen setter
-	// in @CreateProduct "hereingelassen". Somit enthalt das Objekt @loginInfo
-	// die E-Mail Adresse des Benutzers und ist somit essentiell, um die Methode
-	// getUserIdByEMailAdress auszuf�hren.
+	// Get user informations
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
 
-	// Diese Methode wird dazu verwendet, um die ID aus der ListBox zu lesen. Es
-	// wird zuerst vor dem Doppelpunkt gesplittet. Danach wird das Leerzeichen,
-	// sowie die Zeichen vor dem Leerzeichen abgeschnitten. Somit erh�lt man die
-	// "reine" ID ohne weitere Zeichen.
+	// Get the Id by splitting the Listbox value
 	private String getIDbyDropDownText(String selectedUser) {
 
 		// get ID by ListBox text
@@ -114,6 +100,7 @@ public class EditUser extends VerticalPanel {
 		return SplitStepTwo[1];
 	}
 
+	// update User with Object u
 	private void updateUser(User u) {
 		asyncObj.updateUserById(u, new AsyncCallback<Void>() {
 
@@ -132,6 +119,7 @@ public class EditUser extends VerticalPanel {
 		});
 	}
 
+	// Delete User by Id
 	private void deleteUser(int DeleteUserId) {
 		asyncObj.deleteUserById(DeleteUserId, new AsyncCallback<Void>() {
 
@@ -150,6 +138,7 @@ public class EditUser extends VerticalPanel {
 		});
 	}
 
+	// Fill the Listbox with all User
 	private void loadAllUser() {
 
 		listOfUsers.setSize("180px", "35px");
@@ -177,13 +166,16 @@ public class EditUser extends VerticalPanel {
 
 			}
 		});
+		// CLear RootPanel and add ListBox of Users
 		RootPanel.get("rightside").clear();
 		RootPanel.get("rightside").add(new Label("Benutzer auswaehlen"));
 		RootPanel.get("rightside").add(listOfUsers);
 	}
 
+	// Load
 	public void onLoad() {
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
+		// ChangeHandler of Userlistbox
 		listOfUsers.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -204,13 +196,15 @@ public class EditUser extends VerticalPanel {
 
 					@Override
 					public void onSuccess(User result) {
+						// Fill the uS Object of User with result of the
+						// AsyncCallback
 						uS = result;
-						userItemPanel.add(new Label(
-								"E-Mail Adresse"));
+						userItemPanel.add(new Label("E-Mail Adresse"));
 						userItemPanel.add(new Label(uS.geteMailAdress()));
 						firstnameTextBox.setText(result.getFirstName());
 						lastnameTextBox.setText(result.getLastName());
 
+						// Panel userItemPanel: Fill it
 						userItemPanel.add(firstnameLabel);
 						userItemPanel.add(firstnameTextBox);
 						userItemPanel.add(lastnameLabel);
@@ -221,6 +215,8 @@ public class EditUser extends VerticalPanel {
 						buttonPanel.add(deleteUserButton);
 						RootPanel.get("rightside").add(userItemPanel);
 						RootPanel.get("rightside").add(buttonPanel);
+
+						// Clickhandler of the delete User Button
 						deleteUserButton.addClickHandler(new ClickHandler() {
 
 							@Override
@@ -229,6 +225,7 @@ public class EditUser extends VerticalPanel {
 
 							}
 						});
+						// Clickhandler of the edit User Button
 						editUserButton.addClickHandler(new ClickHandler() {
 
 							@Override
@@ -247,6 +244,8 @@ public class EditUser extends VerticalPanel {
 
 											@Override
 											public void onSuccess(User result) {
+												// UpdateUser if result is not
+												// null and Textboxes not empty
 												if (result.geteMailAdress() != null) {
 													if (firstnameTextBox
 															.getValue()
@@ -256,6 +255,7 @@ public class EditUser extends VerticalPanel {
 																	.isEmpty()) {
 														Window.alert("Bitte alle Felder befüllen!");
 													} else {
+														//Fill User Object u
 														User u = new User();
 														u.setId(tempUserId);
 														u.setFirstName(firstnameTextBox
@@ -267,7 +267,7 @@ public class EditUser extends VerticalPanel {
 														updateUser(u);
 
 													}
-												} 
+												}
 
 											}
 										});

@@ -23,6 +23,7 @@ public class HdM_SMSReport extends VerticalPanel implements EntryPoint {
 
 		// Create the report menu
 		MenuBar reportMenu = new MenuBar(true);
+		
 		// Create the Command for Stocklist
 		reportMenu.addItem("Stocklist", new Command() {
 			@Override

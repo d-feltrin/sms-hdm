@@ -34,19 +34,19 @@ public class Startside extends VerticalPanel {
 
 	public void onLoad() {
 
-		// Create a menu bar
+		// Create the menuBars
 		MenuBar menu = new MenuBar(true);
 		menu.setAutoOpen(true);
 		menu.setWidth("150px");
 		menu.setAnimationEnabled(true);
 
-		// Create the file menu
 		MenuBar userMenu = new MenuBar(true);
 		MenuBar componentMenu = new MenuBar(true);
 		MenuBar componentGroupMenu = new MenuBar(true);
 		MenuBar productMenu = new MenuBar(true);
 		MenuBar stocklistMenu = new MenuBar(true);
 
+		// Create the Commands
 		userMenu.addItem("Create", new Command() {
 			@Override
 			public void execute() {
@@ -57,6 +57,7 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").add(cR);
 			}
 		});
+
 		userMenu.addItem("Edit", new Command() {
 			@Override
 			public void execute() {
@@ -67,6 +68,7 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").add(eU);
 			}
 		});
+
 		componentMenu.addItem("Create", new Command() {
 			@Override
 			public void execute() {
@@ -77,6 +79,7 @@ public class Startside extends VerticalPanel {
 				RootPanel.get("rightside").add(cc);
 			}
 		});
+
 		componentMenu.addItem("Edit", new Command() {
 			@Override
 			public void execute() {
@@ -144,6 +147,7 @@ public class Startside extends VerticalPanel {
 
 			}
 		});
+
 		stocklistMenu.addItem("Edit", new Command() {
 
 			@Override
@@ -155,12 +159,15 @@ public class Startside extends VerticalPanel {
 
 			}
 		});
+
+		// add the mainmenuBar
 		menu.addItem(new MenuItem("User", userMenu));
 		menu.addItem(new MenuItem("Component", componentMenu));
 		menu.addItem(new MenuItem("Componentgroup", componentGroupMenu));
 		menu.addItem(new MenuItem("Product", productMenu));
 		menu.addItem(new MenuItem("Stocklist", stocklistMenu));
 
+		// Panel: menuPanel add the menu
 		menuPanel.add(menu);
 		RootPanel.get("leftside").add(menuPanel);
 	}

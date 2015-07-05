@@ -27,7 +27,7 @@ public class CreateProduct extends VerticalPanel {
 
 	private Label nameLabel = new Label("Produktname");
 	private Label componentGroupLabel = new Label(
-			"Enderzeugnis zur Zuordnung auswählen");
+			"Enderzeugnis zur Zuordnung auswï¿½hlen");
 	private ListBox listOfComponentGroups = new ListBox();
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private User u = new User();
@@ -43,13 +43,7 @@ public class CreateProduct extends VerticalPanel {
 
 	}
 
-	// Mithilfe dieser Methode wird überprüft, ob der aktuell über Google
-	// eingeloggte Benutzer bereits im Stücklistenmanagementsystem angelegt ist.
-	// Falls der Benutzer noch nicht hinterlegt ist, wird die Klasse @CreateUser
-	// geladen.
-	// Falls der Benutzer bereits im System angelegt ist, wird das @User Objekt
-	// befüllt und dem RootPanel die notwendigen Panels zugeordnet. Des Weiteren
-	// wird die Methode loadAllComponentGroups gestartet.
+	// Check if User by loginInfo is registered in the system
 	public User getUserIdByEMailAdress(String eMailAdress) {
 
 		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
@@ -69,7 +63,7 @@ public class CreateProduct extends VerticalPanel {
 							u.setFirstName(result.getFirstName());
 							u.setLastName(result.getLastName());
 							u.seteMailAdress(result.geteMailAdress());
-							
+
 							loadAllComponentGroups();
 						} else {
 							Window.alert("Bitte registrieren Sie sich zuerst!");
@@ -87,18 +81,12 @@ public class CreateProduct extends VerticalPanel {
 
 	}
 
-	// Die Loginemailadresse wird von der Klasse @Startside über diesen setter
-	// in @CreateProduct "hereingelassen". Somit enthalt das Objekt @loginInfo
-	// die E-Mail Adresse des Benutzers und ist somit essentiell, um die Methode
-	// getUserIdByEMailAdress auszuführen.
+	// get logininformations
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
 
-	// Diese Methode wird dazu verwendet, um die ID aus der ListBox zu lesen. Es
-	// wird zuerst vor dem Doppelpunkt gesplittet. Danach wird das Leerzeichen,
-	// sowie die Zeichen vor dem Leerzeichen abgeschnitten. Somit erhält man die
-	// "reine" ID ohne weitere Zeichen.
+	// Get the Id by splitting the Listbox value
 	private String getIDbyDropDownText(String selectedComponentGroup) {
 
 		// get ID by ListBox text
@@ -111,11 +99,7 @@ public class CreateProduct extends VerticalPanel {
 		return SplitStepTwo[1];
 	}
 
-	// Hier wird die Listbox erstellt. Es wird eine SELECT-Anfrage an den Server
-	// gesendet. Zurück erhält er in einer Arrayliste von dem Typ
-	// @ComponentGroup alle Baugruppen, um diese in der ListBox anzeigen zu
-	// können. Danach wird das Label für die ListBox, sowie die ListBox selbst
-	// dem contentPanel zugeordnet.
+	// Fill the ListBox with ComponentGroups
 	private void loadAllComponentGroups() {
 
 		listOfComponentGroups.setSize("180px", "35px");
@@ -139,6 +123,7 @@ public class CreateProduct extends VerticalPanel {
 
 			}
 		});
+		// Panel: Fill contentPanel and Matching RootPanel
 		contentPanel.add(componentGroupLabel);
 		contentPanel.add(listOfComponentGroups);
 		contentPanel.add(nameLabel);
@@ -149,15 +134,11 @@ public class CreateProduct extends VerticalPanel {
 
 	}
 
-	// Die onLoad Methode. Zuallererst wird geprüft, ob der Benutzer schon im
-	// System vorhanden ist. Des Weiteren werden dem contentPanel die
-	// notwendigen Label, Felder sowie Buttons zugeordnet.
+	//Load
 	public void onLoad() {
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 
-		
-
-		// ChangeHandler für die ListBox
+		// ChangeHandler of the ListBox
 		listOfComponentGroups.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -168,10 +149,7 @@ public class CreateProduct extends VerticalPanel {
 			}
 		});
 
-		// ClickHandler für den createProductButton. Nach dem Drücken des
-		// Buttons, wird das Objekt p, eine Instanz der Klasse @Product befüllt.
-		// Über ein @AsyncCallback wird der INSERT-Befehl an die Datenbank
-		// gesendet.
+		//ClickHandler to Create Product
 		createProductButton.addClickHandler(new ClickHandler() {
 
 			@Override

@@ -39,7 +39,7 @@ public class EditComponent extends VerticalPanel {
 	private TextBox idOfComponent = new TextBox();
 	private String idOfComponentString;
 	private VerticalPanel componentItemPanel = new VerticalPanel();
-	private Button deleteComponentButton = new Button("Bauteil löschen");
+	private Button deleteComponentButton = new Button("Bauteil lï¿½schen");
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private Button editComponentButton = new Button("Bauteil editieren");
@@ -53,10 +53,12 @@ public class EditComponent extends VerticalPanel {
 
 	}
 
+	// Geter user informations
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
 
+	// get the modifier of the Object c
 	private void getLastModifier(Component c) {
 		asyncObj.getLastModifierOfComponent(c, new AsyncCallback<User>() {
 
@@ -76,6 +78,7 @@ public class EditComponent extends VerticalPanel {
 		});
 	}
 
+	// delete Component by Id with AsyncCallback
 	private void deleteComponent(int DeleteComponentId) {
 		asyncObj.deleteComponentById(DeleteComponentId,
 				new AsyncCallback<Void>() {
@@ -88,12 +91,13 @@ public class EditComponent extends VerticalPanel {
 
 					@Override
 					public void onSuccess(Void result) {
-						Window.alert("Bauteil erfolgreich gelöscht");
+						Window.alert("Bauteil erfolgreich gelï¿½scht");
 						RootPanel.get("rightside").clear();
 					}
 				});
 	}
 
+	// update Component with Object c
 	private void updateComponent(Component c) {
 		asyncObj.updateComponentById(c, new AsyncCallback<Void>() {
 
@@ -112,6 +116,7 @@ public class EditComponent extends VerticalPanel {
 		});
 	}
 
+	// Fill the Listbox with all Components
 	private void loadAllComponents() {
 
 		listOfComponents.setSize("180px", "35px");
@@ -130,17 +135,20 @@ public class EditComponent extends VerticalPanel {
 			public void onSuccess(ArrayList<Component> result) {
 				for (int i = 0; i < result.size(); i++) {
 
-					listOfComponents.addItem(" - " + result.get(i).getId() + ":"
-							+ result.get(i).getName());
+					listOfComponents.addItem(" - " + result.get(i).getId()
+							+ ":" + result.get(i).getName());
 
 				}
+				// Panel: clear and add the Listbox of Components
 				RootPanel.get("rightside").clear();
 				RootPanel.get("rightside").add(new Label("Bauteil auswaehlen"));
 				RootPanel.get("rightside").add(listOfComponents);
 			}
 		});
-		
+
 	}
+
+	// Get the Id by splitting the Listbox value
 	private String getIDbyDropDownText(String selectedComponent) {
 
 		// get ID by ListBox text
@@ -152,54 +160,57 @@ public class EditComponent extends VerticalPanel {
 
 		return SplitStepTwo[1];
 	}
-public User getUserIdByEMailAdress(String eMailAdress) {
-	asyncObj.getOneUserIdByEmailAdress(eMailAdress,
-			new AsyncCallback<User>() {
 
-				@Override
-				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
+	// CHeck if User is registered in the system
+	public User getUserIdByEMailAdress(String eMailAdress) {
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
 
-				}
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
 
-				@Override
-				public void onSuccess(User result) {
-					if(result.geteMailAdress() != null) {
-					u.setId(result.getId());
-					u.setFirstName(result.getFirstName());
-					u.setLastName(result.getLastName());
-					u.seteMailAdress(result.geteMailAdress());
-					loadAllComponents();
-					
-				} else {
-					Window.alert("Bitte registrieren Sie sich zuerst!");
-					RootPanel.get("rightside").clear();
-					CreateUser cU = new CreateUser();
-					cU.setLoginInfo(loginInfo);
-					RootPanel.get("rightside").add(cU);
 					}
-				}
-			});
-	return u;
-	
-}
+
+					@Override
+					public void onSuccess(User result) {
+						if (result.geteMailAdress() != null) {
+							u.setId(result.getId());
+							u.setFirstName(result.getFirstName());
+							u.setLastName(result.getLastName());
+							u.seteMailAdress(result.geteMailAdress());
+							loadAllComponents();
+
+						} else {
+							Window.alert("Bitte registrieren Sie sich zuerst!");
+							RootPanel.get("rightside").clear();
+							CreateUser cU = new CreateUser();
+							cU.setLoginInfo(loginInfo);
+							RootPanel.get("rightside").add(cU);
+						}
+					}
+				});
+		return u;
+
+	}
+
+	// Load
 	public void onLoad() {
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		InfoPanel.setStylePrimaryName("infopanel");
 		componentItemPanel.setStylePrimaryName("contentpanel");
-		
-
-		
-		
+		// ChangeHandler of listComponents
 		listOfComponents.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
+				// Clear
 				RootPanel.get("rightside").clear();
 				selectedComponent = listOfComponents
 						.getItemText(listOfComponents.getSelectedIndex());
-				tempId = Integer.parseInt(getIDbyDropDownText(selectedComponent));
-
+				tempId = Integer
+						.parseInt(getIDbyDropDownText(selectedComponent));
+				// get Component by Id
 				asyncObj.getOneComponentIdById(tempId,
 						new AsyncCallback<Component>() {
 
@@ -211,6 +222,7 @@ public User getUserIdByEMailAdress(String eMailAdress) {
 
 							@Override
 							public void onSuccess(Component result) {
+								// Panel: Fill the Panels
 								getLastModifier(result);
 								idOfComponentString = String.valueOf(result
 										.getId());
@@ -247,6 +259,8 @@ public User getUserIdByEMailAdress(String eMailAdress) {
 								RootPanel.get("rightside").add(contentPanel);
 								buttonPanel.add(editComponentButton);
 								buttonPanel.add(deleteComponentButton);
+
+								// ClickHandler of the DeleteButton
 								deleteComponentButton
 										.addClickHandler(new ClickHandler() {
 
@@ -257,7 +271,7 @@ public User getUserIdByEMailAdress(String eMailAdress) {
 
 											}
 										});
-
+								// ClickHandler of the EditButton
 								editComponentButton
 										.addClickHandler(new ClickHandler() {
 
@@ -271,7 +285,7 @@ public User getUserIdByEMailAdress(String eMailAdress) {
 														|| materialDescriptionOfComponent
 																.getValue()
 																.isEmpty()) {
-													Window.alert("Bitte Felder befüllen!");
+													Window.alert("Bitte Felder befï¿½llen!");
 												} else {
 													Component c = new Component();
 													c.setId(Integer

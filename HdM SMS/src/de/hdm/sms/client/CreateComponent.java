@@ -31,26 +31,17 @@ public class CreateComponent extends VerticalPanel {
 	private User u = new User();
 	private LoginInfo loginInfo;
 
-	// Der Konstruktor von @CreateComponent
 	public CreateComponent() {
 
 	}
 
-	// Die Loginemailadresse wird von der Klasse @Startside über diesen setter
-	// in @CreateProduct "hereingelassen". Somit enthalt das Objekt @loginInfo
-	// die E-Mail Adresse des Benutzers und ist somit essentiell, um die Methode
-	// getUserIdByEMailAdress auszuführen.
+	// Get the loginInformations
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
 
 	public void onLoad() {
-		// Mithilfe dieses @AsynCallback wird überprüft, ob der aktuell über Google
-		// eingeloggte Benutzer bereits im Stücklistenmanagementsystem angelegt ist.
-		// Falls der Benutzer noch nicht hinterlegt ist, wird die Klasse @CreateUser
-		// geladen.
-		// Falls der Benutzer bereits im System angelegt ist, wird das @User Objekt
-		// befüllt und dem RootPanel die notwendigen Panels zugeordnet. 
+		// Get User Informations
 		asyncObj.getOneUserIdByEmailAdress(loginInfo.getEmailAddress(),
 				new AsyncCallback<User>() {
 
@@ -62,6 +53,7 @@ public class CreateComponent extends VerticalPanel {
 
 					@Override
 					public void onSuccess(User result) {
+						// set User Informations and Add the Panel
 						if (result.geteMailAdress() != null) {
 							u.setId(result.getId());
 							u.setFirstName(result.getFirstName());
@@ -76,10 +68,12 @@ public class CreateComponent extends VerticalPanel {
 									.add(materialDescriptionTextbox);
 							createComponentPanel.add(createComponentButton);
 							RootPanel.get("rightside").clear();
-							
+
 							RootPanel.get("rightside")
 									.add(createComponentPanel);
 						} else {
+							// If User not registered in the system add the
+							// CreateUser method
 							Window.alert("Bitte registrieren Sie sich zuerst!");
 							RootPanel.get("rightside").clear();
 							CreateUser cU = new CreateUser();
@@ -90,10 +84,7 @@ public class CreateComponent extends VerticalPanel {
 					}
 
 				});
-		// ClickHandler für den createComponentButton. Nach dem Drücken des
-				// Buttons, wird das Objekt c, eine Instanz der Klasse @Component befüllt.
-				// Über ein @AsyncCallback wird der INSERT-Befehl an die Datenbank
-				// gesendet.
+		// Clickhandler to create the Component
 		createComponentButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -102,7 +93,7 @@ public class CreateComponent extends VerticalPanel {
 				if (nameTextbox.getValue().isEmpty()
 						|| descriptionTextbox.getValue().isEmpty()
 						|| materialDescriptionTextbox.getValue().isEmpty()) {
-					Window.alert("Bitte alle Felder befüllen");
+					Window.alert("Bitte alle Felder befï¿½llen");
 				} else {
 					c.setDescription(descriptionTextbox.getValue());
 					c.setName(nameTextbox.getValue());

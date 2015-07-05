@@ -24,7 +24,7 @@ import de.hdm.sms.client.gui.Impressum;
 import de.hdm.sms.client.gui.Startside;
 
 public class HdM_SMS extends VerticalPanel implements EntryPoint {
-
+	LoginServiceAsync loginService = GWT.create(LoginService.class);
 	private VerticalPanel bottomPanel = new VerticalPanel();
 	private Label aboutLabel = new Label("Impressum");
 
@@ -35,8 +35,7 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 			"Bitte melden Sie sich mit ihrem Google Account an, um Zugang zur Applikation zu bekommen. Falls Sie noch keinen Benutzeraccount haben, benutzern Sie bitte den Button Registrieren um einen zu erstellen.");
 
 	private Anchor signInLink = new Anchor("Anmelden");
-	private Anchor signOutLink = new Anchor("Abmelden");	
-	
+	private Anchor signOutLink = new Anchor("Abmelden");
 
 	public HdM_SMS() {
 
@@ -44,38 +43,38 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 
 	Logger logger = ClientsideSettings.getLogger();
 
+	// Load Startsidte Method
 	public void loadStartside() {
 
-		// Anzeige des angemeldeten Benutzers
+		// Show the User who is logged in
 		Label loggedInlabel = new Label("Angemeldet als: "
 				+ loginInfo.getEmailAddress());
 
-		// Logout Url holen
+		// get the Loggout URL
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		Startside startside = new Startside();
 		startside.setLoginInfo(loginInfo);
+
+		// Clear and Fill the RootPanel
 		RootPanel.get("leftside").clear();
 		RootPanel.get("leftside").add(startside);
 		RootPanel.get("leftside").add(loggedInlabel);
 		RootPanel.get("leftside").add(signOutLink);
-		
 
 	}
 
+	// Login Widget
 	public Widget loadLogin() {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
-		loginPanel.add(signInLink);		
-		
+		loginPanel.add(signInLink);
+
 		RootPanel.get("leftside").add(loginPanel);
 		return loginPanel;
 	}
 
-	// ONLOAD
-	// ########################################################################################################
-
+	// Load
 	public void onModuleLoad() {
-		
 
 		aboutLabel.addStyleName("impressum");
 		bottomPanel.add(aboutLabel);
@@ -93,8 +92,8 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 
 			}
 		});
-
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
+		
+		// Get the LoginInfo By Google Login
 		loginService.getUserInfo(
 				com.google.gwt.core.client.GWT.getHostPageBaseURL(),
 				new AsyncCallback<LoginInfo>() {
@@ -103,14 +102,13 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 					public void onSuccess(LoginInfo result) {
 						loginInfo = result;
 
-						// Bei erfolgreichem Login, wir die Anwendnung aufgebaut
+						// If Login is true the Startside will be loaded
 						if (loginInfo.isLoggedIn()) {
 							logger.log(Level.INFO, "Login erfolgreich");
 							loadStartside();
 
 						} else {
-							// Ist der Nutzer nicht eingeloggt, wird ein Link
-							// zum Google Login und zum Registrieren angezeigt.
+							// If not logged in load the login
 							loadLogin();
 						}
 

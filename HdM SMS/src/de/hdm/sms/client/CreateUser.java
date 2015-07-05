@@ -29,6 +29,7 @@ public class CreateUser extends VerticalPanel {
 	private User u = new User();
 	private LoginInfo loginInfo;
 
+	// Get user informations
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
@@ -37,7 +38,9 @@ public class CreateUser extends VerticalPanel {
 
 	}
 
+	// Load
 	public void onLoad() {
+		// Panel: Fill it with Widgets
 		createUserPanel.add(new Label(
 				"Benutzer wird mit folgender E-Mail Adresse angelegt: "
 						+ loginInfo.getEmailAddress()));
@@ -45,12 +48,12 @@ public class CreateUser extends VerticalPanel {
 		createUserPanel.add(firstnameTextBoxOfUser);
 		createUserPanel.add(lastnameLabelOfUser);
 		createUserPanel.add(lastnameTextBoxOfUser);
-
 		createUserPanel.add(userCreateButton);
-		RootPanel.get("rightside").clear();
-		
-		RootPanel.get("rightside").add(createUserPanel);
 
+		RootPanel.get("rightside").clear();
+		RootPanel.get("rightside").add(createUserPanel);
+		
+		// CLickHandler of Create 
 		userCreateButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -72,7 +75,7 @@ public class CreateUser extends VerticalPanel {
 											.isEmpty()
 											|| lastnameTextBoxOfUser.getValue()
 													.isEmpty()) {
-										Window.alert("Bitte alle Felder befüllen!");
+										Window.alert("Bitte alle Felder befï¿½llen!");
 									} else {
 
 										u.setFirstName(firstnameTextBoxOfUser
