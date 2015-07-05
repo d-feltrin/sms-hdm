@@ -69,4 +69,21 @@ public interface AService extends RemoteService {
 
 	void deleteComponentGroupById(int id);
 
+	void updateStockList(Stocklist newStocklist);
+
+	void updateAmountOfStocklistComponentGrouElement(Stocklist newStocklist, ComponentGroup original, Integer integer);
+
+	void updateAmountOfStocklistComponentElement(Stocklist newStocklist, Component originalComponent, Integer integer);
+
+	void insertComponentGroupToSocklist(Stocklist newStocklist, ComponentGroup newStockListComponentGroupToInsert,
+			Integer integer);
+
+	void insertComponentToStocklist(Stocklist newStocklist, Component newStockListComponentToInsert, Integer integer);
+
+	void deleteStocklistComponentElement(Stocklist newStocklist, Component originalComponent, Integer integer);
+
+	void deleteStockListComponentGroupElement(Stocklist newStocklist, ComponentGroup originalComponentGroup,
+			Integer integer);
+
+
 }

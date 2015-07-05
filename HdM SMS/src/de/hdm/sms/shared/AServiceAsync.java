@@ -76,4 +76,25 @@ public interface AServiceAsync {
 
 	void deleteComponentGroupById(int id, AsyncCallback<Void> asyncCallback);
 
+	void updateStockList(Stocklist newStocklist, AsyncCallback doNothingAsyncCallback);
+
+	void updateAmountOfStocklistComponentGrouElement(Stocklist newStocklist, ComponentGroup original, Integer integer,
+			AsyncCallback doNothingAsyncCallback);
+
+	void updateAmountOfStocklistComponentElement(Stocklist newStocklist, Component originalComponent, Integer integer,
+			AsyncCallback doNothingAsyncCallback);
+
+	void insertComponentGroupToSocklist(Stocklist newStocklist, ComponentGroup newStockListComponentGroupToInsert,
+			Integer integer, AsyncCallback doNothingAsyncCallback);
+
+	void insertComponentToStocklist(Stocklist newStocklist, Component newStockListComponentToInsert, Integer integer,
+			AsyncCallback doNothingAsyncCallback);
+
+	void deleteStocklistComponentElement(Stocklist newStocklist, Component originalComponent, Integer integer,
+			AsyncCallback doNothingAsyncCallback);
+
+	void deleteStockListComponentGroupElement(Stocklist newStocklist, ComponentGroup originalComponentGroup,
+			Integer integer, AsyncCallback doNothingAsyncCallback);
+
+
 }

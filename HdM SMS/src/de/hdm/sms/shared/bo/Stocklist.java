@@ -91,4 +91,6 @@ public class Stocklist extends BusinessObject {
 	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
+	
+
 }

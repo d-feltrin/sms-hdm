@@ -9,7 +9,6 @@ public class ComponentGroup extends BusinessObject {
 
 	private static final long serialVersionUID = 1L;
 	private String ComponentGroupName;
-	private int componentId;
 	private int modifier;
 	
 	private ArrayList<ComponentGroup> componentgroupList;
@@ -42,7 +41,7 @@ public class ComponentGroup extends BusinessObject {
 	 */
 	public ComponentGroup(int ID){
 		this();
-		this.setComponentId(ID);
+		this.setId(ID);
 	}
 
 	public String getComponentGroupName() {
@@ -51,14 +50,6 @@ public class ComponentGroup extends BusinessObject {
 
 	public void setComponentGroupName(String name) {
 		this.ComponentGroupName = name;
-	}
-
-	public int getComponentId() {
-		return componentId;
-	}
-
-	public void setComponentId(int componentId) {
-		this.componentId = componentId;
 	}
 
 	public List<ComponentGroup> getComponentgroupList() {

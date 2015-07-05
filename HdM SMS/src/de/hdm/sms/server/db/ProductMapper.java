@@ -34,7 +34,7 @@ public class ProductMapper {
 					+ "'"
 					+ p.getProductName()
 					+ "','"
-					+ p.getComponentId()
+					+ p.getComponentGroupId()
 					+ "', '"
 					+ p.getModifier()
 					+ "', '"

@@ -64,8 +64,7 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 
 	@Override
 	public ArrayList<ComponentGroup> loadAllComponentGroups() {
-		ArrayList<ComponentGroup> ComponentGroupList = cgMapper
-				.loadAllComponentGroups();
+		ArrayList<ComponentGroup> ComponentGroupList = cgMapper.loadAllComponentGroups();
 		return ComponentGroupList;
 	}
 
@@ -139,13 +138,13 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public void updateProduct(Product p) {
 		pMapper.updateProduct(p);
-		
+
 	}
 
 	@Override
 	public void deleteProduct(Product p) {
 		pMapper.deleteProduct(p);
-		
+
 	}
 
 	@Override
@@ -162,19 +161,19 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	}
 
 	@Override
-	public void insertCGElement(ComponentGroup cg, int ElementID, char ElementTag, int Amount ) {
+	public void insertCGElement(ComponentGroup cg, int ElementID, char ElementTag, int Amount) {
 		cgMapper.insertCGElement(cg, ElementID, ElementTag, Amount);
-		
+
 	}
 
 	@Override
-	public void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount ) {
-		cgMapper.updateCGElementAmount(cg,ElementID,ElementTag,NewAmount);
-		
+	public void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount) {
+		cgMapper.updateCGElementAmount(cg, ElementID, ElementTag, NewAmount);
+
 	}
 
 	@Override
-	public void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag ) {
+	public void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag) {
 		cgMapper.deleteCGElement(cg, ElementID, ElementTag);
 
 	}
@@ -182,7 +181,7 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public void insertStocklist(Stocklist newStocklist) {
 		sMapper.insertStocklist(newStocklist);
-		
+
 	}
 
 	@Override
@@ -194,6 +193,55 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 	@Override
 	public void deleteComponentGroupById(int id) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateStockList(Stocklist newStocklist) {
+		sMapper.updateStockList(newStocklist);
+
+	}
+
+	@Override
+	public void updateAmountOfStocklistComponentGrouElement(Stocklist newStocklist, ComponentGroup original,
+			Integer integer) {
+		sMapper.updateAmountOfStocklistComponentGrouElement(newStocklist, original, integer);
+
+	}
+
+	@Override
+	public void updateAmountOfStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
+			Integer integer) {
+		sMapper.updateAmountOfStocklistComponentElement(newStocklist, originalComponent, integer);
+
+	}
+
+	@Override
+	public void insertComponentGroupToSocklist(Stocklist newStocklist,
+			ComponentGroup newStockListComponentGroupToInsert, Integer integer) {
+		sMapper.insertComponentGroupToSocklist(newStocklist, newStockListComponentGroupToInsert, integer);
+
+	}
+
+	@Override
+	public void insertComponentToStocklist(Stocklist newStocklist, Component newStockListComponentToInsert,
+			Integer amount) {
+		sMapper.insertComponentToStocklist(newStocklist, newStockListComponentToInsert, amount);
+
+	}
+
+	@Override
+	public void deleteStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
+			Integer integer) {
+		sMapper.deleteStocklistComponentElement(newStocklist, originalComponent, integer);
+
+	}
+
+	@Override
+	public void deleteStockListComponentGroupElement(Stocklist newStocklist, ComponentGroup originalComponentGroup,
+			Integer integer) {
+		sMapper.deleteStockListComponentGroupElement(newStocklist, originalComponentGroup,
+				integer);
 		
 	}
 }

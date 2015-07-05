@@ -37,7 +37,7 @@ public class StocklistMapper {
 			Timestamp t = DateHelperClass.getCurrentTime();
 
 			String sqlquery = "INSERT INTO `db_sms`.`Stocklist` (`Name`, `Creationdate`, `Modifier`, `LastModified`) VALUES ( '"
-					+ newStocklist.getName() + "', '" + t + "', '" + newStocklist.getLastModified() + "', '" + t + "');";
+					+ newStocklist.getName() + "', '" + t + "', '" + newStocklist.getModifier() + "', '" + t + "');";
 
 			state.executeUpdate(sqlquery);
 
@@ -97,56 +97,74 @@ public class StocklistMapper {
 		ArrayList<Stocklist> resultList = new ArrayList<>();
 
 		try {
-			Statement state = con.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM Stocklist");
+			Statement StateMentStocklist = con.createStatement();
+			ResultSet ResultStocklist = StateMentStocklist.executeQuery("SELECT * FROM Stocklist");
 
-			while (result.next()) {
+			while (ResultStocklist.next()) {
 				Stocklist sl = new Stocklist();
-				sl.setId(result.getInt("Id"));
-				sl.setName(result.getString("Name"));
-				sl.setCreationDate(result.getTimestamp("Creationdate"));
-				sl.setLastModified(result.getTimestamp("LastModified"));
-				sl.setModifier(result.getInt("Modifier"));
+				sl.setId(ResultStocklist.getInt("Id"));
+				sl.setName(ResultStocklist.getString("Name"));
+				sl.setCreationDate(ResultStocklist.getTimestamp("Creationdate"));
+				sl.setLastModified(ResultStocklist.getTimestamp("LastModified"));
+				sl.setModifier(ResultStocklist.getInt("Modifier"));
 
-				boolean hasComponentGroups = false;
+				// Load all ComponentGroups
+				Statement StatementStocklistComponentGroup = con.createStatement();
+				ResultSet ResultStocklistComponentGroup = StatementStocklistComponentGroup
+						.executeQuery("SELECT * From StocklistComponentgroup JOIN Componentgroup ON StocklistComponentgroup.StocklistComponentgroupid = Componentgroup.Id WHERE StocklistComponentgroup.Stocklistid =  '"
+								+ sl.getId() + "'");
+				while (ResultStocklistComponentGroup.next()) {
+					ComponentGroup cg = new ComponentGroup();
+					cg.setId(ResultStocklistComponentGroup.getInt("Id"));
+					cg.setComponentGroupName(ResultStocklistComponentGroup.getString("Name"));
+					cg.setCreationDate(ResultStocklistComponentGroup.getTimestamp("Creationdate"));
+					cg.setModificationDate(ResultStocklistComponentGroup.getTimestamp("LastModified"));
+					cg.setModifier(ResultStocklistComponentGroup.getInt("Modifier"));
 
+					boolean hasRelations = false;
+
+					try {
+						Statement s2 = con.createStatement();
+						ResultSet result2 = s2
+								.executeQuery("SELECT * FROM ComponenGroupRelations WHERE ComponentGroupID = '"
+										+ cg.getId() + "'");
+
+						while (result2.next()) {
+							hasRelations = true;
+							break;
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+
+					if (hasRelations)
+						cg = FillComponentGroupRelations(cg);
+					sl.addComponentGroup(cg, ResultStocklistComponentGroup.getInt("Amount"));
+
+				}
+
+				// get all sub Components
 				try {
-					Statement s2 = con.createStatement();
-					ResultSet result2 = s2
-							.executeQuery("SELECT * FROM `StocklistComponentgroup`  WHERE Stocklistid = '"
+					Statement StatementStocklistComponents = con.createStatement();
+					ResultSet ResultsStocklistComponent = StatementStocklistComponents
+							.executeQuery("SELECT * From StocklistComponent JOIN Component ON StocklistComponent.Componentid = Component.Id WHERE StocklistComponent.Stocklistid =  '"
 									+ sl.getId() + "'");
 
-					while (result2.next()) {
-						hasComponentGroups = true;
-						continue;
+					while (ResultsStocklistComponent.next()) {
+						Component c = new Component();
+						c.setId(ResultsStocklistComponent.getInt("Component.Id"));
+						c.setName(ResultsStocklistComponent.getString("Component.Name"));
+						c.setDescription(ResultsStocklistComponent.getString("Component.Description"));
+						c.setMaterialDescription(ResultsStocklistComponent.getString("Component.Materialdescription"));
+						c.setModifier(ResultsStocklistComponent.getInt("Component.Modifier"));
+						c.setCreationdate(ResultsStocklistComponent.getTimestamp("Component.Creationdate"));
+						c.setLastModified(ResultsStocklistComponent.getTimestamp("Component.LastModified"));
+
+						sl.addComponent(c, ResultsStocklistComponent.getInt("Amount"));
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-
-				if (hasComponentGroups)
-					sl = FillComponentGroupRelations(sl);
-				
-				
-
-				boolean hasComponents = false;
-
-				try {
-					Statement s3 = con.createStatement();
-					ResultSet result3 = s3
-							.executeQuery("SELECT * FROM `StocklistComponent`  WHERE Stocklistid = '"
-									+ sl.getId() + "'");
-
-					while (result3.next()) {
-						hasComponents = true;
-						continue;
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
-				if (hasComponents)
-					sl = FillComponentRelations(sl);
 
 				resultList.add(sl);
 			}
@@ -156,14 +174,234 @@ public class StocklistMapper {
 		return resultList;
 	}
 
-	private Stocklist FillComponentRelations(Stocklist sl) {
-		// TODO Auto-generated method stub
-		return sl;
+	private ComponentGroup FillComponentGroupRelations(ComponentGroup cgToEdit) {
+		Connection con = DatebaseConnection.connection();
+
+		// get all sub Groups
+		try {
+			Statement state = con.createStatement();
+			ResultSet result = state
+					.executeQuery("SELECT * From ComponenGroupRelations JOIN Componentgroup ON ComponenGroupRelations.ComponentGroupID2 = Componentgroup.Id WHERE ComponenGroupRelations.Tag='G' AND ComponenGroupRelations.ComponentGroupID = '"
+							+ cgToEdit.getId() + "'");
+
+			while (result.next()) {
+				ComponentGroup cg = new ComponentGroup();
+				cg.setId(result.getInt("ComponenGroupRelations.ComponentGroupID2"));
+				cg.setComponentGroupName(result.getString("Componentgroup.Name"));
+				cg.setCreationDate(result.getTimestamp("Componentgroup.Creationdate"));
+				cg.setModificationDate(result.getTimestamp("Componentgroup.LastModified"));
+				cg.setModifier(result.getInt("Componentgroup.Modifier"));
+
+				boolean hasRelations = false;
+
+				try {
+					Statement s2 = con.createStatement();
+					ResultSet result2 = s2
+							.executeQuery("SELECT * FROM ComponenGroupRelations WHERE ComponentGroupID = '"
+									+ cg.getId() + "'");
+
+					while (result2.next()) {
+						hasRelations = true;
+						continue;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				if (hasRelations)
+					cg = FillComponentGroupRelations(cg);
+
+				cgToEdit.addComponentGroup(cg, result.getInt("Amount"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// get all sub Components
+		try {
+			Statement state = con.createStatement();
+			ResultSet result = state
+					.executeQuery("SELECT * From ComponenGroupRelations JOIN Component ON ComponenGroupRelations.ComponentId = Component.Id WHERE ComponenGroupRelations.Tag='C' AND ComponenGroupRelations.ComponentGroupID =  '"
+							+ cgToEdit.getId() + "'");
+
+			while (result.next()) {
+				Component c = new Component();
+				c.setId(result.getInt("Component.Id"));
+				c.setName(result.getString("Component.Name"));
+				c.setDescription(result.getString("Component.Description"));
+				c.setMaterialDescription(result.getString("Component.Materialdescription"));
+				c.setModifier(result.getInt("Component.Modifier"));
+				c.setCreationdate(result.getTimestamp("Component.Creationdate"));
+				c.setLastModified(result.getTimestamp("Component.LastModified"));
+
+				cgToEdit.addComponent(c, result.getInt("Amount"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cgToEdit;
 	}
 
-	private Stocklist FillComponentGroupRelations(Stocklist sl) {
-		// TODO Auto-generated method stub
-		return sl;
+	public void updateStockList(Stocklist newStocklist) {
+		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement state = con.createStatement();
+
+			state.execute("UPDATE `db_sms`.`Stocklist` SET `Name` = '" + newStocklist.getName() + "', `Modifier` = '"
+					+ newStocklist.getModifier() + "',LastModified='" + DateHelperClass.getCurrentTime()
+					+ "' WHERE `Stocklist`.`Id` = " + newStocklist.getId() + ";");
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
 	}
 
+	public void updateAmountOfStocklistComponentGrouElement(Stocklist newStocklist, ComponentGroup original,
+			Integer amount) {
+		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement state = con.createStatement();
+
+			state.execute("UPDATE `db_sms`.`StocklistComponentgroup` SET `Amount` = '" + amount
+					+ "' WHERE `StocklistComponentgroup`.`StocklistComponentgroupid` = " + original.getId()
+					+ " AND `StocklistComponentgroup`.`Stocklistid` = " + newStocklist.getId() + ";");
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void updateAmountOfStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
+			Integer amount) {
+		Connection con = DatebaseConnection.connection();
+
+		try {
+
+			Statement state = con.createStatement();
+
+			state.execute("UPDATE `db_sms`.`StocklistComponent` SET `Amount` = '" + amount
+					+ "' WHERE `StocklistComponent`.`Componentid` = " + originalComponent.getId()
+					+ " AND `StocklistComponent`.`Stocklistid` = " + newStocklist.getId() + ";");
+			System.out.println("UPDATE `db_sms`.`StocklistComponent` SET `Amount` = '" + amount
+					+ "' WHERE `StocklistComponent`.`Componentid` = " + originalComponent.getId()
+					+ " AND `StocklistComponent`.`Stocklistid` = " + newStocklist.getId() + ";");
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void insertComponentGroupToSocklist(Stocklist newStocklist,
+			ComponentGroup newStockListComponentGroupToInsert, Integer amount) {
+		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement state = con.createStatement();
+			System.out
+			.println("INSERT INTO `db_sms`.`StocklistComponentgroup` (`StocklistComponentgroupid`, `Stocklistid`, `Amount`) VALUES ('"
+					+ newStockListComponentGroupToInsert.getId()
+					+ "', '"
+					+ newStocklist.getId()
+					+ "', '"
+					+ amount + "');");
+			state.execute("INSERT INTO `db_sms`.`StocklistComponentgroup` (`StocklistComponentgroupid`, `Stocklistid`, `Amount`) VALUES ('"
+					+ newStockListComponentGroupToInsert.getId()
+					+ "', '"
+					+ newStocklist.getId()
+					+ "', '"
+					+ amount + "');");
+			
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void insertComponentToStocklist(Stocklist newStocklist, Component newStockListComponentToInsert,
+			Integer amount) {
+		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement state = con.createStatement();
+			state.execute("INSERT INTO `db_sms`.`StocklistComponent` (`Componentid`, `Stocklistid`, `Amount`) VALUES ('"
+					+newStockListComponentToInsert.getId()
+					+"', '"
+					+newStocklist.getId()
+					+"', '"
+					+amount 
+					+"'); ");
+			
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+	}
+
+	public void deleteStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
+			Integer integer) {
+		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement state = con.createStatement();
+	
+			state.execute("DELETE FROM `db_sms`.`StocklistComponent` WHERE `StocklistComponent`.`Componentid` = "
+					+originalComponent.getId()
+					+" AND `StocklistComponent`.`Stocklistid` = '"
+					+ newStocklist.getId()
+					+"'");
+			
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	public void deleteStockListComponentGroupElement(Stocklist newStocklist, ComponentGroup originalComponentGroup,
+			Integer integer) {
+		Connection con = DatebaseConnection.connection();
+		try {
+
+			Statement state = con.createStatement();
+	
+			state.execute("DELETE FROM `db_sms`.`StocklistComponentgroup` WHERE `StocklistComponentgroup`.`StocklistComponentgroupid` = "
+					+originalComponentGroup.getId()
+					+" AND `StocklistComponentgroup`.`Stocklistid` = '"
+					+ newStocklist.getId()
+					+"'");
+			
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+	}
 }

@@ -18,13 +18,13 @@ public class DatebaseConnection {
 			try {
 				DriverManager.registerDriver(new AppEngineDriver());
 
-//				con = DriverManager.getConnection(
-//						"jdbc:mysql://85.214.149.12:3306/db_sms", "smshdm",
-//						"hdmitpj");
+				con = DriverManager.getConnection(
+						"jdbc:mysql://85.214.149.12:3306/db_sms", "smshdm",
+						"hdmitpj");
 
-				 con =
-				 DriverManager.getConnection("jdbc:google:rdbms://stuecklistenmanagementsystem:hdmitpjsms/db_sms",
-				 "root", ""); // Create connection with user-credentials
+//				 con =
+//				 DriverManager.getConnection("jdbc:google:rdbms://stuecklistenmanagementsystem:hdmitpjsms/db_sms",
+//				 "root", ""); // Create connection with user-credentials
 			}
 
 			catch (SQLException e1) {
