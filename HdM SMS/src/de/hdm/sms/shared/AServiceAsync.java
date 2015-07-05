@@ -96,5 +96,8 @@ public interface AServiceAsync {
 	void deleteStockListComponentGroupElement(Stocklist newStocklist, ComponentGroup originalComponentGroup,
 			Integer integer, AsyncCallback doNothingAsyncCallback);
 
+	void checkRelationsOfComponent(int tempId,
+			AsyncCallback<String> asyncCallback);
+
 
 }

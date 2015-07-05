@@ -244,4 +244,11 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 				integer);
 		
 	}
+
+	@Override
+	public String checkRelationsOfComponent(int tempId) {
+		String relation = null;
+		relation = cMapper.checkRelationsOfComponent(tempId);
+		return relation;
+	}
 }

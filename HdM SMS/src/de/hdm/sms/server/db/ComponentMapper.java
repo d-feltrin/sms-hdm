@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.PreparedStatement.ParseInfo;
+
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.User;
@@ -178,4 +180,48 @@ public class ComponentMapper {
 		return u;
 	}
 
+	public String checkRelationsOfComponent(int tempId) {
+		Connection con = DatebaseConnection.connection();
+
+		String relation = null;
+
+		try {
+
+			Statement state = con.createStatement();
+			ResultSet rs = state
+					.executeQuery("SELECT * From ComponenGroupRelations INNER JOIN Component ON Component.Id = ComponenGroupRelations.ComponentId INNER JOIN Componentgroup ON ComponenGroupRelations.ComponentGroupID = Componentgroup.Id WHERE ComponenGroupRelations.ComponentId =  '"
+							+ tempId + "';");
+
+			while (rs.next()) {
+				relation = "Componentgroup "
+						+ rs.getString("Componentgroup.Name");
+				break;
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+
+			Statement state2 = con.createStatement();
+			if (relation == null) {
+				ResultSet rs2 = state2
+						.executeQuery("SELECT * FROM StocklistComponent INNER JOIN Component ON StocklistComponent.Componentid = Component.Id INNER JOIN Stocklist ON StocklistComponent.Stocklistid = Stocklist.Id WHERE Component.Id = '"+tempId+"';");
+
+				while (rs2.next()) {
+					relation = "Stückliste "
+							+ rs2.getString("Stocklist.Name");
+					break;
+
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return relation;
+	}
 }

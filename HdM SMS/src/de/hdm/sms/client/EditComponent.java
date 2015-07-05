@@ -263,11 +263,35 @@ public class EditComponent extends VerticalPanel {
 								// ClickHandler of the DeleteButton
 								deleteComponentButton
 										.addClickHandler(new ClickHandler() {
+											int tempId = Integer
+													.parseInt(idOfComponentString);
 
 											@Override
 											public void onClick(ClickEvent event) {
-												deleteComponent(Integer
-														.parseInt(idOfComponentString));
+												asyncObj.checkRelationsOfComponent(
+														tempId,
+														new AsyncCallback<String>() {
+
+															@Override
+															public void onFailure(
+																	Throwable caught) {
+																// TODO
+																// Auto-generated
+																// method stub
+
+															}
+
+															@Override
+															public void onSuccess(
+																	String result) {
+																if (result != null) {
+																	Window.alert("Bauteil hat noch Beziehungen in "+result + " und kann nicht gelöscht werden");
+																} else {
+																	deleteComponent(tempId);
+																}
+															}
+														});
+												
 
 											}
 										});
