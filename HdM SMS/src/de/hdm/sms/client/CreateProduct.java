@@ -158,7 +158,7 @@ public class CreateProduct extends VerticalPanel {
 					Window.alert("Bitte Produktnamen eingeben");
 				} else {
 
-					p.setComponentId(Integer
+					p.setComponentGroupId(Integer
 							.parseInt(getIDbyDropDownText(selectedComponentGroup)));
 					p.setProductName(productName.getText());
 					p.setModifier(u.getId());
