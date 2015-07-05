@@ -183,7 +183,7 @@ public class StructureStocklist extends VerticalPanel {
 			componentGroupItemText += stocklist_.getComponentGroupList().get(j).getComponentGroupName();
 			componenGroupitem.setText(componentGroupItemText);
 			componenGroupitem.setTitle("BG" + stocklist_.getComponentGroupList().get(j).getId());
-			componenGroupitem = fillTreeItem(componenGroupitem, stocklist_.getComponentGroupList().get(j),1);
+			componenGroupitem = fillTreeItem(componenGroupitem, stocklist_.getComponentGroupList().get(j),stocklist_.getAmountListOfComponentGroup().get(j));
 			rootTreeItem.addItem(componenGroupitem);
 		}
 
@@ -213,6 +213,7 @@ public class StructureStocklist extends VerticalPanel {
 		for (int i = 0; i < cg.getComponentList().size(); i++) {
 			TreeItem componenItem = new TreeItem();
 			String item = "BT - ";
+						
 			item +=  (cg.getAmountListOfComponent().get(i).intValue() * amount);
 			item += "x - ";
 			item += cg.getComponentList().get(i).getName();

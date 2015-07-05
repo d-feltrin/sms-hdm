@@ -312,13 +312,6 @@ public class StocklistMapper {
 		try {
 
 			Statement state = con.createStatement();
-			System.out
-			.println("INSERT INTO `db_sms`.`StocklistComponentgroup` (`StocklistComponentgroupid`, `Stocklistid`, `Amount`) VALUES ('"
-					+ newStockListComponentGroupToInsert.getId()
-					+ "', '"
-					+ newStocklist.getId()
-					+ "', '"
-					+ amount + "');");
 			state.execute("INSERT INTO `db_sms`.`StocklistComponentgroup` (`StocklistComponentgroupid`, `Stocklistid`, `Amount`) VALUES ('"
 					+ newStockListComponentGroupToInsert.getId()
 					+ "', '"

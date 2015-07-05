@@ -452,7 +452,7 @@ public class ComponentGroupMapper {
 			Statement state2 = con.createStatement();
 			if (relation == null) {
 				ResultSet rs2 = state2
-						.executeQuery("SELECT * FROM StocklistComponentgroup INNER JOIN Componentgroup ON StocklistComponentgroup.StocklistComponentgroupid INNER JOIN Stocklist ON StocklistComponentgroup.Stocklistid = Stocklist.Id WHERE StocklistComponentgroup.StocklistComponentgroupid = "+26+"';");
+						.executeQuery("SELECT * FROM StocklistComponentgroup INNER JOIN Componentgroup ON StocklistComponentgroup.StocklistComponentgroupid INNER JOIN Stocklist ON StocklistComponentgroup.Stocklistid = Stocklist.Id WHERE StocklistComponentgroup.StocklistComponentgroupid = '"+tempId+"';");
 
 				while (rs2.next()) {
 					relation = "Stückliste " + rs2.getString("Stocklist.Name");
