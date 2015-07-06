@@ -44,7 +44,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			else {
 				User = new de.hdm.sms.shared.bo.User();
 				User.seteMailAdress(loginInfo.getEmailAddress());
-				userMapper.insertUser(User);
+//				userMapper.insertUser(User);
 				loginInfo.setUser(userMapper.
 						getOneUserIdByEmailAdress(loginInfo.getEmailAddress()));
 			}

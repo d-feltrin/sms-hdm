@@ -5,13 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
+
 import de.hdm.sms.server.db.DatebaseConnection;
 import de.hdm.sms.shared.bo.User;
 
 public class UserMapper {
 	private static UserMapper userMapper = null;
-	public Connection con = DatebaseConnection.connection();
-
 	protected UserMapper() {
 
 	}
@@ -39,6 +40,9 @@ public class UserMapper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			DatebaseConnection.release(con);
+		}
 	}
 
 	public ArrayList<User> loadAllUsers() {
@@ -61,11 +65,14 @@ public class UserMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally{
+			DatebaseConnection.release(con);
+		}
 		return resultList;
 	}
 
 	public User getOneUserIdByEmailAdress(String selectedUser) {
-
+		
 		Connection con = DatebaseConnection.connection();
 
 		User u = new User();
@@ -82,12 +89,16 @@ public class UserMapper {
 				u.setFirstName(rs.getString("Firstname"));
 				u.setLastName(rs.getString("Lastname"));
 				u.seteMailAdress(rs.getString("EmailAdress"));
-
 			}
+			rs.close();
+			state.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 
+		}
+		finally{
+			DatebaseConnection.release(con);
 		}
 
 		return u;
@@ -148,6 +159,10 @@ public class UserMapper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+
+			DatebaseConnection.release(con);
+		
 
 	}
 
@@ -169,6 +184,7 @@ public class UserMapper {
 
 		}
 
+		DatebaseConnection.release(con);
 	}
 
 	public User getOneUserById(int tempUserId) {
@@ -196,6 +212,7 @@ public class UserMapper {
 
 		}
 
+		DatebaseConnection.release(con);
 		return u;
 
 	}

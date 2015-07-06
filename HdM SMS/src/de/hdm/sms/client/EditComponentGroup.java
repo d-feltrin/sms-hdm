@@ -119,7 +119,6 @@ public class EditComponentGroup extends VerticalPanel {
 	public void onLoad() {
 
 		// Load
-
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		OriginalComponentGroupToEdit.setModifier(u.getId());
 

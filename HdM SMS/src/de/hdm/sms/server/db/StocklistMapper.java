@@ -16,7 +16,6 @@ import de.hdm.sms.shared.bo.Stocklist;
 public class StocklistMapper {
 
 	private static StocklistMapper stocklistMapper = null;
-	public Connection con = DatebaseConnection.connection();
 
 	protected StocklistMapper() {
 
@@ -90,6 +89,8 @@ public class StocklistMapper {
 			e.printStackTrace();
 
 		}
+
+		DatebaseConnection.release(con);
 	}
 
 	public ArrayList<Stocklist> loadAllStocklistsIncludingRelations() {
@@ -171,6 +172,8 @@ public class StocklistMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		DatebaseConnection.release(con);
 		return resultList;
 	}
 
@@ -240,6 +243,7 @@ public class StocklistMapper {
 			e.printStackTrace();
 		}
 
+		DatebaseConnection.release(con);
 		return cgToEdit;
 	}
 
@@ -260,6 +264,7 @@ public class StocklistMapper {
 
 		}
 
+		DatebaseConnection.release(con);
 	}
 
 	public void updateAmountOfStocklistComponentGrouElement(Stocklist newStocklist, ComponentGroup original,
@@ -280,6 +285,7 @@ public class StocklistMapper {
 
 		}
 
+		DatebaseConnection.release(con);
 	}
 
 	public void updateAmountOfStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
@@ -293,9 +299,7 @@ public class StocklistMapper {
 			state.execute("UPDATE `db_sms`.`StocklistComponent` SET `Amount` = '" + amount
 					+ "' WHERE `StocklistComponent`.`Componentid` = " + originalComponent.getId()
 					+ " AND `StocklistComponent`.`Stocklistid` = " + newStocklist.getId() + ";");
-			System.out.println("UPDATE `db_sms`.`StocklistComponent` SET `Amount` = '" + amount
-					+ "' WHERE `StocklistComponent`.`Componentid` = " + originalComponent.getId()
-					+ " AND `StocklistComponent`.`Stocklistid` = " + newStocklist.getId() + ";");
+			
 
 			state.close();
 
@@ -304,6 +308,7 @@ public class StocklistMapper {
 
 		}
 
+		DatebaseConnection.release(con);
 	}
 
 	public void insertComponentGroupToSocklist(Stocklist newStocklist,
@@ -327,6 +332,7 @@ public class StocklistMapper {
 
 		}
 
+		DatebaseConnection.release(con);
 	}
 
 	public void insertComponentToStocklist(Stocklist newStocklist, Component newStockListComponentToInsert,
@@ -350,7 +356,8 @@ public class StocklistMapper {
 			e.printStackTrace();
 
 		}
-		
+
+		DatebaseConnection.release(con);
 	}
 
 	public void deleteStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
@@ -373,6 +380,7 @@ public class StocklistMapper {
 			e.printStackTrace();
 
 		}
+		DatebaseConnection.release(con);
 	}
 
 	public void deleteStockListComponentGroupElement(Stocklist newStocklist, ComponentGroup originalComponentGroup,
@@ -395,6 +403,7 @@ public class StocklistMapper {
 			e.printStackTrace();
 
 		}
-		
+
+		DatebaseConnection.release(con);
 	}
 }

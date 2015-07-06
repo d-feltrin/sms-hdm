@@ -13,7 +13,6 @@ import de.hdm.sms.shared.bo.User;
 
 public class ComponentMapper {
 	private static ComponentMapper componentMapper = null;
-	public Connection con = DatebaseConnection.connection();
 
 	protected ComponentMapper() {
 
@@ -51,6 +50,7 @@ public class ComponentMapper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		DatebaseConnection.release(con);
 	}
 
 	public ArrayList<Component> loadAllComponents() {
@@ -76,6 +76,7 @@ public class ComponentMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		DatebaseConnection.release(con);
 		return resultList;
 	}
 
@@ -108,6 +109,7 @@ public class ComponentMapper {
 
 		}
 
+		DatebaseConnection.release(con);
 		return c;
 
 	}
@@ -126,6 +128,7 @@ public class ComponentMapper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		DatebaseConnection.release(con);
 
 	}
 
@@ -149,6 +152,7 @@ public class ComponentMapper {
 			e.printStackTrace();
 
 		}
+		DatebaseConnection.release(con);
 	}
 
 	public User getLastMofierOfComponentById(Component c) {
@@ -176,6 +180,7 @@ public class ComponentMapper {
 			e.printStackTrace();
 		}
 
+		DatebaseConnection.release(con);
 		return u;
 	}
 
@@ -221,6 +226,7 @@ public class ComponentMapper {
 			e.printStackTrace();
 		}
 
+		DatebaseConnection.release(con);
 		return relation;
 	}
 }

@@ -12,7 +12,6 @@ import de.hdm.sms.shared.bo.User;
 
 public class ProductMapper {
 	private static ProductMapper productmapper = null;
-	public Connection con = DatebaseConnection.connection();
 
 	protected ProductMapper() {
 
@@ -47,6 +46,7 @@ public class ProductMapper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		DatebaseConnection.release(con);
 	}
 
 	public ArrayList<Product> loadAllProducts() {
@@ -69,6 +69,7 @@ public class ProductMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		DatebaseConnection.release(con);
 		return resultList;
 	}
 
@@ -99,6 +100,7 @@ public class ProductMapper {
 			e.printStackTrace();
 		}
 
+		DatebaseConnection.release(con);
 		return p;
 	}
 
@@ -127,6 +129,7 @@ public class ProductMapper {
 			e.printStackTrace();
 		}
 
+		DatebaseConnection.release(con);
 		return u;
 	}
 
@@ -148,6 +151,7 @@ public class ProductMapper {
 			e.printStackTrace();
 
 		}
+		DatebaseConnection.release(con);
 	}
 
 	public void deleteProduct(Product p) {
@@ -165,6 +169,7 @@ public class ProductMapper {
 			e.printStackTrace();
 		}
 
+		DatebaseConnection.release(con);
 		
 	}
 
