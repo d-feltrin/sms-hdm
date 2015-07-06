@@ -32,7 +32,7 @@ public class HdM_SMS extends VerticalPanel implements EntryPoint {
 	private VerticalPanel loginPanel = new VerticalPanel();
 
 	private Label loginLabel = new Label(
-			"Bitte melden Sie sich mit ihrem Google Account an, um Zugang zur Applikation zu bekommen. Falls Sie noch keinen Benutzeraccount haben, benutzern Sie bitte den Button Registrieren um einen zu erstellen.");
+			"Bitte melden Sie sich mit ihrem Google Account an, um Zugang zur Applikation zu bekommen.");
 
 	private Anchor signInLink = new Anchor("Anmelden");
 	private Anchor signOutLink = new Anchor("Abmelden");

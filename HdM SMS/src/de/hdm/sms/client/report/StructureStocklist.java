@@ -40,7 +40,7 @@ public class StructureStocklist extends VerticalPanel {
 	private final ListBox listboxListOfStocklistsToEdit = new ListBox();
 	private final Button buttonEditStocklist = new Button("Editieren");
 
-	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy hh:mm:ss");
+	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 
 	Tree tree = new Tree();
 	TreeItem rootTreeItem = new TreeItem();
@@ -128,18 +128,18 @@ public class StructureStocklist extends VerticalPanel {
 	private void LoadStocklistToEdit(Stocklist stocklist_) {
 		RootPanel.get("rightside").clear();
 
-		HorizontalPanel PanelSLInfo_Name = new HorizontalPanel();
+		VerticalPanel PanelSLInfo_Name = new VerticalPanel();
 		PanelSLInfo_Name.add(new Label("Name:"));
 		PanelSLInfo_Name.add(new Label(stocklist_.getName()));
 		RootPanel.get("rightside").add(PanelSLInfo_Name);
 
-		HorizontalPanel PanelSLInfo_CreeationDate = new HorizontalPanel();
-		PanelSLInfo_CreeationDate.add(new Label("Creationdate:"));
+		VerticalPanel PanelSLInfo_CreeationDate = new VerticalPanel();
+		PanelSLInfo_CreeationDate.add(new Label("Erstellungsdatum:"));
 		PanelSLInfo_CreeationDate.add(new Label(dF.format(stocklist_.getCreationDate())));
 		RootPanel.get("rightside").add(PanelSLInfo_CreeationDate);
 
-		HorizontalPanel PanelSLInfo_LastEditor = new HorizontalPanel();
-		PanelSLInfo_LastEditor.add(new Label("Modifier:"));
+		VerticalPanel PanelSLInfo_LastEditor = new VerticalPanel();
+		PanelSLInfo_LastEditor.add(new Label("Letzter Bearbeiter:"));
 		String lastModifier = "Unknown";
 		for (User user : allUsers) {
 			if (user.getId() == stocklist_.getModifier()) {

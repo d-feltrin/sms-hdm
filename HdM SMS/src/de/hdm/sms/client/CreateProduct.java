@@ -25,9 +25,9 @@ import de.hdm.sms.shared.bo.User;
 
 public class CreateProduct extends VerticalPanel {
 
-	private Label nameLabel = new Label("Produktname");
+	private Label nameLabel = new Label("Enderzeugnisname");
 	private Label componentGroupLabel = new Label(
-			"Enderzeugnis zur Zuordnung ausw√§hlen");
+			"Enderzeugnis zur Zuordnung ausw‰hlen");
 	private ListBox listOfComponentGroups = new ListBox();
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
 	private User u = new User();
@@ -35,7 +35,7 @@ public class CreateProduct extends VerticalPanel {
 	private LoginInfo loginInfo;
 	private VerticalPanel contentPanel = new VerticalPanel();
 	private TextBox productName = new TextBox();
-	private Button createProductButton = new Button("Produkt anlegen");
+	private Button createProductButton = new Button("Enderzeugnis anlegen");
 	private String selectedComponentGroup;
 
 	// Der Konstruktor von @CreateProduct
@@ -134,7 +134,7 @@ public class CreateProduct extends VerticalPanel {
 
 	}
 
-	//Load
+	// Load
 	public void onLoad() {
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 
@@ -149,13 +149,13 @@ public class CreateProduct extends VerticalPanel {
 			}
 		});
 
-		//ClickHandler to Create Product
+		// ClickHandler to Create Product
 		createProductButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				if (productName.getValue().isEmpty()) {
-					Window.alert("Bitte Produktnamen eingeben");
+					Window.alert("Bitte Enderzeugnisnamen eingeben");
 				} else {
 
 					p.setComponentGroupId(Integer
@@ -166,13 +166,13 @@ public class CreateProduct extends VerticalPanel {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Fehler beim speichern des Produkts");
+							Window.alert("Fehler beim speichern des Enderzeugnisses");
 
 						}
 
 						@Override
 						public void onSuccess(Void result) {
-							Window.alert("Produkt erfolgreich angelegt");
+							Window.alert("Enderzeugnis erfolgreich angelegt");
 							RootPanel.get("rightside").clear();
 
 						}
