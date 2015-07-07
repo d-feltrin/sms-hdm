@@ -26,10 +26,12 @@ public class MaterialResource extends VerticalPanel {
 	private ArrayList<Product> allProducts = new ArrayList<Product>();
 
 	private ArrayList<Component> allComponents = new ArrayList<Component>();
-	//private ArrayList<Integer> amountListOfComponent = new ArrayList<Integer>();
+	// private ArrayList<Integer> amountListOfComponent = new
+	// ArrayList<Integer>();
 
 	private ArrayList<ComponentGroup> allComponentGroups = new ArrayList<ComponentGroup>();
-//	private ArrayList<Integer> amountListOfComponentGroup = new ArrayList<Integer>();
+	// private ArrayList<Integer> amountListOfComponentGroup = new
+	// ArrayList<Integer>();
 
 	private ArrayList<Component> allComponentsOfProduct = new ArrayList<Component>();
 	private ArrayList<Integer> amountComponentsOfProduct = new ArrayList<Integer>();
@@ -39,7 +41,8 @@ public class MaterialResource extends VerticalPanel {
 	private VerticalPanel PanelToGenerateProductResources = new VerticalPanel();
 	private ListBox ListBoxOfChoseableProducts = new ListBox();
 	private TextBox textBoxAmountOfChosenProducts = new TextBox();
-	private Button buttonToGenerateReport = new Button("Materialbedarf berechnen");
+	private Button buttonToGenerateReport = new Button(
+			"Materialbedarf berechnen");
 
 	// Load
 	public void onLoad() {
@@ -47,7 +50,8 @@ public class MaterialResource extends VerticalPanel {
 		loadComponentsANDComponentGroup();
 		// RootPanel Matching
 		RootPanel.get("rightside").clear();
-		PanelToGenerateProductResources.add(new Label("Produkt zur Materialbedarfsrechnung ausw√§hlen"));
+		PanelToGenerateProductResources.add(new Label(
+				"Produkt zur Materialbedarfsrechnung ausw‰hlen"));
 		PanelToGenerateProductResources.add(ListBoxOfChoseableProducts);
 		PanelToGenerateProductResources.add(new Label("Anzahl eingeben"));
 		PanelToGenerateProductResources.add(textBoxAmountOfChosenProducts);
@@ -60,12 +64,17 @@ public class MaterialResource extends VerticalPanel {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (ListBoxOfChoseableProducts.getItemText(ListBoxOfChoseableProducts.getSelectedIndex()).equals("---"))
+				if (ListBoxOfChoseableProducts.getItemText(
+						ListBoxOfChoseableProducts.getSelectedIndex()).equals(
+						"---")) {
 					Window.alert("Bitte ein gueltiges Produkt auswaehlen");
-				else {
+				} else if (textBoxAmountOfChosenProducts.getValue().isEmpty()) {
+					Window.alert("Bitte eine Anzahl eingeben");
+				} else {
 					// get selected Item
 					int IdOfSelectedItem = getIdFromProduct(ListBoxOfChoseableProducts
-							.getItemText(ListBoxOfChoseableProducts.getSelectedIndex()));
+							.getItemText(ListBoxOfChoseableProducts
+									.getSelectedIndex()));
 					for (Product product : allProducts) {
 
 						if (product.getId() == IdOfSelectedItem) {
@@ -84,22 +93,21 @@ public class MaterialResource extends VerticalPanel {
 
 	private void LoadProductlistToGenerateResources(Product product_) {
 		RootPanel.get("rightside").clear();
-		int amountOfProduct = Integer.valueOf(textBoxAmountOfChosenProducts.getText());
+		int amountOfProduct = Integer.valueOf(textBoxAmountOfChosenProducts
+				.getText());
 
 		VerticalPanel PanelProductInfo_Name = new VerticalPanel();
 		PanelProductInfo_Name.add(new Label("Produkt:"));
 		PanelProductInfo_Name.add(new Label(product_.getProductName()));
 
 		RootPanel.get("rightside").add(PanelProductInfo_Name);
-		
-		
+
 		VerticalPanel PanelProductInfo_Anzahl = new VerticalPanel();
 		PanelProductInfo_Anzahl.add(new Label("Anzahl:"));
 		PanelProductInfo_Anzahl.add(new Label(String.valueOf(amountOfProduct)));
 
 		RootPanel.get("rightside").add(PanelProductInfo_Anzahl);
-		
-				
+
 		ComponentGroup componentGrouToCalcResources = null;
 		for (ComponentGroup componentgroup : allComponentGroups) {
 			if (componentgroup.getId() == product_.getComponentGroupId()) {
@@ -109,7 +117,8 @@ public class MaterialResource extends VerticalPanel {
 		}
 
 		// Add all ComponentGroups
-		loadAllComponentsOfComponentGroup(componentGrouToCalcResources, amountOfProduct);
+		loadAllComponentsOfComponentGroup(componentGrouToCalcResources,
+				amountOfProduct);
 
 		ArrayList<Component> newListOfAggregatedComponents = new ArrayList<Component>();
 		ArrayList<Integer> newListOfAggregatedComponentsAmount = new ArrayList<Integer>();
@@ -120,7 +129,8 @@ public class MaterialResource extends VerticalPanel {
 			boolean isAlreadyInList = false;
 			int listId = -1;
 			for (int j = 0; j < newListOfAggregatedComponents.size(); j++) {
-				if (newListOfAggregatedComponents.get(j).getId() == component.getId()) {
+				if (newListOfAggregatedComponents.get(j).getId() == component
+						.getId()) {
 					isAlreadyInList = true;
 					listId = j;
 				}
@@ -132,7 +142,8 @@ public class MaterialResource extends VerticalPanel {
 				newListOfAggregatedComponentsAmount.set(listId, newAmount);
 			} else {
 				newListOfAggregatedComponents.add(component);
-				newListOfAggregatedComponentsAmount.add(amountComponentsOfProduct.get(i));
+				newListOfAggregatedComponentsAmount
+						.add(amountComponentsOfProduct.get(i));
 			}
 
 		}
@@ -143,7 +154,8 @@ public class MaterialResource extends VerticalPanel {
 
 		for (int j = 0; j < newListOfAggregatedComponents.size(); j++) {
 			int rowNumToInsert = flextableComponentsInProduct.getRowCount();
-			flextableComponentsInProduct.setText(rowNumToInsert, 0, newListOfAggregatedComponents.get(j).getName());
+			flextableComponentsInProduct.setText(rowNumToInsert, 0,
+					newListOfAggregatedComponents.get(j).getName());
 			flextableComponentsInProduct.setText(rowNumToInsert, 1,
 					String.valueOf(newListOfAggregatedComponentsAmount.get(j)));
 		}
@@ -155,12 +167,14 @@ public class MaterialResource extends VerticalPanel {
 		// Add All Components To List
 		for (int i = 0; i < cg.getComponentList().size(); i++) {
 			this.allComponentsOfProduct.add(cg.getComponentList().get(i));
-			this.amountComponentsOfProduct.add(cg.getAmountListOfComponent().get(i) * amount);
+			this.amountComponentsOfProduct.add(cg.getAmountListOfComponent()
+					.get(i) * amount);
 		}
 
 		for (int i = 0; i < cg.getComponentgroupList().size(); i++) {
-			loadAllComponentsOfComponentGroup(cg.getComponentgroupList().get(i), amount
-					* cg.getAmountListOfComponentGroup().get(i));
+			loadAllComponentsOfComponentGroup(
+					cg.getComponentgroupList().get(i), amount
+							* cg.getAmountListOfComponentGroup().get(i));
 		}
 
 	}
@@ -179,7 +193,8 @@ public class MaterialResource extends VerticalPanel {
 			@Override
 			public void onSuccess(ArrayList<Product> result) {
 				for (int i = 0; i < result.size(); i++) {
-					ListBoxOfChoseableProducts.addItem(" - " + result.get(i).getId() + ":"
+					ListBoxOfChoseableProducts.addItem(" - "
+							+ result.get(i).getId() + ":"
 							+ result.get(i).getProductName());
 					allProducts.add(result.get(i));
 				}

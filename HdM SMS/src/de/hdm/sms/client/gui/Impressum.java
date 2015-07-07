@@ -13,7 +13,7 @@ public class Impressum extends VerticalPanel {
 			+ "Stuecklistenmanagementsystem<br>"
 			+ "Hochschule der Medien Stuttgart<br>"
 			+ "Gruppe 06<br>"
-			+ "Vivian Dimitriu (27934) <br> Carolin Elsner (27174) <br> Denis Feltrin (24919) <br> Sascha Fuksa (27945) <br> Erich Meisner (25307)";
+			+ "Denis Feltrin (24919)<br> Erich Meisner (25307)";
 
 	// Load
 	public void onLoad() {

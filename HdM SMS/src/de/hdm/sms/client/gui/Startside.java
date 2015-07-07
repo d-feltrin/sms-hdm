@@ -48,16 +48,6 @@ public class Startside extends VerticalPanel {
 		MenuBar stocklistMenu = new MenuBar(true);
 
 		// Create the Commands
-		userMenu.addItem("Anlegen", new Command() {
-			@Override
-			public void execute() {
-
-				RootPanel.get("rightside").clear();
-				CreateUser cR = new CreateUser();
-				cR.setLoginInfo(loginInfo);
-				RootPanel.get("rightside").add(cR);
-			}
-		});
 
 		userMenu.addItem("Bearbeiten", new Command() {
 			@Override

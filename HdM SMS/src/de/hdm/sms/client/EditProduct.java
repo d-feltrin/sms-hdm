@@ -39,8 +39,8 @@ public class EditProduct extends VerticalPanel {
 	private Product p = new Product();
 	private User u = new User();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
-	private Button editButton = new Button("Produkt editieren");
-	private Button deleteButton = new Button("Produkt lÃ¶schen");
+	private Button editButton = new Button("Enderzeugnis editieren");
+	private Button deleteButton = new Button("Enderzeugnis löschen");
 
 	public EditProduct() {
 

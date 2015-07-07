@@ -51,7 +51,7 @@ public class CreateStocklist extends VerticalPanel {
 	private final Button buttonAddElementToComponentgroup = new Button("Bauteil/-gruppe hinzufuegen");
 
 	private final HorizontalPanel PanelSubmit = new HorizontalPanel();
-	private final Button buttonCreateNewComponengroup = new Button("Stueckliste anlegen");
+	private final Button buttonCreateNewComponengroup = new Button("Stückliste anlegen");
 
 	private LoginInfo loginInfo;
 
@@ -66,7 +66,7 @@ public class CreateStocklist extends VerticalPanel {
 		RootPanel.get("rightside").add(PanelAddElementtoNewComponentgroup);
 
 		// Panel: Name
-		PanelNewName.add(new Label("Stocklistname"));
+		PanelNewName.add(new Label("Stücklistenname"));
 		PanelNewName.add(textboxNewComponentgroupName);
 		RootPanel.get("rightside").add(PanelNewName);
 
