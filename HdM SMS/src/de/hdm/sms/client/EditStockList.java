@@ -312,7 +312,7 @@ public class EditStockList extends VerticalPanel {
 		PanelFunctions.add(buttonUpdateComponentGroup);
 	
 		
-		buttonAddElementToComponentgroup.addClickHandler(new ClickHandler() {
+		buttonDeleteComponentGroup.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -327,7 +327,7 @@ public class EditStockList extends VerticalPanel {
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Bauteil erfolgreich gelöscht");
+								Window.alert("Stückliste erfolgreich gelöscht");
 								RootPanel.get("rightside").clear();
 							}
 						});
