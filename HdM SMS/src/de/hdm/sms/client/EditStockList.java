@@ -131,7 +131,7 @@ public class EditStockList extends VerticalPanel {
 	public void onLoad() {
 
 		// Load
-		loadStocklist();
+		
 		loadComponentsANDComponentGroup();
 		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		loadAllUser();
