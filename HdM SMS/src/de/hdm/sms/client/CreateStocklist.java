@@ -25,6 +25,7 @@ import de.hdm.sms.shared.LoginInfo;
 import de.hdm.sms.shared.bo.Component;
 import de.hdm.sms.shared.bo.ComponentGroup;
 import de.hdm.sms.shared.bo.Stocklist;
+import de.hdm.sms.shared.bo.User;
 
 public class CreateStocklist extends VerticalPanel {
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
@@ -54,15 +55,51 @@ public class CreateStocklist extends VerticalPanel {
 	private final Button buttonCreateNewComponengroup = new Button("Stückliste anlegen");
 
 	private LoginInfo loginInfo;
+	private User u = new User();
 
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
+	public User getUserIdByEMailAdress(String eMailAdress) {
 
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(User result) {
+						if (result.geteMailAdress() != null) {
+
+							u.setId(result.getId());
+							u.setFirstName(result.getFirstName());
+							u.setLastName(result.getLastName());
+							u.seteMailAdress(result.geteMailAdress());
+							
+
+						} else {
+							Window.alert("Bitte registrieren Sie sich zuerst!");
+							RootPanel.get("rightside").clear();
+							CreateUser cU = new CreateUser();
+							cU.setLoginInfo(loginInfo);
+							RootPanel.get("rightside").add(cU);
+
+						}
+
+					}
+
+				});
+		return u;
+
+	}
 	public void onLoad() {
 		listboxListOfAddableElements.addItem("----");
 		loadComponentsANDComponentGroup();
-
+		getUserIdByEMailAdress(loginInfo.getEmailAddress());
 		RootPanel.get("rightside").add(PanelAddElementtoNewComponentgroup);
 
 		// Panel: Name

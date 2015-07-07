@@ -25,7 +25,7 @@ public class DatebaseConnection {
 				AvailableConnections = new ArrayList<Connection>();
 				for (int i = 0; i < MaxAmount; i++) {
 					try {
-						System.out.println("Created: " + (i+1));
+						System.out.println("Created: " + (i + 1));
 						Connection con = null;
 						con = getNewConnection();
 						AvailableConnections.add(con);
@@ -42,7 +42,7 @@ public class DatebaseConnection {
 			}
 		}
 
-		return getConnection(1,source);
+		return getConnection(1, source);
 	}
 
 	private static Connection getConnection(int tryAmount, String source) {
@@ -72,18 +72,18 @@ public class DatebaseConnection {
 				}
 			};
 
-			timeoutTimer.schedule(3 * 1000); // wait 5 seconds if any connection is available in 5 sec
-			return getConnection(tryAmount + 1,source);
+			timeoutTimer.schedule(3 * 1000); // wait 5 seconds if any connection
+												// is available in 5 sec
+			return getConnection(tryAmount + 1, source);
 		}
 	}
 
 	public static void release(Connection con) {
-		try{
-		AvailableConnections.add(con);
-		amountAvailable++;
-		System.out.println("Connections left " + amountAvailable + " connection released");
-		}
-		catch(Exception ex){
+		try {
+			AvailableConnections.add(con);
+			amountAvailable++;
+			System.out.println("Connections left " + amountAvailable + " connection released");
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

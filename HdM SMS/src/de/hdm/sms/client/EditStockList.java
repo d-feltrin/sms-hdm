@@ -89,7 +89,45 @@ public class EditStockList extends VerticalPanel {
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
+	public User getUserIdByEMailAdress(String eMailAdress) {
 
+		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
+				new AsyncCallback<User>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(User result) {
+						if (result.geteMailAdress() != null) {
+
+							u.setId(result.getId());
+							u.setFirstName(result.getFirstName());
+							u.setLastName(result.getLastName());
+							u.seteMailAdress(result.geteMailAdress());
+							loadStocklist();
+							RootPanel.get("rightside").clear();
+							RootPanel.get("rightside").add(
+									PanelSelectStocklistToEdit);
+
+						} else {
+							Window.alert("Bitte registrieren Sie sich zuerst!");
+							RootPanel.get("rightside").clear();
+							CreateUser cU = new CreateUser();
+							cU.setLoginInfo(loginInfo);
+							RootPanel.get("rightside").add(cU);
+
+						}
+
+					}
+
+				});
+		return u;
+
+	}
 	public void onLoad() {
 
 		// Load
@@ -131,7 +169,7 @@ public class EditStockList extends VerticalPanel {
 			}
 		});
 
-		RootPanel.get("rightside").add(PanelSelectStocklistToEdit);
+		
 
 	}
 
@@ -368,31 +406,6 @@ public class EditStockList extends VerticalPanel {
 		}
 
 		return treeItem;
-	}
-
-	public User getUserIdByEMailAdress(String eMailAdress) {
-
-		asyncObj.getOneUserIdByEmailAdress(eMailAdress,
-				new AsyncCallback<User>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onSuccess(User result) {
-						u.setId(result.getId());
-						u.setFirstName(result.getFirstName());
-						u.setLastName(result.getLastName());
-						u.seteMailAdress(result.geteMailAdress());
-
-					}
-
-				});
-		return u;
-
 	}
 
 	private void loadStocklist() {
