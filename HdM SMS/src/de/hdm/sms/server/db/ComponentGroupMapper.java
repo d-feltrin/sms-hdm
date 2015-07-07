@@ -27,7 +27,7 @@ public class ComponentGroupMapper {
 	}
 
 	public void insertComponentGroup(ComponentGroup cg) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertComponentGroup");
 		try {
 			Statement state = con.createStatement();
 			String sqlquery = "INSERT INTO Componentgroup (Name, Modifier, Creationdate, LastModified) VALUES (" + "'" + cg.getComponentGroupName()
@@ -85,7 +85,7 @@ public class ComponentGroupMapper {
 
 	public void updateComponentGroupById(ComponentGroup cg) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateComponentGroupById");
 		try {
 
 			Statement state = con.createStatement();
@@ -103,7 +103,7 @@ public class ComponentGroupMapper {
 	}
 
 	public ArrayList<ComponentGroup> loadAllComponentGroups() {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("loadAllComponentGroups");
 		ArrayList<ComponentGroup> resultList = new ArrayList<>();
 
 		try {
@@ -129,7 +129,7 @@ public class ComponentGroupMapper {
 	}
 
 	public ArrayList<ComponentGroup> loadAllComponentGroupsIncludingRelations() {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("loadAllComponentGroupsIncludingRelations");
 		ArrayList<ComponentGroup> resultList = new ArrayList<>();
 
 		try {
@@ -171,7 +171,7 @@ public class ComponentGroupMapper {
 	}
 
 	private ComponentGroup FillRelations(ComponentGroup cgToEdit) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("FillRelations");
 
 		// get all sub Groups
 		try {
@@ -240,7 +240,7 @@ public class ComponentGroupMapper {
 
 	public ComponentGroup getOneComponentGroupIdByName(String selectedComponentGroup) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("getOneComponentGroupIdByName");
 		ComponentGroup cg = new ComponentGroup("");
 
 		try {
@@ -266,7 +266,7 @@ public class ComponentGroupMapper {
 
 	public void deleteComponentGroupById(ComponentGroup cg) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("deleteComponentGroupById");
 
 		try {
 
@@ -282,7 +282,7 @@ public class ComponentGroupMapper {
 	}
 
 	public void insertCGElement(ComponentGroup cg, int ElementID, char ElementTag, int Amount) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertCGElement");
 		try {
 
 			Statement statex = con.createStatement();
@@ -318,7 +318,7 @@ public class ComponentGroupMapper {
 	}
 
 	public void updateCGElementAmount(ComponentGroup cg, int ElementID, char ElementTag, int NewAmount) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateCGElementAmount");
 		try {
 
 			Statement statex = con.createStatement();
@@ -355,7 +355,7 @@ public class ComponentGroupMapper {
 	}
 
 	public void deleteCGElement(ComponentGroup cg, int ElementID, char ElementTag) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("deleteCGElement");
 
 		try {
 
@@ -378,7 +378,7 @@ public class ComponentGroupMapper {
 	public String checkRelationsOfComponentGroup(int tempId) {
 		String relation = null;
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("checkRelationsOfComponentGroup");
 		try {
 
 			Statement state = con.createStatement();

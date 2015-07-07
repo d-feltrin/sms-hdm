@@ -102,5 +102,6 @@ public interface AServiceAsync {
 	void CheckRelationsOfComponentGroup(int tempId,
 			AsyncCallback<String> asyncCallback);
 
+	void deleteStructureListByID(Stocklist originalStocklistToEdit, AsyncCallback<Void> asyncCallback);
 
 }

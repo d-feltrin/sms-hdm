@@ -258,4 +258,10 @@ public class AServiceImpl extends RemoteServiceServlet implements AService {
 		relation = cgMapper.checkRelationsOfComponentGroup(tempId);
 		return relation;
 	}
+
+	@Override
+	public void deleteStructureListByID(Stocklist originalStocklistToEdit) {
+		sMapper.deleteStructureListByID(originalStocklistToEdit);
+		
+	}
 }

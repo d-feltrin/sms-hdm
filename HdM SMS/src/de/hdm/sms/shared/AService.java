@@ -89,5 +89,7 @@ public interface AService extends RemoteService {
 
 	String CheckRelationsOfComponentGroup(int tempId);
 
+	void deleteStructureListByID(Stocklist originalStocklistToEdit);
+
 
 }

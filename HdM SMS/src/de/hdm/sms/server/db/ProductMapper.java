@@ -25,7 +25,7 @@ public class ProductMapper {
 	}
 
 	public void insertProduct(Product p) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertProduct");
 		// Date now = new Date();
 		try {
 			Statement state = con.createStatement();
@@ -50,7 +50,7 @@ public class ProductMapper {
 	}
 
 	public ArrayList<Product> loadAllProducts() {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("loadAllProducts");
 		ArrayList<Product> resultList = new ArrayList<>();
 
 		try {
@@ -74,7 +74,7 @@ public class ProductMapper {
 	}
 
 	public Product getOneProductUserById(int tempId) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("getOneProductUserById");
 
 		Product p = new Product();
 
@@ -105,7 +105,7 @@ public class ProductMapper {
 	}
 
 	public User getLastModifierProductById(int tempid) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("getLastModifierProductById");
 
 		User u = new User();
 
@@ -135,7 +135,7 @@ public class ProductMapper {
 
 	public void updateProduct(Product p) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateProduct");
 
 		try {
 
@@ -156,7 +156,7 @@ public class ProductMapper {
 
 	public void deleteProduct(Product p) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("deleteProduct");
 
 		try {
 

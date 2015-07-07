@@ -126,7 +126,7 @@ public class EditComponentGroup extends VerticalPanel {
 
 		// Panel: Select ComponentgroupToEdit
 		PanelSelectGroupToEdit.add(new Label(
-				"Wahlen Sie die Baugruppe aus, die Sie editieren moechten:"));
+				"Wahlen Sie die Baugruppe aus, die Sie editieren möchten:"));
 		PanelSelectGroupToEdit.add(listboxListOfGroupsToEdit);
 		PanelSelectGroupToEdit.add(buttonEditGroup);
 
@@ -137,7 +137,7 @@ public class EditComponentGroup extends VerticalPanel {
 				if (listboxListOfGroupsToEdit.getItemText(
 						listboxListOfGroupsToEdit.getSelectedIndex()).equals(
 						"Baugruppe"))
-					Window.alert("Bitte eine Baugruppe auswaehlen");
+					Window.alert("Bitte eine Baugruppe auswählen");
 				else {
 					// get selected Item
 					String IdOfSelectedItem = getELementTypeIdName(listboxListOfGroupsToEdit
@@ -289,13 +289,13 @@ public class EditComponentGroup extends VerticalPanel {
 						|| listboxListOfAddableElements.getItemText(selectedID)
 								.equals("Baugruppe")) {
 
-					Window.alert("Bitte waehlen Sie ein gueltiges Bauteil bzw. Bauelement aus!");
+					Window.alert("Bitte waehlen Sie ein gültiges Bauteil bzw. Bauelement aus!");
 
 				} else if (textboxAmountOfElementToAdd.getText().equals("")) {
-					Window.alert("Bitte die Anzahl des hinzuzufuegenden Bauteils/Baugruppe eintragen!");
+					Window.alert("Bitte die Anzahl des hinzuzufügenden Bauteils/Baugruppe eintragen!");
 				} else if (Integer.parseInt(textboxAmountOfElementToAdd
 						.getText()) < 1) {
-					Window.alert("Anzahl des hinzuzufuegenden Bauteils/Baugruppe darf nicht unter 1 sein!");
+					Window.alert("Anzahl des hinzuzufügenden Bauteils/Baugruppe darf nicht unter 1 sein!");
 				} else {
 					// Evertthing okay, start to add
 					int rowNumToInsertNewRow = flextableComponentgroupElements

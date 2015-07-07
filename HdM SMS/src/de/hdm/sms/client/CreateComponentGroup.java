@@ -189,7 +189,7 @@ public class CreateComponentGroup extends VerticalPanel {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (textboxNewComponentgroupName.getText().isEmpty()) {
-					Window.alert("Bitte geben Sie einen Namen fuer die neue Baugruppe ein");
+					Window.alert("Bitte geben Sie einen Namen für die neue Baugruppe ein");
 				} else {
 					newComponentGroup.setComponentGroupName(textboxNewComponentgroupName.getText());
 					newComponentGroup.setModifier(u.getId());

@@ -25,7 +25,7 @@ import de.hdm.sms.shared.bo.Product;
 import de.hdm.sms.shared.bo.User;
 
 public class EditProduct extends VerticalPanel {
-	private Label productName = new Label("Produktname");
+	private Label productName = new Label("Enderzeugnisname");
 	private TextBox productNameTextbox = new TextBox();
 	private ListBox listOfProducts = new ListBox();
 	private final AServiceAsync asyncObj = GWT.create(AService.class);
@@ -40,7 +40,7 @@ public class EditProduct extends VerticalPanel {
 	private User u = new User();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private Button editButton = new Button("Enderzeugnis editieren");
-	private Button deleteButton = new Button("Enderzeugnis l�schen");
+	private Button deleteButton = new Button("Enderzeugnis löschen");
 
 	public EditProduct() {
 
@@ -94,7 +94,7 @@ public class EditProduct extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Void result) {
-				Window.alert("Produkt erfolgreich editiert");
+				Window.alert("Enderzeugnis erfolgreich editiert");
 				RootPanel.get("rightside").clear();
 
 			}
@@ -113,7 +113,7 @@ public class EditProduct extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Void result) {
-				Window.alert("Produkt wurde geloescht");
+				Window.alert("Enderzeugnis wurde gelöscht");
 				RootPanel.get("rightside").clear();
 
 			}
@@ -179,7 +179,7 @@ public class EditProduct extends VerticalPanel {
 		});
 		// Clear the RootPanel and add the ListBox to the RootPanel
 		RootPanel.get("rightside").clear();
-		RootPanel.get("rightside").add(new Label("Produkt auswählen"));
+		RootPanel.get("rightside").add(new Label("Enderzeugnis auswählen"));
 		RootPanel.get("rightside").add(listOfProducts);
 	}
 
@@ -221,7 +221,7 @@ public class EditProduct extends VerticalPanel {
 										.getModificationDate())));
 								InfoPanel.add(new Label("Letzter Bearbeiter"));
 								getLastModifier(p.getModifier());
-								mainPanel.add(new Label("Produktnummer"));
+								mainPanel.add(new Label("Enderzeugnisnummer"));
 								mainPanel.add(new Label(""+p.getId()));
 								mainPanel.add(new Label(
 										"Zugeordnete Baugruppe: "
@@ -245,7 +245,7 @@ public class EditProduct extends VerticalPanel {
 									public void onClick(ClickEvent event) {
 										if (productNameTextbox.getValue()
 												.isEmpty()) {
-											Window.alert("Bitte Produktnamen eingeben");
+											Window.alert("Bitte Enderzeugnisnamen eingeben");
 										} else {
 											p.setProductName(productNameTextbox
 													.getValue());

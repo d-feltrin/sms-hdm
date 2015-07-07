@@ -51,7 +51,7 @@ public class MaterialResource extends VerticalPanel {
 		// RootPanel Matching
 		RootPanel.get("rightside").clear();
 		PanelToGenerateProductResources.add(new Label(
-				"Produkt zur Materialbedarfsrechnung ausw‰hlen"));
+				"Enderzeugnis zur Materialbedarfsberechnung ausw√§hlen"));
 		PanelToGenerateProductResources.add(ListBoxOfChoseableProducts);
 		PanelToGenerateProductResources.add(new Label("Anzahl eingeben"));
 		PanelToGenerateProductResources.add(textBoxAmountOfChosenProducts);
@@ -67,7 +67,7 @@ public class MaterialResource extends VerticalPanel {
 				if (ListBoxOfChoseableProducts.getItemText(
 						ListBoxOfChoseableProducts.getSelectedIndex()).equals(
 						"---")) {
-					Window.alert("Bitte ein gueltiges Produkt auswaehlen");
+					Window.alert("Bitte ein gueltiges Enderzeugnis auswaehlen");
 				} else if (textBoxAmountOfChosenProducts.getValue().isEmpty()) {
 					Window.alert("Bitte eine Anzahl eingeben");
 				} else {
@@ -97,7 +97,7 @@ public class MaterialResource extends VerticalPanel {
 				.getText());
 
 		VerticalPanel PanelProductInfo_Name = new VerticalPanel();
-		PanelProductInfo_Name.add(new Label("Produkt:"));
+		PanelProductInfo_Name.add(new Label("Enderzeugnis:"));
 		PanelProductInfo_Name.add(new Label(product_.getProductName()));
 
 		RootPanel.get("rightside").add(PanelProductInfo_Name);

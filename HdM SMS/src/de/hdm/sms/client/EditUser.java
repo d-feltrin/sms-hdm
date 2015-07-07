@@ -36,7 +36,7 @@ public class EditUser extends VerticalPanel {
 	private int tempUserId;
 	private VerticalPanel userItemPanel = new VerticalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
-	private Button deleteUserButton = new Button("Benutzer löschen");
+	private Button deleteUserButton = new Button("Benutzer lÃ¶schen");
 	private Button editUserButton = new Button("Benutzer editieren");
 	private LoginInfo loginInfo;
 	private User u = new User();
@@ -131,7 +131,7 @@ public class EditUser extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Void result) {
-				Window.alert("Benutzer erfolgreich gelöscht");
+				Window.alert("Benutzer erfolgreich gelÃ¶scht");
 				RootPanel.get("rightside").clear();
 
 			}

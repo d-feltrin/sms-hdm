@@ -93,7 +93,7 @@ public class CreateComponent extends VerticalPanel {
 				if (nameTextbox.getValue().isEmpty()
 						|| descriptionTextbox.getValue().isEmpty()
 						|| materialDescriptionTextbox.getValue().isEmpty()) {
-					Window.alert("Bitte alle Felder bef�llen");
+					Window.alert("Bitte alle Felder befüllen");
 				} else {
 					c.setDescription(descriptionTextbox.getValue());
 					c.setName(nameTextbox.getValue());

@@ -26,7 +26,7 @@ public class ComponentMapper {
 	}
 
 	public void insertComponent(Component c) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertComponent");
 		// Date now = new Date();
 		try {
 			Statement state = con.createStatement();
@@ -54,7 +54,7 @@ public class ComponentMapper {
 	}
 
 	public ArrayList<Component> loadAllComponents() {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("loadAllComponents");
 		ArrayList<Component> resultList = new ArrayList<>();
 
 		try {
@@ -82,7 +82,7 @@ public class ComponentMapper {
 
 	public Component getOneComponentIdById(int selectedComponent) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("getOneComponentIdById");
 
 		Component c = new Component();
 
@@ -116,7 +116,7 @@ public class ComponentMapper {
 
 	public void deleteComponentById(int deleteComponentId) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("deleteComponentById");
 
 		try {
 
@@ -134,7 +134,7 @@ public class ComponentMapper {
 
 	public void updateComponentById(Component c) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateComponentById");
 
 		try {
 
@@ -156,7 +156,7 @@ public class ComponentMapper {
 	}
 
 	public User getLastMofierOfComponentById(Component c) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("getLastMofierOfComponentById");
 
 		User u = new User();
 
@@ -185,7 +185,7 @@ public class ComponentMapper {
 	}
 
 	public String checkRelationsOfComponent(int tempId) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("checkRelationsOfComponent");
 
 		String relation = null;
 

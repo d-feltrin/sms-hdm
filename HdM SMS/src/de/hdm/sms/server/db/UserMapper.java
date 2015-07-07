@@ -25,7 +25,7 @@ public class UserMapper {
 	}
 
 	public void insertUser(User u) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertUser");
 		try {
 			Statement state = con.createStatement();
 			String sqlquery = "INSERT INTO User (Firstname, Lastname, EmailAdress) VALUES ("
@@ -46,7 +46,7 @@ public class UserMapper {
 	}
 
 	public ArrayList<User> loadAllUsers() {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("loadAllUsers");
 		ArrayList<User> resultList = new ArrayList<>();
 
 		try {
@@ -73,8 +73,8 @@ public class UserMapper {
 
 	public User getOneUserIdByEmailAdress(String selectedUser) {
 		
-		Connection con = DatebaseConnection.connection();
-
+		Connection con = DatebaseConnection.connection("getOneUserIdByEmailAdress");
+System.out.println(selectedUser);
 		User u = new User();
 
 		try {
@@ -97,17 +97,15 @@ public class UserMapper {
 			e.printStackTrace();
 
 		}
-		finally{
-			DatebaseConnection.release(con);
-		}
-
+System.out.println("hallo");
+		DatebaseConnection.release(con);
 		return u;
 
 	}
 
 	public void deleteUserById(int deleteUserId) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("deleteUserById");
 
 		try {
 
@@ -168,7 +166,7 @@ public class UserMapper {
 
 	public void updateUserById(User u) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateUserById");
 
 		try {
 
@@ -189,7 +187,7 @@ public class UserMapper {
 
 	public User getOneUserById(int tempUserId) {
 
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("getOneUserById");
 
 		User u = new User();
 

@@ -1,6 +1,7 @@
 package de.hdm.sms.client;
 
 import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -22,6 +23,7 @@ import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Tree;
 
+import de.hdm.sms.client.CreateStocklist.NumbersOnly;
 import de.hdm.sms.shared.AService;
 import de.hdm.sms.shared.AServiceAsync;
 import de.hdm.sms.shared.LoginInfo;
@@ -63,13 +65,12 @@ public class EditStockList extends VerticalPanel {
 	private final ListBox listboxListOfAddableElements = new ListBox();
 	private final TextBox textboxAmountOfElementToAdd = new TextBox();
 	private final Button buttonAddElementToComponentgroup = new Button(
-			"Bauteil/-gruppe hinzufuegen");
+			"Bauteil/-gruppe hinzufügen");
 
 	// Panel Funcitons
 	private final HorizontalPanel PanelFunctions = new HorizontalPanel();
-	private final Button buttonUpdateComponentGroup = new Button("Uebernehmen");
-	private final Button buttonDeleteComponentGroup = new Button("Loeschen");
-	private final Button buttonAbortComponentGroup = new Button("Abbrechen");
+	private final Button buttonUpdateComponentGroup = new Button("Übernehmen");
+	private final Button buttonDeleteComponentGroup = new Button("Löschen");
 
 	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 
@@ -309,8 +310,32 @@ public class EditStockList extends VerticalPanel {
 		});
 
 		PanelFunctions.add(buttonUpdateComponentGroup);
+	
+		
+		buttonAddElementToComponentgroup.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				asyncObj.deleteStructureListByID(OriginalStocklistToEdit,
+						new AsyncCallback<Void>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Bauteil erfolgreich gelöscht");
+								RootPanel.get("rightside").clear();
+							}
+						});
+				
+			}
+		});
+
 		PanelFunctions.add(buttonDeleteComponentGroup);
-		PanelFunctions.add(buttonAbortComponentGroup);
 		RootPanel.get("rightside").add(PanelFunctions);
 
 	}
@@ -835,4 +860,6 @@ public class EditStockList extends VerticalPanel {
 		}
 	}
 
+	
+	
 }

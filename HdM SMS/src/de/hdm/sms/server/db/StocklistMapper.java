@@ -29,7 +29,7 @@ public class StocklistMapper {
 	}
 
 	public void insertStocklist(Stocklist newStocklist) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertStocklist");
 		try {
 			Statement state = con.createStatement();
 
@@ -94,7 +94,7 @@ public class StocklistMapper {
 	}
 
 	public ArrayList<Stocklist> loadAllStocklistsIncludingRelations() {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("loadAllStocklistsIncludingRelations");
 		ArrayList<Stocklist> resultList = new ArrayList<>();
 
 		try {
@@ -178,7 +178,7 @@ public class StocklistMapper {
 	}
 
 	private ComponentGroup FillComponentGroupRelations(ComponentGroup cgToEdit) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("FillComponentGroupRelations");
 
 		// get all sub Groups
 		try {
@@ -248,7 +248,7 @@ public class StocklistMapper {
 	}
 
 	public void updateStockList(Stocklist newStocklist) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateStockList");
 		try {
 
 			Statement state = con.createStatement();
@@ -269,7 +269,7 @@ public class StocklistMapper {
 
 	public void updateAmountOfStocklistComponentGrouElement(Stocklist newStocklist, ComponentGroup original,
 			Integer amount) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateAmountOfStocklistComponentGrouElement");
 		try {
 
 			Statement state = con.createStatement();
@@ -290,7 +290,7 @@ public class StocklistMapper {
 
 	public void updateAmountOfStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
 			Integer amount) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("updateAmountOfStocklistComponentElement");
 
 		try {
 
@@ -313,7 +313,7 @@ public class StocklistMapper {
 
 	public void insertComponentGroupToSocklist(Stocklist newStocklist,
 			ComponentGroup newStockListComponentGroupToInsert, Integer amount) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertComponentGroupToSocklist");
 		try {
 
 			Statement state = con.createStatement();
@@ -337,7 +337,7 @@ public class StocklistMapper {
 
 	public void insertComponentToStocklist(Stocklist newStocklist, Component newStockListComponentToInsert,
 			Integer amount) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("insertComponentToStocklist");
 		try {
 
 			Statement state = con.createStatement();
@@ -362,7 +362,7 @@ public class StocklistMapper {
 
 	public void deleteStocklistComponentElement(Stocklist newStocklist, Component originalComponent,
 			Integer integer) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("deleteStocklistComponentElement");
 		try {
 
 			Statement state = con.createStatement();
@@ -385,7 +385,7 @@ public class StocklistMapper {
 
 	public void deleteStockListComponentGroupElement(Stocklist newStocklist, ComponentGroup originalComponentGroup,
 			Integer integer) {
-		Connection con = DatebaseConnection.connection();
+		Connection con = DatebaseConnection.connection("deleteStockListComponentGroupElement");
 		try {
 
 			Statement state = con.createStatement();
@@ -405,5 +405,26 @@ public class StocklistMapper {
 		}
 
 		DatebaseConnection.release(con);
+	}
+
+	public void deleteStructureListByID(Stocklist originalStocklistToEdit) {
+		Connection con = DatebaseConnection.connection("deleteStructureListByID");
+		try {
+
+			Statement state = con.createStatement();
+	
+			state.execute("DELETE FROM `db_sms`.`Stocklist` WHERE `Stocklist`.`Id` = "+originalStocklistToEdit.getId());
+			
+
+			state.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		DatebaseConnection.release(con);
+	
+		
 	}
 }

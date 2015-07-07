@@ -91,7 +91,7 @@ public class EditComponent extends VerticalPanel {
 
 					@Override
 					public void onSuccess(Void result) {
-						Window.alert("Bauteil erfolgreich gel�scht");
+						Window.alert("Bauteil erfolgreich gelöscht");
 						RootPanel.get("rightside").clear();
 					}
 				});

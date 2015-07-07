@@ -48,10 +48,10 @@ public class CreateStocklist extends VerticalPanel {
 	private final HorizontalPanel PanelAddElementtoNewComponentgroup = new HorizontalPanel();
 	private final ListBox listboxListOfAddableElements = new ListBox();
 	private final TextBox textboxAmountOfElementToAdd = new TextBox();
-	private final Button buttonAddElementToComponentgroup = new Button("Bauteil/-gruppe hinzufuegen");
+	private final Button buttonAddElementToComponentgroup = new Button("Bauteil/-gruppe hinzufügen");
 
 	private final HorizontalPanel PanelSubmit = new HorizontalPanel();
-	private final Button buttonCreateNewComponengroup = new Button("St�ckliste anlegen");
+	private final Button buttonCreateNewComponengroup = new Button("Stückliste anlegen");
 
 	private LoginInfo loginInfo;
 
@@ -66,7 +66,7 @@ public class CreateStocklist extends VerticalPanel {
 		RootPanel.get("rightside").add(PanelAddElementtoNewComponentgroup);
 
 		// Panel: Name
-		PanelNewName.add(new Label("St�cklistenname"));
+		PanelNewName.add(new Label("Stücklistenname"));
 		PanelNewName.add(textboxNewComponentgroupName);
 		RootPanel.get("rightside").add(PanelNewName);
 
@@ -89,7 +89,7 @@ public class CreateStocklist extends VerticalPanel {
 								.equals("Bauteil")
 						|| listboxListOfAddableElements.getItemText(listboxListOfAddableElements.getSelectedIndex())
 								.equals("Baugruppe")) {
-					Window.alert("Bitte waehlen Sie ein gueltiges Bauteil bzw. Bauelement aus!");
+					Window.alert("Bitte wählen Sie ein gueltiges Bauteil bzw. Bauelement aus!");
 
 				} else if (textboxAmountOfElementToAdd.getText().equals("")) {
 					Window.alert("Bitte die Anzahl des hinzuzufuegenden Bauteils/Baugruppe eintragen!");
@@ -162,7 +162,7 @@ public class CreateStocklist extends VerticalPanel {
 			public void onClick(ClickEvent event) {
 
 				if (textboxNewComponentgroupName.getText().isEmpty()) {
-					Window.alert("Bitte geben Sie einen Namen fuer die neue Stueckliste ein");
+					Window.alert("Bitte geben Sie einen Namen für die neue Stückliste ein");
 				} else {
 
 					newStocklist.setName(textboxNewComponentgroupName.getText());
@@ -204,7 +204,7 @@ public class CreateStocklist extends VerticalPanel {
 						@Override
 						public void onSuccess(Void result) {
 							System.out.println("hallo");
-							Window.alert("St�ckliste " + newStocklist.getName() + " erfolgreich angelegt.");
+							Window.alert("Stückliste " + newStocklist.getName() + " erfolgreich angelegt.");
 							RootPanel.get("rightside").clear();
 
 						}

@@ -38,7 +38,7 @@ public class StructureStocklist extends VerticalPanel {
 	// Select (FIRSTPAGE)
 	private final HorizontalPanel PanelSelectStocklistToEdit = new HorizontalPanel();
 	private final ListBox listboxListOfStocklistsToEdit = new ListBox();
-	private final Button buttonEditStocklist = new Button("Editieren");
+	private final Button buttonEditStocklist = new Button("Anzeigen");
 
 	DateTimeFormat dF = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm:ss");
 
@@ -54,7 +54,7 @@ public class StructureStocklist extends VerticalPanel {
 
 		
 		// Panel: Select StocklistToEdit
-		PanelSelectStocklistToEdit.add(new Label("Wahlen Sie die Stueckliste aus, die Sie editieren moechten:"));
+		PanelSelectStocklistToEdit.add(new Label("Wählen Sie die Stückliste aus zu der SIe eine Strukturstückliste erstellen wollen"));
 		PanelSelectStocklistToEdit.add(listboxListOfStocklistsToEdit);
 		PanelSelectStocklistToEdit.add(buttonEditStocklist);
 
@@ -63,8 +63,8 @@ public class StructureStocklist extends VerticalPanel {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (listboxListOfStocklistsToEdit.getItemText(listboxListOfStocklistsToEdit.getSelectedIndex()).equals(
-						"Stueckliste"))
-					Window.alert("Bitte eine Stueckliste auswaehlen");
+						"Stückliste"))
+					Window.alert("Bitte eine Stückliste auswaehlen");
 				else {
 					// get selected Item
 					String IdOfSelectedItem = getELementTypeIdName(listboxListOfStocklistsToEdit
@@ -236,7 +236,7 @@ public class StructureStocklist extends VerticalPanel {
 
 			@Override
 			public void onSuccess(ArrayList<Stocklist> StockLists) {
-				listboxListOfStocklistsToEdit.addItem("Stueckliste");
+				listboxListOfStocklistsToEdit.addItem("Stückliste");
 				for (Stocklist stocklist : StockLists) {
 					listboxListOfStocklistsToEdit.addItem(" - " + stocklist.getId() + ":" + stocklist.getName());
 					allStocklists.add(stocklist);
